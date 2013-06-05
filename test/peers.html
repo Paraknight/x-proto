@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://dl.dropboxusercontent.com/u/704818/EscPod/Three/server/socket.io.min.js"></script>
+		<script src="https://webrtc-experiment.appspot.com/DataChannel.js"></script>
+	</head>
+	<body>
+		<script>
+			function docAppendln (text) {
+				document.body.appendChild(document.createTextNode(text));
+				document.body.appendChild(document.createElement('br'));
+			}
+			
+			var channel = new DataChannel();
+
+			channel.openSignalingChannel = function(config) {
+				var socket = io.connect('http://4ytech.com:9980');
+				socket.channel = config.channel || this.channel || 'amar';
+				socket.on('message', config.onmessage);
+
+				socket.send = function (data) {
+					socket.emit('message', data);
+				};
+
+				if (config.onopen) setTimeout(config.onopen, 1);
+				return socket;
+			}
+
+			channel.onopen = function (userID) {
+				docAppendln(userID + ' has joined.');
+			};
+			channel.onmessage = function (message, userID) {
+				docAppendln(userID + ': ' + message);
+			};
+			channel.onleave = function(userID) {
+				docAppendln(userID + ' has left.');
+			};
+			channel.onerror = function(event) {
+				console.error(event);
+			};
+			channel.onclose = function(event) {
+				console.log('Somebody left.');
+				console.log(event);
+			};
+		</script> 
+		<button type="button" onclick="channel.connect('amar');">Join</button>
+		<button type="button" onclick="channel.open('amar');">Host</button>
+		<form name="form">
+			<input autofocus type="text" name="input"
+			onkeydown="if (event.keyCode == 13) {
+				channel.send(this.form.input.value);
+				docAppendln('You: '+this.form.input.value);
+				this.form.input.value = '';
+				return false;
+			}">
+			<input type="text" name="fix" style="display:none;">
+		</form><br>
+	</body>
+</html>

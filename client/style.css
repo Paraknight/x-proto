@@ -1,0 +1,155 @@
+/* TODO: Consider building some of these on the fly. */
+/*
+* {
+	box-sizing: border-box;
+}
+*/
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+button {
+	width: 200px;
+	height: 50px;
+	margin-top: 40px;
+	color: white;
+	background-color: #646464;
+}
+textarea {
+	resize: none;
+	/*overflow: hidden;*/
+	font: 8pt Tahoma;
+	background-color: rgba(1,1,1,0.5);
+	color: white;
+}
+div {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+div.fadeIn {
+	opacity: 1;
+}
+div.fadeOut {
+	opacity: 0;
+}
+div.fadeIn, div.fadeOut {
+	transition: opacity 1s;
+	-moz-transition: opacity 1s;
+	-webkit-transition: opacity 1s;
+	-o-transition: opacity 1s;
+}
+div.fullscreen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+textarea#input {
+	overflow: hidden;
+}
+textarea#console {
+	transition: height 1s, opacity 1s;
+	-moz-transition: height 1s, opacity 1s;
+	-webkit-transition: height 1s, opacity 1s;
+	-o-transition: height 1s, opacity 1s;
+}
+textarea#console.minSize {
+	height: 0em;
+	opacity: 0;
+	overflow: hidden;
+}
+textarea#console.maxSize {
+	height: 20em;
+	opacity: 1;
+	overflow: auto;
+}
+div#game {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	background-color: black;
+}
+div#mainMenu {
+	color: white;
+	background-color: black;
+}
+div#instructions {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	font: 12pt Tahoma;
+	color: white;
+	text-shadow: -1px 0 #008888, 0 1px #008888, 1px 0 #008888, 0 -1px #008888;
+	pointer-events: none;
+}
+div#blocker {
+	background-color: rgba(0,0,0,0.5);
+}
+div#overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+div#reticle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 2px;
+	height: 2px;
+	margin-left: -1px;
+	margin-right: -1px;
+	opacity: 0.5;
+	background: red;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+}
+div#passiveChat {
+	position: absolute;
+	margin-left: 22px;
+	margin-bottom: 40px;
+	bottom: 0;
+	left: 0;
+	vertical-align: bottom;
+	color: white;
+	font: 8pt Tahoma;
+	text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+	pointer-events: none;
+}
+form#clientForm {
+	position: absolute;
+	margin-left: 16px;
+	bottom: 0;
+	left: 0;
+	opacity: 0.5;
+	vertical-align: bottom;
+	pointer-events: visiblePainted;
+}
+div#overlay div.window {
+	position: absolute;
+	background: gray;
+	color: white;
+	border: 6px outset #646464;
+	pointer-events: visiblePainted;
+}
+div#overlay div.window div.itemSlot {
+	display: inline-block;
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	/*margin: 5px;*/
+	background: rgb(180, 180, 180);
+	color: white;
+	border: 2px inset #646464;
+	pointer-events: visiblePainted;
+}

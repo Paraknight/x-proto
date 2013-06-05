@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			canvas {
+				background-color: black;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="canvas" width="512" height="512"></canvas>
+		<script>
+			var canvas = document.getElementById('canvas');
+			var ctx = canvas.getContext('2d');
+
+			function setColor (color) {
+				ctx.fillStyle = color;
+			}
+
+			function drawUVPoint (x, y) {
+				ctx.fillRect(x*512, y*512, 1, 1);
+			}
+
+			setColor("#FFFFFF");
+
+			var count = 0;
+			for (var y = 0; y <= 8; y++) {
+				for (var x = 0; x <= 8; x++) {
+					var u = x / 8;
+					var v = y / 8;
+
+					/*
+					var vertex = new THREE.Vector3();
+					vertex.x = - this.radius * Math.cos( phiStart + u * phiLength ) * Math.sin( thetaStart + v * thetaLength );
+					vertex.y = this.radius * Math.cos( thetaStart + v * thetaLength );
+					vertex.z = this.radius * Math.sin( phiStart + u * phiLength ) * Math.sin( thetaStart + v * thetaLength );
+					*/
+
+					//verticesRow.push( this.vertices.length - 1 );
+					//drawUVPoint(u, 1 - v);
+
+					u *= Math.PI;
+					v *= 2*Math.PI;
+
+					var pos = [Math.cos(v) * Math.sin(u) * 0.5 + 0.5, Math.cos(u)*-0.5 + 0.5, Math.sin(v) * Math.sin(u) * -0.5 + 0.5];
+
+					if (pos[2]<=0.6)
+					drawUVPoint(pos[0], pos[1]);
+					//pSphere.z = BaseRadius * cos(u);
+
+					//return pSphere;
+				}
+			}
+		</script> 
+	</body>
+</html>

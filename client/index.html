@@ -1,0 +1,125 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="./style.css"></link>
+	<!-- TODO: Consider loading asynchronously. -->
+	<script src="./three.min.js"></script>
+	<script src="./stats.min.js"></script>
+	<script src="./physics/physi.js"></script>
+	<script src="./tween.min.js"></script>
+	<script src="./peer.min.js"></script>
+	<script src="./utils.js"></script>
+	<script src="./net.js"></script>
+	<script src="./gui.js"></script>
+	<script src="./shaders.js"></script>
+	<script src="./input.js"></script>
+	<script src="./audio.js"></script>
+	<script src="./models.js"></script>
+	<script src="./world.js"></script>
+	<script src="./entities.js"></script>
+	<script src="./player.js"></script>
+	<script src="./main.js"></script>
+	<script>
+	function loadScriptsLazy() {
+		GAME.utils.loadScriptAsync('./audio/mespeak/mespeak.js', function(){
+			GAME.audio.initMeSpeak();
+		});
+		//GAME.utils.loadScriptAsync('./socket.io.min.js', function () {
+		//	GAME.utils.loadScriptAsync('./datachannel.js', function () {
+				//GAME.net.connectToServer(GAME.game, 'http://4ytech.com:9980');
+		//	});
+		//});
+	}
+	</script>
+</head>
+
+<body onload="loadScriptsLazy();">
+	<div id="game">
+		<div id="blocker" class="fullscreen"></div>
+		<div id="overlay">
+			<div id="reticle"></div>
+			<div id="passiveChat" class="fadeIn"></div>
+			<form id="clientForm" name="clientForm">
+				<textarea readonly name="console" rows="20" cols="80" id="console" class="minSize fadeOut"
+						onfocus="GAME.gui.setChatFocus(true, this);"
+						onblur="GAME.gui.setChatFocus(false, this);">## Console ready. ##&#13;&#10;</textarea><br>
+				<textarea type="text" name="input" rows="1" cols="80" id="input"
+						placeholder="(Press Enter to Chat)"
+						onfocus="GAME.gui.setChatFocus(true, this);"
+						onblur="GAME.gui.setChatFocus(false, this);"
+						onkeydown="if (event.keyCode == 13) { GAME.gui.submitConsoleInput(this.form); return false; }"></textarea>
+			</form>
+		</div>
+		<div id="instructions">
+			<p>
+				<center><h1>Loading...</h1></center><br><br>
+				Controls:<br>
+				<ul>
+					<li>Mouse = Look</li>
+					<li>Click = Use item</li>
+					<li>WASD = Move</li>
+					<li>Space = Jump</li>
+					<li>I = Open inventory</li>
+					<li>B = Shoot ball (Hold for rapid-fire)</li>
+					<li>V = Shoot butterflies</li>
+				</ul><br>
+				Chat Commands:<br>
+				<ul>
+					<li>/time [0.0-1.0) = Set time</li>
+					<li>/join [Host name] = Join game</li>
+					<li>/host = Host game</li>
+				</ul><br>
+				<center>
+					Shoot the radio to turn it on or off.<br>
+					Shoot the monolith 100 times to make it fly!<br><br>
+					Click anywhere to play.
+				</center>
+			</p>
+		</div>
+		<script>GAME.utils.centerElement(document.getElementById('instructions'));</script>
+		<!--
+		<div id="loadingScreen" class="fullscreen">
+			<div id="loadingText" style="position: absolute; top: 50%; left: 50%; color: white; background-color: black;">
+				<center>
+					<h1>Loading...</h1>
+				</center>
+			</div>
+		</div>
+		<script>GAME.utils.centerElement(document.getElementById('loadingScreen'));</script>
+		-->
+		<div id="mainMenu" class="fullscreen">
+			<script>
+				function startGame(mode) {
+					switch(mode) {
+					case 1:
+						var mainMenu = document.getElementById('mainMenu');
+						mainMenu.parentNode.removeChild(mainMenu);
+						GAME.core.Main.main();
+						break;
+					case 2:
+						//GAME.net.p2p.join('Host');
+						break;
+					case 3:
+						//GAME.net.p2p.host();
+						break;
+					case 4:
+						//GAME.net.channel.send('Hi.');
+						break;
+					default:
+						alert('Feature not yet implemented.');
+						break;
+					}
+				}
+			</script>
+			<div id="buttons" style="position: absolute; top: 50%; left: 50%;">
+				<center>
+					<h1>The Game.</h1><br><br>
+					<button type="button" onclick="startGame(1);">Single Player</button><br>
+					<button type="button" onclick="startGame(0);">Bla</button><br>
+					<button type="button" onclick="startGame(0);">Bla</button><br>
+					<button type="button" onclick="startGame(0);">MMO Thing</button><br>
+					<button type="button" onclick="startGame(0);">Bla</button><br>
+				</center>
+			</div>
+			<script>GAME.utils.centerElement(document.getElementById('buttons'));</script>
+		</div>
+	</div>
+</body>
