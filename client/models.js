@@ -1,7 +1,12 @@
 GAME.namespace('models').load = function(callback) {
 	var paths = ['tools.axe', 'tree.tree', 'tree.timber', 'tree.stump', 'portalradio.portalradio', 'player.torso', 'player.head'];
 
-	var countdown = new GAME.utils.Countdown(paths.length, callback);
+	var loaded = 0;
+
+	function onModelLoaded() {
+		if (++loaded >= paths.length)
+			callback();
+	}
 
 	var loaderJSON = new THREE.JSONLoader();
 
@@ -9,7 +14,7 @@ GAME.namespace('models').load = function(callback) {
 		loaderJSON.load('models/'+path.replace('.','/')+'.js', function (geometry, materials) {
 			GAME.namespace('models.'+path).geom = geometry;
 			GAME.namespace('models.'+path).mats = materials;
-			countdown.dec();
+			onModelLoaded();
 		});
 	}
 

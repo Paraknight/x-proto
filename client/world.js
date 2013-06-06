@@ -1,4 +1,4 @@
-GAME.namespace('world').Scene = function (name, config) {
+GAME.namespace('world').Scene = function (path, config) {
 	Physijs.Scene.call(this);
 	this.addEventListener('ready', function(){
 		console.log('Physics Engine initialised.');
@@ -6,10 +6,11 @@ GAME.namespace('world').Scene = function (name, config) {
 
 	this.entityManager = new GAME.entities.EntityManager(this);
 
-	GAME.utils.xhrAsyncGet('./scenes/'+name+'.js', function (scene) {
-		scene = JSON.parse(scene);
-		console.log(scene);
-	});
+
+
+
+
+
 };
 
 GAME.world.Scene.prototype = Object.create(Physijs.Scene.prototype);
@@ -33,11 +34,9 @@ GAME.world.Scene.prototype.animate = function (delta) {
 
 // TODO: Structure.
 GAME.world.buildSceneIsland = function (game) {
-	game.scene = new GAME.world.Scene('island');
+	game.scene = new GAME.world.Scene();
 
 	//game.scene.setGravity(new THREE.Vector3( 0, -30, 0 ));
-
-	game.setLoadingText('Populating Scene...');
 
 	game.player = new GAME.player.Player(game.scene);
 	game.player.position.y = 45;
@@ -87,8 +86,6 @@ GAME.world.buildSceneIsland = function (game) {
 	//axeMesh.onMouseup = function (event) {};
 
 
-	game.setLoadingText('Creating Sky...');
-
 	var sky = new THREE.Object3D();
 	sky.position = game.player.position;
 
@@ -129,7 +126,7 @@ GAME.world.buildSceneIsland = function (game) {
 		skyPivot.add(star);
 		//starPivot.add(star);
 	}
-	game.setLoadingText('Generating Stars...');
+	console.log('Generating stars...');
 	var counter = 0;
 	for (var dec = -90; dec <= 90; dec++) {
 		for (var ra = 0; ra < 360; ra++) {
@@ -140,7 +137,7 @@ GAME.world.buildSceneIsland = function (game) {
 			}
 		}
 	}
-	//console.log('Done: '+counter+' stars generated.');
+	console.log('Done: '+counter+' stars generated.');
 	//sky.add(starPivot);
 
 	var sunHemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFF, 0.3);
@@ -215,7 +212,7 @@ GAME.world.buildSceneIsland = function (game) {
 
 	var terrainGeom = new THREE.PlaneGeometry(1024, 1024, 256, 256);
 	var seed = 1;
-	game.setLoadingText('Generating terrain...');
+	console.log('Generating terrain...');
 	for (var i = 0; i < terrainGeom.vertices.length; i++) {
 		var vertex = terrainGeom.vertices[i];
 		var x = vertex.x/4, z = -vertex.y/4;
@@ -232,11 +229,11 @@ GAME.world.buildSceneIsland = function (game) {
 	terrain = new Physijs.HeightfieldMesh(terrainGeom, terrainMat, 0);
 	terrain.lookAt(new THREE.Vector3(0,1,0));
 	terrain.receiveShadow = true;
-	//console.log('Done.');
+	console.log('Done.');
 	game.scene.add(terrain);
 
 
-	game.setLoadingText('Generating forest...');
+	console.log('Generating forest...');
 
 	var treeGeom = GAME.models.tree.tree.geom, timberGeom = GAME.models.tree.timber.geom, stumpGeom = GAME.models.tree.stump.geom;
 	var treeMats = GAME.models.tree.tree.mats;
@@ -309,7 +306,7 @@ GAME.world.buildSceneIsland = function (game) {
 			game.scene.add(treeCollider);
 		}
 	}
-	//console.log('Done.');
+	console.log('Done.');
 
 
 	game.scene.fog = new THREE.FogExp2(0xFFFFFF, 0.0025);

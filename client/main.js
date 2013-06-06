@@ -7,33 +7,14 @@
 	game.tickList = [];
 	game.animList = [];
 
-	game.setLoadingText = function (text) {
-		console.log(text);
-		var loadingDiv = document.getElementById('loadingText');
-		loadingDiv.innerHTML = text;
-		GAME.utils.centerElement(loadingDiv);
-	}
-
 	function init() {
-		var worker = new Worker('./worker.js');
-		worker.onmessage = function (event) {
-			document.getElementById('result').textContent = event.data;
-		};
-		worker.postMessage();
-
-
 		Physijs.scripts.worker = './physics/physijs_worker.js';
 		Physijs.scripts.ammo = './ammo.js';
 
-		game.setLoadingText('Loading Models...');
-
 		GAME.models.load(function() {
-			game.setLoadingText('Building Scene...');
 			GAME.world.buildSceneIsland(game);
-			game.setLoadingText('Initialising Controls...');
 			GAME.input.init(game.scene, game.player);
 
-			game.setLoadingText('Constructing Visuals...');
 			game.renderer = new THREE.WebGLRenderer({ antialias: true });
 			game.renderer.setSize(window.innerWidth, window.innerHeight);
 			game.renderer.shadowMapEnabled = true;
@@ -50,9 +31,6 @@
 
 			document.getElementById('game').insertBefore(game.renderer.domElement, document.getElementById('overlay'));
 			game.tickList.push(GAME.audio);
-
-			game.setLoadingText('Done.');
-			document.getElementById('loadingScreen').style.display = 'none';
 
 			setTimeout(tick, TICK_INTERVAL_MS);
 			requestAnimationFrame(render);
