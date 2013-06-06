@@ -1,5 +1,5 @@
-GAME.namespace('scenes').island = {
+{
 
-	name: 'Island'
+	"name": "Island"
 
-};
+}
