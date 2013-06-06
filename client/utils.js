@@ -44,9 +44,29 @@ GAME.utils.xhrSyncGet = function (url) {
 	return xhr.responseText;
 };
 
+GAME.utils.xhrAsyncGet = function (url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload =  function () {
+		callback(this.responseText);
+	};
+	xhr.open("GET", url);
+	xhr.send();
+};
+
 GAME.utils.centerElement = function(element) {
 	element.style.marginLeft = (-parseInt(element.clientWidth)/2)+'px';
 	element.style.marginTop = (-parseInt(element.clientHeight)/2)+'px';
+};
+
+
+GAME.utils.Countdown = function (from, callback) {
+	this.count = from || 1;
+	this.callback = callback;
+};
+
+GAME.utils.Countdown.prototype.dec = function () {
+	if (--this.count <= 0 && this.callback)
+		this.callback();
 };
 
 
