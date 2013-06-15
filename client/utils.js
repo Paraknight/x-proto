@@ -27,9 +27,9 @@ GAME.namespace('utils').getRoot = function() {
 	return 'https://dl.dropbox.com/u/704818/Escape%20Pod/Games/';
 };
 
-GAME.utils.loadScriptAsync = function(url, callback) {
+GAME.utils.loadScriptSync = function(url, callback) {
 	var script = document.createElement('script');
-	//script.async = false;
+	script.async = false;
 	script.src = url;
 	if (callback)
 		script.onload = callback;
@@ -70,12 +70,12 @@ GAME.utils.Countdown.prototype.dec = function () {
 };
 
 
-GAME.utils.Queue = function () {
+GAME.utils.List = function () {
 	this.size = 0;
 };
 
 // TODO: Consider implementing multiple parameter functionality or an array of elements as a parameter.
-GAME.utils.Queue.prototype.add = function (element) {
+GAME.utils.List.prototype.add = function (element) {
 	if (element) {
 		this.tail = this.tail ? this.tail.next = {e: element} : this.head = {e: element};
 		this.size++;
@@ -83,16 +83,39 @@ GAME.utils.Queue.prototype.add = function (element) {
 	return this;
 };
 
-GAME.utils.Queue.prototype.poll = function () {
+GAME.utils.List.prototype.remove = function (element) {
+	if (element && this.head) {
+		if (this.head === element) {
+			this.head = this.head === this.tail ? this.tail = undefined : this.head.next;
+			this.size--;
+			return true;
+		}
+		var current = this.head;
+		while (current.next) {
+			if (current.next === element) {
+				if (current.next === this.tail)
+					this.tail = current;
+				current.next = current.next.next;
+				this.size--;
+				return true;
+			}
+			current = current.next;
+		}
+	}
+	return false;
+};
+
+GAME.utils.List.prototype.poll = function () {
 	var element = this.head ? this.head.e : undefined;
 	if (element) {
-		this.head = this.head == this.tail ? this.tail = undefined : this.head.next;
+		this.head = this.head === this.tail ? this.tail = undefined : this.head.next;
 		this.size--;
 	}
 	return element;
 };
 
 
+// TODO: Set context outside of functions using SEAFs.
 GAME.utils.noise = {
 	perlin2D: function (seed, x, y) {
 		var gain = 0.25;//0.707106781;

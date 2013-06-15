@@ -1,7 +1,10 @@
-GAME.namespace('models').load = function(callback) {
-	var paths = ['tools.axe', 'tree.tree', 'tree.timber', 'tree.stump', 'portalradio.portalradio', 'player.torso', 'player.head'];
+GAME.namespace('models').load = function(models, callback) {
+	if (models === undefined || models.length < 1) {
+		callback();
+		return;
+	}
 
-	var countdown = new GAME.utils.Countdown(paths.length, callback);
+	var countdown = new GAME.utils.Countdown(models.length, callback);
 
 	var loaderJSON = new THREE.JSONLoader();
 
@@ -13,6 +16,6 @@ GAME.namespace('models').load = function(callback) {
 		});
 	}
 
-	for (var i = 0, len = paths.length; i < len; i++)
-		loadModel(paths[i]);
+	for (var i = 0, len = models.length; i < len; i++)
+		loadModel(models[i]);
 };

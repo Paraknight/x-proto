@@ -14,15 +14,17 @@ h1 {
 }
 h1.accented {
 	text-shadow: 0 0 1em #000000;
+	font-family: 'Lato', sans-serif;
 }
 button {
 	width: 200px;
 	height: 50px;
 	margin-top: 40px;
 	color: black;
-	background-color: rgb(215, 215, 255);
-	border-color: rgb(150, 150, 200);
+	background-color: rgb(170, 220, 255);
+	border-color: rgb(100, 130, 150);
 	border-radius: 10px;
+	font-family: 'Lato', sans-serif;
 }
 textarea {
 	resize: none;
@@ -91,10 +93,19 @@ div#game {
 }
 div#mainMenu {
 	color: white;
-	background-color: rgb(220, 220, 255);
-	-webkit-box-shadow:	inset 0px 0px 85px rgba(0,0,0,0.4);
-	-moz-box-shadow:	inset 0px 0px 85px rgba(0,0,0,0.4);
-	box-shadow:			inset 0px 0px 85px rgba(0,0,0,0.4);
+	/*background-color: rgb(220, 220, 255);*/
+	-webkit-box-shadow:	inset 0px 0px 100px rgba(0,0,0,0.4);
+	-moz-box-shadow:	inset 0px 0px 100px rgba(0,0,0,0.4);
+	box-shadow:			inset 0px 0px 100px rgba(0,0,0,0.4);
+
+	background: rgba(128,204,255,1);
+	background: -moz-linear-gradient(top, rgba(128,204,255,1) 0%, rgba(128,204,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(128,204,255,1)), color-stop(75%, rgba(128,204,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(top, rgba(128,204,255,1) 0%, rgba(128,204,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(top, rgba(128,204,255,1) 0%, rgba(128,204,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(top, rgba(128,204,255,1) 0%, rgba(128,204,255,1) 75%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(128,204,255,1) 0%, rgba(128,204,255,1) 75%, rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ccff', endColorstr='#ffffff', GradientType=0 );
 }
 div#loadingText {
 	color: white;

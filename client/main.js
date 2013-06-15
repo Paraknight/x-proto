@@ -21,15 +21,12 @@
 		};
 		worker.postMessage();
 
+		//Physijs.scripts.worker = './physics/physijs_worker.js';
+		//Physijs.scripts.ammo = './ammo.js';
+		Physijs = THREE;
 
-		Physijs.scripts.worker = './physics/physijs_worker.js';
-		Physijs.scripts.ammo = './ammo.js';
-
-		game.setLoadingText('Loading Models...');
-
-		GAME.models.load(function() {
-			game.setLoadingText('Building Scene...');
-			GAME.world.buildSceneIsland(game);
+		game.setLoadingText('Building Scene...');
+		GAME.world.buildSceneIsland(game, function (argument) {
 			game.setLoadingText('Initialising Controls...');
 			GAME.input.init(game.scene, game.player);
 

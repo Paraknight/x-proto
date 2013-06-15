@@ -23,11 +23,11 @@ GAME.player.Player.prototype = Object.create(THREE.Object3D.prototype);
 GAME.player.Player.prototype.addModel = function() {
 	var player = this;
 
-	var torsoMesh = new Physijs.Mesh(GAME.models.player.torso.geom, new THREE.MeshFaceMaterial(GAME.models.player.torso.mats));
+	var torsoMesh = new THREE.Mesh(GAME.models.player.torso.geom, new THREE.MeshFaceMaterial(GAME.models.player.torso.mats));
 	torsoMesh.lookAt(new THREE.Vector3(0,0,-1));
 	player.add(torsoMesh);
 
-	var headMesh = new Physijs.Mesh(GAME.models.player.head.geom, new THREE.MeshFaceMaterial(GAME.models.player.head.mats));
+	var headMesh = new THREE.Mesh(GAME.models.player.head.geom, new THREE.MeshFaceMaterial(GAME.models.player.head.mats));
 	headMesh.lookAt(new THREE.Vector3(0,0,-1));
 	player.head.add(headMesh);
 
@@ -90,9 +90,13 @@ GAME.player.Player.prototype.tick = function() {
 
 // TODO: Restructure and use only Object3Ds.
 GAME.player.PlayerController = function (scene, player) {
-	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial());
-	player.collider.visible = false;
-	player.collider.position = player.position;
+	// NOTE: Capsule.
+	player.collider = new GAME.physics.Collider(new GAME.physics.AABB(player.position, 0.6, 1.8), 70);
+	//new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial());
+	//player.collider.visible = false;
+	var box = new THREE.Mesh(new THREE.CubeGeometry(0.6, 1.8, 0.6) , new THREE.MeshBasicMaterial({ color: 0x00EE00/*0x220044*/, wireframe: true, transparent: true }));
+	box.position = player.position;
+	scene.add(box);
 	var landingSound;
 	GAME.audio.load(['audio/landing.ogg'], function(source){landingSound = source;});
 	/*
@@ -103,8 +107,9 @@ GAME.player.PlayerController = function (scene, player) {
 		}
 	});
 	*/
-	scene.add(player.collider);
+	//scene.add(player.collider);
 
+	/*
 	//player.collider.setDamping(0.99, 1.0);
 	var constraint = new Physijs.DOFConstraint(player.collider, new THREE.Vector3());
 	scene.addConstraint(constraint);
@@ -115,6 +120,7 @@ GAME.player.PlayerController = function (scene, player) {
 	constraint.setLinearUpperLimit(new THREE.Vector3(Infinity, Infinity, Infinity));
 	constraint.setAngularLowerLimit(new THREE.Vector3());
 	constraint.setAngularUpperLimit(new THREE.Vector3());
+	*/
 
 	var scope = this;
 
@@ -123,7 +129,7 @@ GAME.player.PlayerController = function (scene, player) {
 	var moveLeft = false;
 	var moveRight = false;
 
-	var velocity = new THREE.Vector3();
+	var velocity = new THREE.Vector3();//, prevVelocity = new THREE.Vector3();
 
 	var PI_2 = Math.PI / 2;
 
@@ -159,18 +165,20 @@ GAME.player.PlayerController = function (scene, player) {
 			case 32: // space
 				// TODO: Make player height an attribute of Player.
 				// TODO: Find another way to check if the player is touching the ground.
-				if (scope.enabled && distToGround() < 1.33) velocity.y = 4;
+				if (scope.enabled && distToGround() < 1.33) player.collider.getLinearVelocity().y = 4;
 				break;
 			case 66:
 				// TODO: Restructure.
 				if (!scope.enabled) return;
-				var ball = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshPhongMaterial({ color: 0x0000FF }));
+				// NOTE: Sphere.
+				var ball = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshPhongMaterial({ color: 0x0000FF }));
 				var headWorldPos = player.head.localToWorld(new THREE.Vector3(0, 0, -1));
 				ball.position.copy(headWorldPos);
 				ball.castShadow = true;
 				ball.receiveShadow = true;
+				ball.collider = new GAME.physics.Collider(new GAME.physics.Sphere(ball.position, 0.1), 1, 0, 0.5);//new GAME.physics.AABB(ball.position, 0.1, 0.1), 1, 0, 0.5);
 				scene.add(ball);
-				ball.setLinearVelocity(player.head.localToWorld(new THREE.Vector3(0, 0, -2)).sub(headWorldPos).normalize().multiplyScalar(20));
+				ball.collider.setLinearVelocity(player.head.localToWorld(new THREE.Vector3(0, 0, -2)).sub(headWorldPos).normalize().multiplyScalar(10));
 			break;
 		}
 	}, false);
@@ -250,19 +258,23 @@ GAME.player.PlayerController = function (scene, player) {
 
 		delta *= 100;
 
-		if (moveForward) velocity.z = -delta;
-		if (moveBackward) velocity.z = delta;
+		if (moveForward) velocity.z -= delta;
+		if (moveBackward) velocity.z += delta;
 
-		if (moveLeft) velocity.x = -delta;
-		if (moveRight) velocity.x = delta;
+		if (moveLeft) velocity.x -= delta;
+		if (moveRight) velocity.x += delta;
 
 		//player.localToWorld(velocity).sub(player.position).length() < 0.01 ? velocity.set(0,0,0) : velocity.normalize().multiplyScalar(10);
 
 		//if (moveForward || moveBackward || moveLeft || moveRight || velocity.y == 10) 
 		
+		// TODO: Remove filthy hacks.
+
 		var horiDamping = 1-delta*0.2;
+		//velocity.copy(player.localToWorld(velocity).sub(player.position));
 		player.collider.setLinearVelocity(new THREE.Vector3().copy(player.collider.getLinearVelocity()).multiply(new THREE.Vector3(horiDamping, 1, horiDamping)).add(player.localToWorld(velocity).sub(player.position)));
 
+		//prevVelocity.copy(velocity);
 		velocity.set(0,0,0);
 	};
 

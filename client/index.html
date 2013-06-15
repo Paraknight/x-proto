@@ -1,9 +1,9 @@
 <head>
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400,700"></link>
 	<link rel="stylesheet" type="text/css" href="./style.css"></link>
-	<!-- TODO: Consider loading asynchronously. -->
 	<script src="./three.min.js"></script>
 	<script src="./stats.min.js"></script>
-	<script src="./physics/physi.js"></script>
+	<!--script src="./physics/physi.js"></script-->
 	<script src="./tween.min.js"></script>
 	<script src="./peer.min.js"></script>
 	<script src="./utils.js"></script>
@@ -13,13 +13,14 @@
 	<script src="./input.js"></script>
 	<script src="./audio.js"></script>
 	<script src="./models.js"></script>
+	<script src="./physics.js"></script>
 	<script src="./world.js"></script>
 	<script src="./entities.js"></script>
 	<script src="./player.js"></script>
 	<script src="./main.js"></script>
 	<script>
 	function loadScriptsLazy() {
-		GAME.utils.loadScriptAsync('./audio/mespeak/mespeak.js', function(){
+		GAME.utils.loadScriptSync('./audio/mespeak/mespeak.js', function(){
 			GAME.audio.initMeSpeak();
 		});
 		//GAME.utils.loadScriptAsync('./socket.io.min.js', function () {
@@ -107,7 +108,7 @@
 			</script>
 			<div id="buttons" style="position: absolute; top: 50%; left: 50%;">
 				<center>
-					<h1 class="accented">The Game.</h1><br><br>
+					<h1 class="accented">The Game</h1><br><br>
 					<button type="button" onclick="startGame(1);">Single Player</button><br>
 					<button type="button" onclick="startGame(0);">Bla</button><br>
 					<button type="button" onclick="startGame(0);">Bla</button><br>
