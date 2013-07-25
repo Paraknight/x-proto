@@ -68,6 +68,8 @@ GAME.world.Scene.prototype.add = function (entity) {
 	THREE.Scene.prototype.add.call(this, entity);
 	if ('collider' in entity)
 		this.entityManager.physicsSim.entityList.add(entity);
+	if ('onSpawn' in entity)
+		entity.onSpawn();
 };
 
 GAME.world.Scene.prototype.remove = function (entity) {
@@ -86,115 +88,12 @@ GAME.world.Scene.prototype.animate = function (delta) {
 
 // TODO: Structure.
 GAME.world.buildSceneIsland = function (game, onload) {
-	game.scene = new GAME.world.Scene(game, 'island', function () {
+	var scene = game.scene = new GAME.world.Scene(game, 'island', function () {
 
-		var plane = new THREE.Mesh(new THREE.PlaneGeometry(1024, 1024), new THREE.MeshBasicMaterial({ color: 0xFFFFFF, fog: false }));
-		plane.lookAt(new THREE.Vector3(0,1,0));
-		plane.position.set(0, 40, 0);
-		plane.collider = new GAME.physics.Collider(new GAME.physics.Plane(new THREE.Vector3(0, 1, 0), -40));
-		plane.onCollision = function (entity) {
-			//console.log(entity);
-		};
-		//game.scene.add(plane);
+		//player.add(new GAME.entities.tools.Axe());
 
-
-		game.setLoadingText('Creating Sky...');
-
-		var sky = new THREE.Object3D();
-		sky.position = game.player.position;
-
-		//starCoords = [new THREE.Vector2(10, 10), new THREE.Vector2(20, 20)];
-		//starSizes = [1.0, 1.0];
-
-		game.time = 0.0;
-
-		var skyMat = new THREE.ShaderMaterial(GAME.shaders.sky);
-		skyMat.side = THREE.BackSide;
-		skyMat.transparent = true;
-		var skyMesh = new THREE.Mesh(new THREE.SphereGeometry(9000, 16, 16), skyMat);
-		//skyMesh.rotation.y = -0.5 * Math.PI;
-		sky.add(skyMesh);
-		//sky.add(new THREE.Mesh(new THREE.SphereGeometry(1000, 8, 4, 0, 2 * Math.PI, 0, Math.PI * 0.5), new THREE.MeshBasicMaterial({ color: 0x00EE00/*0x220044*/, wireframe: true, transparent: true })));
-
-		var skyPivot = new THREE.Object3D();
-		// TODO: Calculate sun's actual diameter (IRL, angular diameter = 0.5°).
-		var sun = new THREE.Mesh(new THREE.PlaneGeometry(2500, 2500), new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./images/sun.png'), transparent: true, fog: false, color: 0xFFCC33 }));
-		sun.position.x = 7800;
-		sun.lookAt(new THREE.Vector3());
-		skyPivot.add(sun);
-		var moon = new THREE.Mesh(new THREE.PlaneGeometry(2500, 2500), new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('./images/moon.png'), transparent: true, fog: false }));
-		moon.position.x = -7800;
-		moon.lookAt(new THREE.Vector3());
-		skyPivot.add(moon);
-		sky.add(skyPivot);
-
-		// TODO: Make stars move independently of sun and moon.
-		//var starPivot = new THREE.Object3D();
-		var starDist = 9500;
-		function addStar(ra, dec, scale) {
-			var star = new THREE.Mesh(new THREE.PlaneGeometry(scale*20, scale*20), new THREE.MeshBasicMaterial({ color: 0xFFFFFF, fog: false }));
-			star.position.x = Math.cos(dec) * Math.sin(ra) * starDist;
-			star.position.y = Math.sin(dec) * starDist;
-			star.position.z = -Math.cos(dec) * Math.cos(ra) * starDist;
-			star.lookAt(new THREE.Vector3());
-			skyPivot.add(star);
-			//starPivot.add(star);
-		}
-		game.setLoadingText('Generating Stars...');
-		var counter = 0;
-		for (var dec = -90; dec <= 90; dec++) {
-			for (var ra = 0; ra < 360; ra++) {
-				var n = GAME.utils.noise.noise(1, ra, dec+90, 1);
-				if (n < -0.99-((dec*dec)/810000)) {
-					counter++;
-					addStar((ra/180.0) * Math.PI, (dec/180.0) * Math.PI, 2.0+n);
-				}
-			}
-		}
-		//console.log('Done: '+counter+' stars generated.');
-		//sky.add(starPivot);
-
-		var sunHemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFF, 0.3);
-		//hemiLight.color.setHSL(0.6, 1, 0.6);
-		//hemiLight.groundColor.setHSL(0.095, 1, 0.75);
-		sunHemiLight.position.set(0.0, 1000.0, 0.0);
-		sky.add(sunHemiLight);
-		var sunDirLight = new THREE.DirectionalLight(0xFFFFFF, 0.0);
-		game.player._sun = new THREE.Object3D();
-		sunDirLight.position = game.player._sun.position;
-		sunDirLight.position.set(20.0, 0.0, 0.0);
-		sunDirLight.castShadow = true;
-		sunDirLight.shadowMapWidth = 2048;
-		sunDirLight.shadowMapHeight = 2048;
-		sunDirLight.shadowCameraRight = 20;
-		sunDirLight.shadowCameraLeft = -20;
-		sunDirLight.shadowCameraTop = 20;
-		sunDirLight.shadowCameraBottom = -20;
-		sunDirLight.shadowCameraNear = 1;
-		sunDirLight.shadowCameraFar = 40;
-		//sunDirLight.shadowBias = 0.001;
-		//sunDirLight.shadowCameraVisible = true;
-		sunDirLight.target = game.player;
-		sky.add(sunDirLight);
-
-		// TODO: Move to animate if using actual time.
-		sky.tick = function (delta) {
-			game.time = (game.time+0.0001)%1.0;
-			var time = game.time;
-			GAME.shaders.sky.uniforms.time.value = time;
-			var rot = time*2.0*Math.PI;
-			skyPivot.rotation.z = rot;
-			var height = Math.sin(rot);
-			sun.material.color.setHSL(0.13, 1.0, 0.8+(height<0.0?0.0:0.2*Math.pow(height,0.5)));
-			game.player._sun.position.set(20.0*Math.cos(rot), 20.0*height, 0.0);
-			sunDirLight.intensity = 0.25*height+0.25;
-			sunDirLight.shadowDarkness = Math.max(0.0, 0.5*height);
-			//sunHemiLight.intensity = 0.5*height;
-			sunHemiLight.groundColor.setHSL(0.7, 1.0, 0.5+(0.25*(height+1.0)));
-			game.scene.entityManager.tickQueue.add(this);
-		};
-		game.scene.entityManager.tickQueue.add(sky);
-		game.scene.add(sky);
+		scene.add(new GAME.entities.skies.SkyEarth(scene));
+		
 
 
 		var spotLight = new THREE.SpotLight(0xFFFFFF, 1, 1000);
@@ -217,46 +116,9 @@ GAME.world.buildSceneIsland = function (game, onload) {
 		game.scene.entityManager.tickQueue.add(spotLight);
 		game.scene.add(spotLight);
 
-
-		var water = new THREE.Mesh(new THREE.PlaneGeometry(20480, 20480), new THREE.MeshPhongMaterial({ color: 0x1C6BA0/*, opacity: 0.5*/ }));
-		water.lookAt(new THREE.Vector3(0,1,0));
-		water.position.y = 1.0;
-		//game.scene.add(water);
-
-
-		
-		game.setLoadingText('Generating terrain...');
-		var seed = 1, heightMap = [], row, x, xWorld, z, zWorld, fade, perlin2D = GAME.utils.noise.perlin2D;
-		for (x = 0, xWorld = -128; x <= 256; x++, xWorld++) {
-			row = heightMap[x] = [];
-			for (z = 0, zWorld = -128; z <= 256; z++, zWorld++) {
-				fade = Math.max(1-((xWorld*xWorld+zWorld*zWorld)/16384), 0);
-				row[z] = ((perlin2D(seed, x, z)+1)/2) * fade * 64;
-			}
-		}
-		game.setLoadingText('Building terrain...');
-		var terrainGeom = new THREE.PlaneGeometry(1024, 1024, 256, 256);
-		for (var i = 0; i < terrainGeom.vertices.length; i++) {
-			var x = i%257, z = (i/257)>>0;
-			terrainGeom.vertices[i].set((x-128)*4, heightMap[x][z], (z-128)*4);
-		}
-		terrainGeom.computeFaceNormals();
-		terrainGeom.computeVertexNormals();
-		
-		var terrainMat = new THREE.ShaderMaterial(GAME.shaders.terrain);
-		terrainMat.fog = true;
-		terrainMat.lights = true;
-		// NOTE: HeightField.
-		terrain = new THREE.Mesh(terrainGeom, terrainMat, 0);
-		//terrain.lookAt(new THREE.Vector3(0,1,0));
-		terrain.receiveShadow = true;
-		//console.log('Done.');
-		terrain.collider = new GAME.physics.Collider(new GAME.physics.HeightField(heightMap, 4), 0, 0.4);
-		terrain.onCollision = function (entity) {
-			//console.log(entity);
-		};
-		game.scene.add(terrain);
-
+		var seed = 1;
+		var terrain = new GAME.entities.terrain.TerrainIsland(scene, seed);
+		scene.add(terrain);
 
 		game.setLoadingText('Generating forest...');
 
@@ -310,6 +172,7 @@ GAME.world.buildSceneIsland = function (game, onload) {
 			}
 		};
 
+		var heightMap = terrain.heightMap;
 		var rand;
 		for (var x = 0, xWorld = -512, lenX = heightMap.length; x < lenX; x++, xWorld+=4) {
 			for (var z = 0, zWorld = -512, lenZ = heightMap[x].length; z < lenZ; z++, zWorld+=4) {

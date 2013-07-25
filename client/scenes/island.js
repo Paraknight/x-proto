@@ -14,6 +14,8 @@ GAME.namespace('scenes').island = {
 		'controller': 'firstperson'
 	},
 	entities: [
+		'skies',
+		'terrain',
 		'tools'
 	],
 	init: function () {

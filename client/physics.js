@@ -161,20 +161,6 @@ GAME.physics.Simulator.prototype.simulate = function (delta) {
 
 		collider._force.set(0,0,0);
 		collider._frictionAcc = 0;
-
-		//currA.copy(force.divideScalar(collider.mass));
-		//currV.add(currA.multiplyScalar(delta));
-		//node.e.position.add(new THREE.Vector3().copy(currV).multiplyScalar(delta));
-
-
-		/*
-
-		prevA.copy(currA);
-		node.e.position.add(new THREE.Vector3().copy(currV).multiplyScalar(delta).add(new THREE.Vector3().copy(prevA).multiplyScalar(0.5*delta*delta)));
-		currA.copy(force.divideScalar(collider.mass));
-		currV.add(new THREE.Vector3().copy(prevA).add(currA).multiplyScalar(0.5*delta));
-		console.log(node.e.position);
-		*/
 	}
 
 	// TODO: Implement broad-phase with octrees.
@@ -245,54 +231,12 @@ GAME.physics.Simulator.prototype.collideEntities = function (entity1, entity2) {
 
 		var m1u1 = new THREE.Vector3().copy(u1).multiplyScalar(m1), m2u2 = new THREE.Vector3().copy(u2).multiplyScalar(m2);
 
-		// TODO: Think more about the implications of collider-specific coefficients of friction and consider allowing separating static and kinetic.
-		/*
-		var normalAcc1 = new THREE.Vector3().copy(entity1.collider._acceleration).projectOnVector(escVec);
-		var normalAcc1Len = normalAcc1.length();
-		var surfaceAcc1Len = new THREE.Vector3().copy(entity1.collider._acceleration).projectOnPlane(normalAcc1).length();
-		var surfaceVel1Len = new THREE.Vector3().copy(entity1.collider._velocity).projectOnPlane(normalAcc1).length();
-		if (surfaceAcc1Len > normalAcc1Len || surfaceVel1Len > 0)
-			entity1.collider._frictionAcc -= 0.5 * (entity1.collider.friction + entity2.collider.friction) * normalAcc1Len;
-
-		var normalAcc2 = new THREE.Vector3().copy(entity2.collider._acceleration).projectOnVector(escVec);
-		var normalAcc2Len = normalAcc2.length();
-		var surfaceAcc2Len = new THREE.Vector3().copy(entity2.collider._acceleration).projectOnPlane(normalAcc2).length();
-		var surfaceVel2Len = new THREE.Vector3().copy(entity2.collider._velocity).projectOnPlane(normalAcc2).length();
-		if (surfaceAcc2Len > normalAcc2Len || surfaceVel2Len > 0)
-			entity2.collider._frictionAcc -= 0.5 * (entity1.collider.friction + entity2.collider.friction) * normalAcc2Len;
-		*/
-
 		// TODO: Think more about the implications of collider-specific coefficients of restitution.
 		var v1 = new THREE.Vector3().subVectors(u2, u1).multiplyScalar(entity1.collider.restitution * m2).add(m1u1).add(m2u2).divideScalar(m1+m2);
 		var v2 = new THREE.Vector3().subVectors(u1, u2).multiplyScalar(entity2.collider.restitution * m1).add(m2u2).add(m1u1).divideScalar(m2+m1);
 
 		u1.copy(new THREE.Vector3().copy(v1).projectOnVector(escVec).multiplyScalar(2).sub(v1));
 		u2.copy(new THREE.Vector3().copy(v2).projectOnVector(escVec).multiplyScalar(2).sub(v2));
-
-		/*
-		if (escVec.x) {
-			entity1.collider._velocity.x *= -entity1.collider.restitution;
-			entity1.collider._velocity.y *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity1.collider._velocity.z *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity2.collider._velocity.x *= -entity2.collider.restitution;
-			entity2.collider._velocity.y *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity2.collider._velocity.z *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-		} else if (escVec.y) {
-			entity1.collider._velocity.y *= -entity1.collider.restitution;
-			entity1.collider._velocity.x *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity1.collider._velocity.z *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity2.collider._velocity.y *= -entity2.collider.restitution;
-			entity2.collider._velocity.x *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity2.collider._velocity.z *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-		} else if (escVec.z) {
-			entity1.collider._velocity.z *= -entity1.collider.restitution;
-			entity1.collider._velocity.x *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity1.collider._velocity.y *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity2.collider._velocity.z *= -entity2.collider.restitution;
-			entity2.collider._velocity.x *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-			entity2.collider._velocity.y *= 1 - 0.5 * (entity1.collider.friction + entity2.collider.friction);
-		}
-		*/
 	}
 
 	/*
