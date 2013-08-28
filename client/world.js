@@ -1,14 +1,17 @@
 GAME.namespace('world').Scene = function (game, name, onload) {
-	THREE.Scene.call(this);
-
-	
+	this.superClass.call(this);
+	if (GAME.PHYSIJS) {
+		this.addEventListener('ready', function(){
+			console.log('Physics Engine initialised.');
+		});
+	}
 
 	this.entityManager = new GAME.entities.EntityManager(this);
 
 	var self = this;
 
 	game.setLoadingText('Loading Scene...');
-	GAME.utils.xhrAsyncGet('./scenes/'+name+'.js', function (scene) {
+	loadAsync('./scenes/'+name+'.js', function (scene) {
 		scene = eval(scene);//JSON.parse(scene);
 		
 		var grav = scene.gravity || [0, -9.81, 0];
@@ -62,20 +65,23 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 	});
 };
 
-GAME.world.Scene.prototype = Object.create(THREE.Scene.prototype);
+if (GAME.PHYSIJS) {
+	GAME.world.Scene.prototype = Object.create(Physijs.Scene.prototype);
+	GAME.world.Scene.prototype.superClass = Physijs.Scene;
+	console.log('Scene proto init\'d.');
+} else {
+	GAME.world.Scene.prototype = Object.create(THREE.Scene.prototype);
+	GAME.world.Scene.prototype.superClass = THREE.Scene;
+}
 
 GAME.world.Scene.prototype.add = function (entity) {
 	THREE.Scene.prototype.add.call(this, entity);
-	if ('collider' in entity)
-		this.entityManager.physicsSim.entityList.add(entity);
-	if ('onSpawn' in entity)
-		entity.onSpawn();
+	this.entityManager.add(entity);
 };
 
 GAME.world.Scene.prototype.remove = function (entity) {
 	THREE.Scene.prototype.remove.call(this, entity);
-	if ('collider' in entity)
-		this.entityManager.physicsSim.entityList.remove(entity);
+	this.entityManager.remove(entity);
 };
 
 GAME.world.Scene.prototype.tick = function (delta) {
@@ -85,6 +91,7 @@ GAME.world.Scene.prototype.tick = function (delta) {
 GAME.world.Scene.prototype.animate = function (delta) {
 	this.entityManager.animate(delta);
 };
+
 
 // TODO: Structure.
 GAME.world.buildSceneIsland = function (game, onload) {
@@ -217,7 +224,7 @@ GAME.world.buildSceneIsland = function (game, onload) {
 		monolith.position.y = 100;
 		monolith.castShadow = true;
 		monolith.receiveShadow = true;
-		monolith.collider = new GAME.physics.Collider(new GAME.physics.AABB(monolith.position, 2, 10), 1000, 0.5, 0.5);
+		monolith.collider = new GAME.physics.buildCollider(monolith, 'box', 2, 10, 2, 1000, 0.5, 0.5);
 		/*
 		monolith.tick = function (delta) {
 			console.log(this.collider._frictionAcc);
@@ -265,7 +272,7 @@ GAME.world.buildSceneIsland = function (game, onload) {
 		var radioCollider = new THREE.Mesh(new THREE.CubeGeometry(0.3, 0.25, 0.3), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }));
 		radioCollider.position.x = -10;
 		radioCollider.position.y = 45;//42;
-		radioCollider.collider = new GAME.physics.Collider(new GAME.physics.AABB(radioCollider.position, 0.3, 0.25), 1);
+		radioCollider.collider = new GAME.physics.buildCollider(radioCollider, 'box', 0.3, 0.25, 0.3, 1);
 		//radioCollider.setCcdMotionThreshold(0.5);
 		//radioCollider.setCcdSweptSphereRadius(0.1);
 		//radioCollider.visible = false;

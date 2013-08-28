@@ -1,26 +1,45 @@
 <head>
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400,700"></link>
+	<!--link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400,700"></link-->
 	<link rel="stylesheet" type="text/css" href="./style.css"></link>
 	<script src="./three.min.js"></script>
 	<script src="./stats.min.js"></script>
-	<!--script src="./physics/physi.js"></script-->
 	<script src="./tween.min.js"></script>
 	<script src="./peer.min.js"></script>
 	<script src="./utils.js"></script>
+	<script>
+		GAME.DEBUG = true;
+		GAME.PHYSIJS = true;
+
+		if (GAME.PHYSIJS) {
+			console.log('Loading libs.');
+			GAME.utils.loadScriptSync('./physics/physi.js', function() {});
+			GAME.utils.loadScriptSync('./physics/physbullet.js', function() {
+				Physijs.scripts.worker = './physics/physijs_worker.js';
+				Physijs.scripts.ammo = './ammo.js';
+				console.log('Libs Loaded.');
+				//GAME.world.Scene.prototype = Object.create(Physijs.Scene.prototype);
+				//GAME.world.Scene.prototype.superClass = Physijs.Scene;
+			});
+		} else {
+			GAME.utils.loadScriptSync('./physics/physcustom.js', function() {
+				//GAME.world.Scene.prototype = Object.create(THREE.Scene.prototype);
+				//GAME.world.Scene.prototype.superClass = THREE.Scene;
+			});
+		}
+	</script>
 	<script src="./net.js"></script>
 	<script src="./gui.js"></script>
 	<script src="./shaders.js"></script>
 	<script src="./input.js"></script>
 	<script src="./audio.js"></script>
 	<script src="./models.js"></script>
-	<script src="./physics.js"></script>
 	<script src="./world.js"></script>
 	<script src="./entities.js"></script>
 	<script src="./player.js"></script>
 	<script src="./main.js"></script>
 	<script>
 	function loadScriptsLazy() {
-		GAME.utils.loadScriptSync('./audio/mespeak/mespeak.js', function(){
+		GAME.utils.loadScriptSync('./audio/mespeak/mespeak.js', function() {
 			GAME.audio.initMeSpeak();
 		});
 		//GAME.utils.loadScriptAsync('./socket.io.min.js', function () {
@@ -89,7 +108,7 @@
 					case 1:
 						var mainMenu = document.getElementById('mainMenu');
 						mainMenu.parentNode.removeChild(mainMenu);
-						GAME.core.Main.main();
+						GAME.core.main();
 						break;
 					case 2:
 						//GAME.net.p2p.join('Host');

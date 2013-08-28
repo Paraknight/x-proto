@@ -7,7 +7,7 @@ GAME.namespace('entities').load = function(entities, callback) {
 	var countdown = new GAME.utils.Countdown(entities.length, callback);
 
 	function loadEntity (path) {
-		GAME.utils.xhrAsyncGet('entities/'+path.replace('.','/')+'.js', function (js) {
+		loadAsync('entities/'+path.replace('.','/')+'.js', function (js) {
 			eval(js);
 			countdown.dec();
 		});
@@ -25,7 +25,19 @@ GAME.entities.EntityManager = function (scene) {
 
 	this.tickQueue = new GAME.utils.List();
 	this.animQueue = new GAME.utils.List();
-	this.physicsSim = new GAME.physics.Simulator();
+	this.physicsSim = new GAME.physics.Simulator(scene);
+};
+
+GAME.entities.EntityManager.prototype.add = function (entity) {
+	if (!GAME.PHYSIJS && 'collider' in entity)
+		this.physicsSim.add(entity);
+	if ('onSpawn' in entity)
+		entity.onSpawn();
+};
+
+GAME.entities.EntityManager.prototype.remove = function (entity) {
+	if ('collider' in entity)
+		this.physicsSim.remove(entity);
 };
 
 GAME.entities.EntityManager.prototype.spawnPlayer = function(username, state) {

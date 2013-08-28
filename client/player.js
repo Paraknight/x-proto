@@ -91,7 +91,7 @@ GAME.player.Player.prototype.tick = function() {
 // TODO: Restructure and use only Object3Ds.
 GAME.player.PlayerController = function (scene, player) {
 	// NOTE: Capsule.
-	player.collider = new GAME.physics.Collider(new GAME.physics.AABB(player.position, 0.6, 1.8), 70);
+	player.collider = new GAME.physics.buildCollider(player, 'box', 0.6, 1.8, 70);
 	//new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial());
 	//player.collider.visible = false;
 	var box = new THREE.Mesh(new THREE.CubeGeometry(0.6, 1.8, 0.6) , new THREE.MeshBasicMaterial({ color: 0x00EE00/*0x220044*/, wireframe: true, transparent: true }));
@@ -176,7 +176,7 @@ GAME.player.PlayerController = function (scene, player) {
 				ball.position.copy(headWorldPos);
 				ball.castShadow = true;
 				ball.receiveShadow = true;
-				ball.collider = new GAME.physics.Collider(new GAME.physics.Sphere(ball.position, 0.1), 1, 0, 0.5);//new GAME.physics.AABB(ball.position, 0.1, 0.1), 1, 0, 0.5);
+				ball.collider = new GAME.physics.buildCollider(ball, 'sphere', 0.1, 1, 0, 0.5);//new GAME.physics.AABB(ball.position, 0.1, 0.1), 1, 0, 0.5);
 				scene.add(ball);
 				ball.collider.setLinearVelocity(player.head.localToWorld(new THREE.Vector3(0, 0, -2)).sub(headWorldPos).normalize().multiplyScalar(10));
 			break;

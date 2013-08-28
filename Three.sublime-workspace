@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"a",
+				"animList"
+			],
+			[
+				"sc",
+				"scene"
+			],
+			[
+				"see",
+				"scene"
+			],
+			[
+				"P",
+				"PHYSIJS"
+			],
+			[
 				"hei",
 				"heightMap"
 			],
@@ -268,10 +284,6 @@
 				"nextV"
 			],
 			[
-				"a",
-				"add"
-			],
-			[
 				"curr",
 				"currV"
 			],
@@ -326,10 +338,6 @@
 			[
 				"hal",
 				"halfWidth"
-			],
-			[
-				"P",
-				"Physijs"
 			],
 			[
 				"f",
@@ -506,14 +514,6 @@
 			[
 				"ani",
 				"THREE.AnimationHandler"
-			],
-			[
-				"monolith",
-				"monolith"
-			],
-			[
-				"can",
-				"canJump"
 			]
 		]
 	},
@@ -523,87 +523,55 @@
 			"file": "client/index.html",
 			"settings":
 			{
-				"buffer_size": 4221,
+				"buffer_size": 4796,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/style.css",
-			"settings":
-			{
-				"buffer_size": 4182,
-				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "client/main.js",
 			"settings":
 			{
-				"buffer_size": 2547,
+				"buffer_size": 3703,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "client/worker.js",
+			"file": "client/audio.js",
 			"settings":
 			{
-				"buffer_size": 485,
+				"buffer_size": 5553,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "client/input.js",
+			"file": "client/style.css",
 			"settings":
 			{
-				"buffer_size": 4824,
+				"buffer_size": 4190,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "client/player.js",
+			"file": "client/world.js",
 			"settings":
 			{
-				"buffer_size": 9153,
+				"buffer_size": 14832,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "client/entities/terrain.js",
+			"file": "client/physics/physbullet.js",
 			"settings":
 			{
-				"buffer_size": 1717,
+				"buffer_size": 4335,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "client/entities/skies.js",
+			"file": "client/physics/physcustom.js",
 			"settings":
 			{
-				"buffer_size": 4224,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/physics.js",
-			"settings":
-			{
-				"buffer_size": 16526,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/entities/tools.js",
-			"settings":
-			{
-				"buffer_size": 1313,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/utils.js",
-			"settings":
-			{
-				"buffer_size": 7418,
+				"buffer_size": 16746,
 				"line_ending": "Unix"
 			}
 		},
@@ -611,15 +579,23 @@
 			"file": "client/entities.js",
 			"settings":
 			{
-				"buffer_size": 1672,
+				"buffer_size": 1664,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "client/net.js",
+			"file": "client/entities/tools.js",
 			"settings":
 			{
-				"buffer_size": 3431,
+				"buffer_size": 1335,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/utils.js",
+			"settings":
+			{
+				"buffer_size": 7414,
 				"line_ending": "Unix"
 			}
 		}
@@ -679,7 +655,10 @@
 	},
 	"console":
 	{
-		"height": 125.0
+		"height": 125.0,
+		"history":
+		[
+		]
 	},
 	"distraction_free":
 	{
@@ -692,9 +671,18 @@
 	},
 	"file_history":
 	[
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/skies.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/terrain.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/player.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/input.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/worker.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/style.css",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/tools.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/utils.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/net.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/world.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/scenes/island.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/utils.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/shaders.js",
@@ -703,13 +691,11 @@
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/shaders/sky.frag",
 		"/Users/Yousef/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/microphysics.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/net.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/audio.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/torso.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/head.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/head.blend",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/gui.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/style.css",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/tools/axe.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics/physi.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/tween.min.js",
@@ -719,8 +705,6 @@
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/datachannel.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/terrain.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/test/inventory.html",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/player.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/input.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/tree/stump.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/tree/timber.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/noise.js",
@@ -801,7 +785,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			"",
@@ -814,6 +798,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"head",
+			"tail",
+			"head",
+			"List",
+			"world",
+			"superclass",
+			"animlist",
+			"add",
+			"Physijs",
 			"water",
 			"2",
 			"1",
@@ -932,21 +925,12 @@
 			"noise",
 			"scope",
 			"GAME.utils.noise.",
-			"FastMath",
-			"int",
-			"double",
-			"float",
-			"SERVER.date",
-			"userdata",
-			"walk",
-			"armature",
-			"walk",
-			"riggid"
+			"FastMath"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
 		],
@@ -959,23 +943,24 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "client/index.html",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4221,
+						"buffer_size": 4796,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3721,
-								3721
+								390,
+								390
 							]
 						],
 						"settings":
@@ -984,52 +969,26 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 65.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "client/style.css",
-					"settings":
-					{
-						"buffer_size": 4182,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								994,
-								933
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1187.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "client/main.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2547,
+						"buffer_size": 3703,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1405,
-								1175
+								1035,
+								1035
 							]
 						],
 						"settings":
@@ -1044,24 +1003,54 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "client/worker.js",
+					"buffer": 2,
+					"file": "client/audio.js",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 485,
+						"buffer_size": 5553,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								352,
-								352
+								385,
+								385
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1428.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "client/style.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4190,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								421,
+								421
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1071,18 +1060,19 @@
 				},
 				{
 					"buffer": 4,
-					"file": "client/input.js",
+					"file": "client/world.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4824,
+						"buffer_size": 14832,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								769,
-								805
+								1808,
+								2060
 							]
 						],
 						"settings":
@@ -1091,25 +1081,26 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 872.0,
+						"translation.y": 749.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "client/player.js",
+					"file": "client/physics/physbullet.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9153,
+						"buffer_size": 4335,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5841,
-								5841
+								3362,
+								3362
 							]
 						],
 						"settings":
@@ -1117,7 +1108,7 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
+						"translation.x": 182.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -1125,18 +1116,19 @@
 				},
 				{
 					"buffer": 6,
-					"file": "client/entities/terrain.js",
+					"file": "client/physics/physcustom.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1717,
+						"buffer_size": 16746,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1717,
-								1717
+								4894,
+								4959
 							]
 						],
 						"settings":
@@ -1145,25 +1137,26 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2096.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 7,
-					"file": "client/entities/skies.js",
+					"file": "client/entities.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4224,
+						"buffer_size": 1664,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								63,
-								91
+								705,
+								705
 							]
 						],
 						"settings":
@@ -1179,18 +1172,19 @@
 				},
 				{
 					"buffer": 8,
-					"file": "client/physics.js",
+					"file": "client/entities/tools.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16526,
+						"buffer_size": 1335,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4673,
-								4738
+								477,
+								477
 							]
 						],
 						"settings":
@@ -1199,52 +1193,26 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2974.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 9,
-					"file": "client/entities/tools.js",
-					"settings":
-					{
-						"buffer_size": 1313,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								544,
-								608
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
 					"file": "client/utils.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7418,
+						"buffer_size": 7414,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1351,
-								1017
+								7411,
+								6859
 							]
 						],
 						"settings":
@@ -1253,61 +1221,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 307.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "client/entities.js",
-					"settings":
-					{
-						"buffer_size": 1672,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								454,
-								454
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "client/net.js",
-					"settings":
-					{
-						"buffer_size": 3431,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								356,
-								396
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2532.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1346,6 +1260,7 @@
 		]
 	},
 	"menu_visible": true,
+	"project": "Three.sublime-project",
 	"replace":
 	{
 		"height": 64.0
@@ -1366,15 +1281,29 @@
 		[
 			[
 				"",
-				"/Users/Yousef/Dropbox/Public/EscPod/Conquest/Conquest.sublime-project"
+				"~/Dropbox/Public/EscPod/OutOfBreath/OutOfBreath.sublime-project"
 			]
 		],
 		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
 	},
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
 	"side_bar_width": 161.0,
-	"status_bar_visible": true
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
 }

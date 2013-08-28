@@ -38,9 +38,9 @@ GAME.namespace('entities.terrain').TerrainIsland = function (scene, seed) {
 	//terrain.lookAt(new THREE.Vector3(0,1,0));
 	terrain.receiveShadow = true;
 	//console.log('Done.');
-	this.collider = new GAME.physics.Collider(new GAME.physics.HeightField(heightMap, 4), 0, 0.4);
+	this.collider = new GAME.physics.buildCollider(terrain, 'heightField', heightMap, 4, 0, 0.4);
 
-	this.add(terrain);
+	//this.add(terrain);
 };
 
 GAME.entities.terrain.TerrainIsland.prototype = Object.create(THREE.Object3D.prototype);

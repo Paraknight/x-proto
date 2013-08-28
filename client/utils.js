@@ -1,6 +1,22 @@
 'use strict';
 
 Number.prototype.mod = function(n) { return ((this%n)+n)%n; };
+// TODO: OOOOO
+var loadSync = function (url) {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", url, false);
+	xhr.send();
+	return xhr.responseText;
+};
+
+var loadAsync = function (url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.onload =  function () {
+		callback(this.responseText);
+	};
+	xhr.open("GET", url);
+	xhr.send();
+};
 
 // TODO: Consider refactoring "GAME" to "CLIENT" for consistency.
 var GAME = (typeof GAME == 'undefined' || !GAME)?{}:GAME;
@@ -35,22 +51,6 @@ GAME.utils.loadScriptSync = function(url, callback) {
 		script.onload = callback;
 	document.head.appendChild(script);
 	//appendChild(document.createTextNode("<script type=\"text/javascript\" src=\""+filename+"\"></script>"));
-};
-
-GAME.utils.xhrSyncGet = function (url) {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", url, false);
-	xhr.send();
-	return xhr.responseText;
-};
-
-GAME.utils.xhrAsyncGet = function (url, callback) {
-	var xhr = new XMLHttpRequest();
-	xhr.onload =  function () {
-		callback(this.responseText);
-	};
-	xhr.open("GET", url);
-	xhr.send();
 };
 
 GAME.utils.centerElement = function(element) {

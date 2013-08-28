@@ -18,6 +18,12 @@ GAME.namespace('physics').constants = {
 	}
 };
 
+GAME.physics.colliderFactory = {
+	cube: function () {
+		// body...
+	}
+};
+
 GAME.physics.AABB = function (center, width, height) {
 	this.type = 'aabb';
 	this.center = center;
@@ -134,11 +140,20 @@ GAME.physics.Collider.prototype.addForce = function (force) {
 };
 
 // TODO: Consider outsourcing physics simulation to a web worker.
-GAME.physics.Simulator = function (config) {
+GAME.physics.Simulator = function (scene, config) {
 	config = config || {};
+	this.scene = scene;
 	this.gravity = config.gravity || new THREE.Vector3(0, -9.81, 0);
 
 	this.entityList = new GAME.utils.List();
+};
+
+GAME.physics.Simulator.prototype.add = function (entity) {
+	this.entityList.add(entity);
+};
+
+GAME.physics.Simulator.prototype.remove = function (entity) {
+	this.entityList.remove(entity);
 };
 
 GAME.physics.Simulator.prototype.simulate = function (delta) {

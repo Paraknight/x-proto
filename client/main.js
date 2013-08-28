@@ -1,7 +1,8 @@
-(function() {
-	const TICK_INTERVAL_MS = 1000.0/60.0;
+GAME.namespace('core').main = function () {
+	if ('game' in GAME)
+		return;
 
-	GAME.game = this;
+	GAME.game = {};
 	var game = GAME.game;
 
 	game.tickList = [];
@@ -14,48 +15,7 @@
 		GAME.utils.centerElement(loadingDiv);
 	}
 
-	function init() {
-		var worker = new Worker('./worker.js');
-		worker.onmessage = function (event) {
-			document.getElementById('result').textContent = event.data;
-		};
-		worker.postMessage();
-
-		//Physijs.scripts.worker = './physics/physijs_worker.js';
-		//Physijs.scripts.ammo = './ammo.js';
-		Physijs = THREE;
-
-		game.setLoadingText('Building Scene...');
-		GAME.world.buildSceneIsland(game, function (argument) {
-			game.setLoadingText('Initialising Controls...');
-			GAME.input.init(game.scene, game.player);
-
-			game.setLoadingText('Constructing Visuals...');
-			game.renderer = new THREE.WebGLRenderer({ antialias: true });
-			game.renderer.setSize(window.innerWidth, window.innerHeight);
-			game.renderer.shadowMapEnabled = true;
-			game.renderer.shadowMapSoft = true;
-			game.renderer.sortObjects = false;
-
-			GAME.gui.init();
-
-			window.addEventListener('resize', function(){
-				game.camera.aspect = window.innerWidth/window.innerHeight;
-				game.camera.updateProjectionMatrix();
-				game.renderer.setSize(window.innerWidth, window.innerHeight);
-			}, false);
-
-			document.getElementById('game').insertBefore(game.renderer.domElement, document.getElementById('overlay'));
-			game.tickList.push(GAME.audio);
-
-			game.setLoadingText('Done.');
-			document.getElementById('loadingScreen').style.display = 'none';
-
-			setTimeout(tick, TICK_INTERVAL_MS);
-			requestAnimationFrame(render);
-		});
-	}
-
+	const TICK_INTERVAL_MS = 1000.0/60.0;
 	var tickClock = new THREE.Clock();
 
 	function tick() {
@@ -83,7 +43,71 @@
 		GAME.gui.statsRender.end();
 	}
 
-	this.main = function() {
-		init();
+	/*
+	var worker = new Worker('./worker.js');
+	worker.onmessage = function (event) {
+		document.getElementById('result').textContent = event.data;
 	};
-}).apply(GAME.namespace('core.Main'));
+	worker.postMessage();
+	*/
+
+	game.setLoadingText('Building Scene...');
+	GAME.world.buildSceneIsland(game, function (argument) {
+		game.setLoadingText('Initialising Controls...');
+		GAME.input.init(game.scene, game.player);
+
+		game.setLoadingText('Constructing Visuals...');
+		game.renderer = new THREE.WebGLRenderer({ antialias: true });
+		game.renderer.setSize(window.innerWidth, window.innerHeight);
+		game.renderer.shadowMapEnabled = true;
+		game.renderer.shadowMapSoft = true;
+		game.renderer.sortObjects = false;
+
+		GAME.gui.init();
+
+		window.addEventListener('resize', function(){
+			game.camera.aspect = window.innerWidth/window.innerHeight;
+			game.camera.updateProjectionMatrix();
+			game.renderer.setSize(window.innerWidth, window.innerHeight);
+		}, false);
+
+		document.getElementById('game').insertBefore(game.renderer.domElement, document.getElementById('overlay'));
+		game.tickList.push(GAME.audio);
+
+		game.setLoadingText('Done.');
+		document.getElementById('loadingScreen').style.display = 'none';
+
+		setTimeout(tick, TICK_INTERVAL_MS);
+		requestAnimationFrame(render);
+	});
+
+	/*
+	var game = {};
+
+	game.currentScene = new CONQUEST.Scene();
+	game.currentGUI = new CONQUEST.GUIMainMenu(game);
+
+	var canvas = document.getElementById('canvas');
+
+	canvas.addEventListener('mousedown', function (event) {
+		game.currentGUI.mouseDown(event.offsetX||event.layerX||0, event.offsetY||event.layerY||0, event) ||
+			game.currentScene.mouseDown(event.offsetX||event.layerX||0, event.offsetY||event.layerY||0, event);
+	}, false);
+	canvas.addEventListener('mousemove', function (event) {
+		game.currentGUI.mouseMove(event.offsetX||event.layerX||0, event.offsetY||event.layerY||0, event) ||
+			game.currentScene.mouseMove(event.offsetX||event.layerX||0, event.offsetY||event.layerY||0, event);
+	}, false);
+	canvas.addEventListener('mouseup', function (event) {
+		game.currentGUI.mouseUp(event.offsetX||event.layerX||0, event.offsetY||event.layerY||0, event) ||
+			game.currentScene.mouseUp(event.offsetX||event.layerX||0, event.offsetY||event.layerY||0, event);
+	}, false);
+	document.body.addEventListener('keydown', function (event) {
+		game.currentGUI.keyDown(event.keyCode) ||
+			game.currentScene.keyDown(event.keyCode);
+	});
+	document.body.addEventListener('keyup', function (event) {
+		game.currentGUI.keyUp(event.keyCode) ||
+			game.currentScene.keyUp(event.keyCode);
+	});
+	*/
+};
