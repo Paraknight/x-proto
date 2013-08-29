@@ -9,7 +9,7 @@ GAME.namespace('entities.flora').Tree = (function () {
 	GAME.audio.load(['audio/treefell.ogg'], function(source){treeFellSound = source;});
 
 	function onPickTree (intersection) {
-		if (game.player.heldItem != axeMesh) return;
+		if (game.player.heldItem !== game.player.axe) return;
 
 		if (treeChopSound) {
 			treeChopSound.setPosition(this.collider.position);
@@ -57,9 +57,9 @@ GAME.namespace('entities.flora').Tree = (function () {
 		// NOTE: Cylinder.
 		var treeCollider = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 4.0), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
 		treeCollider.visible = false;
+		treeCollider.collider = new GAME.physics.Collider(new GAME.physics.AABB(treeCollider.position, 1.5, 4));
 		// NOTE: How the hell do terrain vertices map to world vertices like this?
 		// TODO: Consider ignoring colliders when picking.
-		
 		var treeMesh = new THREE.Mesh(treeGeom, new THREE.MeshFaceMaterial(treeMats));
 		treeMesh.position.y -= 2.0;
 		treeMesh.castShadow = true;

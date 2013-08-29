@@ -1,8 +1,7 @@
 (function() {
 	const TICK_INTERVAL_MS = 1000.0/60.0;
 
-	GAME.game = this;
-	var game = GAME.game;
+	var game = GAME.game = this;
 
 	game.tickList = [];
 	game.animList = [];
@@ -24,7 +23,11 @@
 		*/
 
 		game.setLoadingText('Building Scene...');
-		GAME.world.buildSceneIsland(game, function (argument) {
+
+		game.scene = new GAME.world.Scene(game, 'island', function () {
+			game.tickList.push(game.scene);
+			game.animList.push(game.scene);
+
 			game.setLoadingText('Initialising Controls...');
 			GAME.input.init(game.scene, game.player);
 

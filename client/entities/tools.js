@@ -7,6 +7,7 @@ GAME.namespace('entities.tools').Axe = function (scene) {
 	//	GAME.models.tools.axe.mats[i].depthTest = false;
 	this.mesh = new THREE.Mesh(GAME.models.tools.axe.geom, new THREE.MeshFaceMaterial(GAME.models.tools.axe.mats));
 	this.mesh.scale.set(0.5,0.5,0.5);
+	this.add(this.mesh);
 };
 
 GAME.entities.tools.Axe.prototype = Object.create(THREE.Object3D.prototype);

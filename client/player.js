@@ -49,10 +49,10 @@ GAME.player.Player.prototype.onStateReceived = function (state) {
 GAME.player.Player.prototype.setHeldItem = function (itemName) {
 	if (!itemName) {
 		this.heldItem = null;
-		this.head.remove(this.axeMesh);
+		this.axe.mesh.visible = false;
 	} else if (itemName == 'axeItem') {
-		this.heldItem = this.axeMesh;
-		this.head.add(this.axeMesh);
+		this.heldItem = this.axe;
+		this.axe.mesh.visible = true;
 	}
 };
 
