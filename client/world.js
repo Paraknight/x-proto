@@ -93,9 +93,52 @@ GAME.world.buildSceneIsland = function (game, onload) {
 		//player.add(new GAME.entities.tools.Axe());
 
 		scene.add(new GAME.entities.skies.SkyEarth(scene));
+
+
+		/* Terrain */
+		var seed = 1;
+		var terrain = new GAME.entities.terrain.TerrainIsland(scene, seed);
+		scene.add(terrain);
+
+
+		/* Forest */
+		game.setLoadingText('Generating forest...');
+		var heightMap = terrain.heightMap;
+		var rand;
+		for (var x = 0, xWorld = -512, lenX = heightMap.length; x < lenX; x++, xWorld+=4) {
+			for (var z = 0, zWorld = -512, lenZ = heightMap[x].length; z < lenZ; z++, zWorld+=4) {
+				rand = GAME.utils.noise.noise(seed, x, z, 0);
+				if (rand > 0.9) {
+					var height = heightMap[x][z];
+					if (height < 16.32) continue;
+					var tree = new GAME.entities.flora.Tree(scene);
+					tree.position.set(xWorld, height+2.0, zWorld);
+					tree.rotation.set(0, (rand-0.9)*20.0*Math.PI, 0);
+					scene.add(tree);
+				}
+			}
+		}
+
+
+		/* Fog */
+		game.scene.fog = new THREE.FogExp2(0xFFFFFF, 0.0025);
+		// TODO: Same as sky.
+		game.scene.fog.tick = function (delta) {
+			var height = Math.sin(game.time*2.0*Math.PI);
+			this.color.setHSL(0.0, 0.0, 0.5*(height<0.0?-Math.pow(-height,0.5):Math.pow(height,0.5))+0.5);
+			game.scene.entityManager.tickQueue.add(this);
+		};
+		game.scene.entityManager.tickQueue.add(game.scene.fog);
+
+
+		/* Monolith */
+		// NOTE: Box.
+		var monolith = new THREE.Mesh(new THREE.CubeGeometry(2, 10, 2), new THREE.MeshPhongMaterial({ color: 0xFF0000 }));
+		monolith.position.y = 100;
+		monolith.castShadow = true;
+		monolith.receiveShadow = true;
+		monolith.collider = new GAME.physics.Collider(new GAME.physics.AABB(monolith.position, 2, 10), 1000, 0.5, 0.5);
 		
-
-
 		var spotLight = new THREE.SpotLight(0xFFFFFF, 1, 1000);
 		spotLight.position.set(10, 69, 10);
 		spotLight.castShadow = true;
@@ -116,152 +159,11 @@ GAME.world.buildSceneIsland = function (game, onload) {
 		game.scene.entityManager.tickQueue.add(spotLight);
 		game.scene.add(spotLight);
 
-		var seed = 1;
-		var terrain = new GAME.entities.terrain.TerrainIsland(scene, seed);
-		scene.add(terrain);
-
-		game.setLoadingText('Generating forest...');
-
-		var treeGeom = GAME.models.tree.tree.geom, timberGeom = GAME.models.tree.timber.geom, stumpGeom = GAME.models.tree.stump.geom;
-		var treeMats = GAME.models.tree.tree.mats;
-
-		var treeChopSound, treeFellSound;
-		GAME.audio.load(['audio/chop.ogg'], function(source){treeChopSound = source;});
-		GAME.audio.load(['audio/treefell.ogg'], function(source){treeFellSound = source;});
-
-		var onPickTree = function (intersection) {
-			if (game.player.heldItem != axeMesh) return;
-
-			if (treeChopSound) {
-				treeChopSound.setPosition(this.collider.position);
-				treeChopSound.play(false);
-			}
-			if (++this.chopCount < 4)
-				return;
-
-			game.scene.remove(this.collider);
-			// NOTE: Cylinder.
-			var stumpCollider = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 0.72), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
-			stumpCollider.visible = false;
-			stumpCollider.position.copy(this.collider.position);
-			stumpCollider.position.y -= 1.64;
-			stumpCollider.rotation.copy(this.collider.rotation);
-			var stumpMesh = new THREE.Mesh(stumpGeom, new THREE.MeshFaceMaterial(treeMats));
-			stumpMesh.position.y -= 0.36;
-			stumpMesh.castShadow = true;
-			stumpMesh.receiveShadow = true;
-			stumpCollider.add(stumpMesh);
-			game.scene.add(stumpCollider);
-			// NOTE: Capsule.
-			var timberCollider = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 3.28), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/));
-			timberCollider.visible = false;
-			timberCollider.position.copy(this.collider.position);
-			timberCollider.position.y += 0.36;
-			timberCollider.rotation.copy(this.collider.rotation);
-			var timberMesh = new THREE.Mesh(timberGeom, new THREE.MeshFaceMaterial(treeMats));
-			timberMesh.position.y -= 2.36;
-			timberMesh.castShadow = true;
-			timberMesh.receiveShadow = true;
-			timberCollider.add(timberMesh);
-			game.scene.add(timberCollider);
-			// TODO: Consider making the timber tip to the left instead of forwards.
-			timberCollider.applyCentralImpulse(new THREE.Vector3().subVectors(intersection.point, game.player.position).normalize());
-			if (treeFellSound) {
-				treeFellSound.setPosition(timberCollider.position);
-				treeFellSound.play(false);
-			}
-		};
-
-		var heightMap = terrain.heightMap;
-		var rand;
-		for (var x = 0, xWorld = -512, lenX = heightMap.length; x < lenX; x++, xWorld+=4) {
-			for (var z = 0, zWorld = -512, lenZ = heightMap[x].length; z < lenZ; z++, zWorld+=4) {
-				rand = GAME.utils.noise.noise(seed, x, z, 0);
-				if (rand > 0.9) {
-					var height = heightMap[x][z];
-					if (height < 16.32) continue;
-					// NOTE: Cylinder.
-					var treeCollider = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 4.0), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
-					treeCollider.visible = false;
-					// NOTE: How the hell do terrain vertices map to world vertices like this?
-					treeCollider.position.set(xWorld, height+2.0, zWorld);
-					treeCollider.rotation.set(0, (rand-0.9)*20.0*Math.PI, 0);
-					// TODO: Consider ignoring colliders when picking.
-					var treeMesh = new THREE.Mesh(treeGeom, new THREE.MeshFaceMaterial(treeMats));
-					treeMesh.position.y -= 2.0;
-					treeMesh.castShadow = true;
-					treeMesh.receiveShadow = true;
-					treeMesh.collider = treeCollider;
-					treeMesh.chopCount = 0;
-					treeMesh.onPick = onPickTree;
-					treeCollider.add(treeMesh);
-					game.scene.add(treeCollider);
-				}
-			}
-		}
-		//console.log('Done.');
-
-
-		game.scene.fog = new THREE.FogExp2(0xFFFFFF, 0.0025);
-		// TODO: Same as sky.
-		game.scene.fog.tick = function (delta) {
-			var height = Math.sin(game.time*2.0*Math.PI);
-			this.color.setHSL(0.0, 0.0, 0.5*(height<0.0?-Math.pow(-height,0.5):Math.pow(height,0.5))+0.5);
-			game.scene.entityManager.tickQueue.add(this);
-		};
-		game.scene.entityManager.tickQueue.add(game.scene.fog);
-
-
-		// NOTE: Box.
-		var monolith = new THREE.Mesh(new THREE.CubeGeometry(2, 10, 2), new THREE.MeshPhongMaterial({ color: 0xFF0000 }));
-		monolith.position.y = 100;
-		monolith.castShadow = true;
-		monolith.receiveShadow = true;
-		monolith.collider = new GAME.physics.Collider(new GAME.physics.AABB(monolith.position, 2, 10), 1000, 0.5, 0.5);
-		/*
-		monolith.tick = function (delta) {
-			console.log(this.collider._frictionAcc);
-			game.scene.entityManager.tickQueue.add(this);
-		};
-		game.scene.entityManager.tickQueue.add(monolith);
-		*/
-		/*
-		var collisionCounter = 0;
-		monolith.onCollision = function (entity) {
-			if (entity === terrain)
-				console.log(monolith.collider.restitution);
-		};
-		*/
-		/*
-		monolith.addEventListener('collision', function(other_object, relative_velocity, relative_rotation) {
-			// NOTE: Sphere.
-			if (other_object instanceof THREE.Mesh) {
-				collisionCounter++;
-				if (collisionCounter >= 100) {
-					monolith.setLinearVelocity(new THREE.Vector3(0,20,0));
-					monolith.setAngularVelocity(new THREE.Vector3(1,1,1));
-					collisionCounter = 0;
-				}
-			}
-		});
-		*/
-
-		//var monolithSound = new GAME.audio.StreamingSource(game, ['audio/monolith.mp3', 'audio/monolith.ogg'], monolith.position);
-		//monolithSound.setLoop(true).play();
-
-		/*
-		var wave = 0;
-		monolith.tick = function (delta) {
-			var scaleFactor = Math.max(1, 1+(0.02*Math.sin(wave)));
-			this.scale.set(scaleFactor, scaleFactor, scaleFactor);
-			wave += delta*11;
-			game.scene.entityManager.tickQueue.add(this);
-		};
-		game.scene.entityManager.tickQueue.add(monolith);
-		*/
 		spotLight.target = monolith;
 		game.scene.add(monolith);
 
+
+		/* Radio */
 		var radioCollider = new THREE.Mesh(new THREE.CubeGeometry(0.3, 0.25, 0.3), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }));
 		radioCollider.position.x = -10;
 		radioCollider.position.y = 45;//42;
@@ -298,85 +200,17 @@ GAME.world.buildSceneIsland = function (game, onload) {
 		}, true);
 
 
-		var wingRot = { y: 0.25*Math.PI };
-
-		var tweenUp = new TWEEN.Tween(wingRot)
-				.to({ y: -0.25*Math.PI }, 200)
-				//.easing(TWEEN.Easing.Elastic.InOut)
-				//.onUpdate(updateWingRotation);
-
-		var tweenDown = new TWEEN.Tween(wingRot)
-				.to({ y: 0.25*Math.PI }, 100)
-				//.easing(TWEEN.Easing.Elastic.InOut)
-				//.onUpdate(updateWingRotation)
-				.chain(tweenUp);
-
-		tweenUp.chain(tweenDown).start();
-
-		function setButterflyWingAngle (angle) {
-			this.children[0].rotation.y = -angle;
-			this.children[1].rotation.y = angle;
-		}
-
-		function animateButterfly (delta) {
-			this.setWingAngle(wingRot.y);
-			this.rotation.x += 0.1*(Math.random()-0.5);
-			this.rotation.y += 0.1*(Math.random()-0.5);
-			this.rotation.z += 0.1*(Math.random()-0.5);	
-			this.position.copy(this.localToWorld(new THREE.Vector3(0, 0, -0.01)));
-			game.scene.entityManager.animQueue.add(this);
-		}
-
-		var butterflyTextures = [];
-
-		function createButterfly (type, wingspan) {
-			var map = butterflyTextures[type] || (butterflyTextures[type] = THREE.ImageUtils.loadTexture('./images/butterflies/'+type+'.png'));
-			//console.log(map.image.width);
-			var wingLPivot = new THREE.Object3D(), wingRPivot = new THREE.Object3D();
-			var butterfly = new THREE.Object3D();
-
-			// TODO: Avoid hardcoding width to height ratio (Maybe load all images beforehand and check their dimensions).
-			var wingL = new THREE.Mesh(new THREE.PlaneGeometry(0.5*wingspan, (2.0/3.0)*wingspan), new THREE.MeshPhongMaterial({ map: map, side: THREE.DoubleSide, transparent: true, alphaTest: 0.1 }));
-			wingL.position.x = -0.25*wingspan;
-			wingL.scale.x = -1;
-			wingLPivot.add(wingL);
-			wingLPivot.rotation.x = -0.5*Math.PI;
-
-			var wingR = new THREE.Mesh(new THREE.PlaneGeometry(0.5*wingspan, (2.0/3.0)*wingspan), new THREE.MeshPhongMaterial({ map: map, side: THREE.DoubleSide, transparent: true, alphaTest: 0.1 }));
-			wingR.position.x = 0.25*wingspan;
-			wingRPivot.add(wingR);
-			wingRPivot.rotation.x = -0.5*Math.PI;
-
-			butterfly.add(wingLPivot);
-			butterfly.add(wingRPivot);
-
-			var hitSphere = new THREE.Mesh(new THREE.SphereGeometry(0.75*wingspan, 8, 4), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }));
-			hitSphere.visible = false;
-			hitSphere.onPick = onPickButterfly;
-			butterfly.add(hitSphere);
-
-			butterfly.setWingAngle = setButterflyWingAngle;
-			return butterfly;
-		}
-
-		var onPickButterfly = function (intersection) {
-			console.log(intersection);
-		}
-
 		function spawnButterfly () {
-			var monarch = createButterfly('monarch', 0.1);
+			var monarch = new GAME.entities.bugs.Butterfly(scene, 'monarch', 0.1);
 			monarch.position.copy(game.player.position);
 			monarch.position.y += 0.75;
 			// FIXME: Look direction inverted?
 			monarch.lookAt(game.player.head.localToWorld(new THREE.Vector3(0,0,1)));
 			monarch.updateMatrixWorld();
 
-			monarch.heading = new THREE.Vector3(0, 0, -1);
-
-			monarch.animate = animateButterfly;
-			game.scene.entityManager.animQueue.add(monarch);
 			game.scene.add(monarch);
 		}
+
 
 		function butterflyBomb () {
 			for (var i = 0; i < 50; i++)

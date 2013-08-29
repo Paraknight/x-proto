@@ -1,0 +1,12 @@
+javax.imageio.IIOException: Can't read input file!
+	at javax.imageio.ImageIO.read(ImageIO.java:1301)
+	at entity.PlayerShip.<init>(PlayerShip.java:37)
+	at engine.Raiders2Engine.onLoad(Raiders2Engine.java:25)
+	at engine.STEngine.<init>(STEngine.java:75)
+	at engine.Raiders2Engine.<init>(Raiders2Engine.java:13)
+	at entry.R2Main.main(R2Main.java:8)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader.main(JarRsrcLoader.java:58)

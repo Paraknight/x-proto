@@ -16,6 +16,8 @@ GAME.namespace('scenes').island = {
 	entities: [
 		'skies',
 		'terrain',
+		'flora',
+		'bugs',
 		'tools'
 	],
 	init: function () {

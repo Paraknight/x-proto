@@ -15,15 +15,13 @@
 	}
 
 	function init() {
+		/*
 		var worker = new Worker('./worker.js');
 		worker.onmessage = function (event) {
 			document.getElementById('result').textContent = event.data;
 		};
 		worker.postMessage();
-
-		//Physijs.scripts.worker = './physics/physijs_worker.js';
-		//Physijs.scripts.ammo = './ammo.js';
-		Physijs = THREE;
+		*/
 
 		game.setLoadingText('Building Scene...');
 		GAME.world.buildSceneIsland(game, function (argument) {
