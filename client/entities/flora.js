@@ -19,8 +19,7 @@ GAME.namespace('entities.flora').Tree = (function () {
 			return;
 
 		game.scene.remove(this.collider);
-		// NOTE: Cylinder.
-		var stumpCollider = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 0.72), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
+		var stumpCollider = new Physijs.CylinderMesh(new THREE.CylinderGeometry(0.9, 0.9, 0.72), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
 		stumpCollider.visible = false;
 		stumpCollider.position.copy(this.collider.position);
 		stumpCollider.position.y -= 1.64;
@@ -31,8 +30,7 @@ GAME.namespace('entities.flora').Tree = (function () {
 		stumpMesh.receiveShadow = true;
 		stumpCollider.add(stumpMesh);
 		game.scene.add(stumpCollider);
-		// NOTE: Capsule.
-		var timberCollider = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 3.28), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/));
+		var timberCollider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.75, 0.75, 3.28), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/));
 		timberCollider.visible = false;
 		timberCollider.position.copy(this.collider.position);
 		timberCollider.position.y += 0.36;
@@ -54,10 +52,8 @@ GAME.namespace('entities.flora').Tree = (function () {
 	return function (scene) {
 		THREE.Object3D.call(this);
 
-		// NOTE: Cylinder.
-		var treeCollider = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 4.0), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
+		var treeCollider = new Physijs.CylinderMesh(new THREE.CylinderGeometry(0.75, 0.75, 4.0), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
 		treeCollider.visible = false;
-		treeCollider.collider = new GAME.physics.Collider(new GAME.physics.AABB(treeCollider.position, 1.5, 4));
 		// NOTE: How the hell do terrain vertices map to world vertices like this?
 		// TODO: Consider ignoring colliders when picking.
 		var treeMesh = new THREE.Mesh(treeGeom, new THREE.MeshFaceMaterial(treeMats));

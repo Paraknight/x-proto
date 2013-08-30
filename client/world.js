@@ -1,5 +1,8 @@
 GAME.namespace('world').Scene = function (game, name, onload) {
-	THREE.Scene.call(this);
+	Physijs.Scene.call(this);
+	this.addEventListener('ready', function(){
+		console.log('Physics Engine initialised.');
+	});
 
 	this.entityManager = new GAME.entities.EntityManager(this);
 
@@ -60,20 +63,16 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 	});
 };
 
-GAME.world.Scene.prototype = Object.create(THREE.Scene.prototype);
+GAME.world.Scene.prototype = Object.create(Physijs.Scene.prototype);
 
 GAME.world.Scene.prototype.add = function (entity) {
-	THREE.Scene.prototype.add.call(this, entity);
-	if ('collider' in entity)
-		this.entityManager.physicsSim.entityList.add(entity);
+	Physijs.Scene.prototype.add.call(this, entity);
 	if ('onSpawn' in entity)
 		entity.onSpawn();
 };
 
 GAME.world.Scene.prototype.remove = function (entity) {
-	THREE.Scene.prototype.remove.call(this, entity);
-	if ('collider' in entity)
-		this.entityManager.physicsSim.entityList.remove(entity);
+	Physijs.Scene.prototype.remove.call(this, entity);
 };
 
 GAME.world.Scene.prototype.tick = function (delta) {

@@ -14,6 +14,9 @@
 	}
 
 	function init() {
+		Physijs.scripts.worker = './physics/physijs_worker.js';
+		Physijs.scripts.ammo = './ammo.js';
+
 		/*
 		var worker = new Worker('./worker.js');
 		worker.onmessage = function (event) {

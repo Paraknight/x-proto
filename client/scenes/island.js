@@ -67,11 +67,21 @@ GAME.namespace('scenes').island = {
 
 		/* Monolith */
 		// NOTE: Box.
-		var monolith = new THREE.Mesh(new THREE.CubeGeometry(2, 10, 2), new THREE.MeshPhongMaterial({ color: 0xFF0000 }));
+		var monolith = new Physijs.BoxMesh(new THREE.CubeGeometry(2, 10, 2), new THREE.MeshPhongMaterial({ color: 0xFF0000 }));
 		monolith.position.y = 100;
 		monolith.castShadow = true;
 		monolith.receiveShadow = true;
-		monolith.collider = new GAME.physics.Collider(new GAME.physics.AABB(monolith.position, 2, 10), 1000, 0.5, 0.5);
+		var collisionCounter = 0;
+		monolith.addEventListener('collision', function(other_object, relative_velocity, relative_rotation) {
+			if (other_object instanceof Physijs.SphereMesh) {
+				collisionCounter++;
+				if (collisionCounter >= 100) {
+					monolith.setLinearVelocity(new THREE.Vector3(0,20,0));
+					monolith.setAngularVelocity(new THREE.Vector3(1,1,1));
+					collisionCounter = 0;
+				}
+			}
+		});
 		
 		var spotLight = new THREE.SpotLight(0xFFFFFF, 1, 1000);
 		spotLight.position.set(10, 69, 10);
@@ -98,16 +108,15 @@ GAME.namespace('scenes').island = {
 
 
 		/* Radio */
-		var radioCollider = new THREE.Mesh(new THREE.CubeGeometry(0.3, 0.25, 0.3), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }));
+		var radioCollider = new Physijs.BoxMesh(new THREE.CubeGeometry(0.5, 0.5, 0.25), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }));
 		radioCollider.position.x = -10;
-		radioCollider.position.y = 45;//42;
-		radioCollider.collider = new GAME.physics.Collider(new GAME.physics.AABB(radioCollider.position, 0.3, 0.25), 1);
+		radioCollider.position.y = 42;
 		//radioCollider.setCcdMotionThreshold(0.5);
 		//radioCollider.setCcdSweptSphereRadius(0.1);
 		//radioCollider.visible = false;
 		var radioMesh = new THREE.Mesh(GAME.models.portalradio.portalradio.geom, new THREE.MeshFaceMaterial(GAME.models.portalradio.portalradio.mats));
 		radioMesh.scale.set(2,2,2);
-		radioMesh.position.y = 0.16;
+		radioMesh.position.y = 0.08;
 		radioMesh.castShadow = true;
 		radioMesh.receiveShadow = true;
 		radioCollider.add(radioMesh);
@@ -118,10 +127,10 @@ GAME.namespace('scenes').island = {
 			source.setLoop(true);
 			//source.play();
 			// TODO: Solid trigger.
-			radioCollider.onCollision = function (entity) {
-				if (entity.collider.colShape.type === 'sphere')
+			radioCollider.addEventListener('collision', function(other_object, relative_velocity, relative_rotation) {
+				if (other_object instanceof Physijs.SphereMesh)
 					source.getAudioFlag('paused')?source.play():source.pause();
-			};
+			});
 			radioMesh.animate = function (delta) {
 				source.setPosition(radioCollider.position);
 				var freqByteData = new Uint8Array(source.analyser.frequencyBinCount);
@@ -158,7 +167,7 @@ GAME.namespace('scenes').island = {
 
 		/*
 		// NOTE: Box.
-		var triggerCollider = new THREE.Mesh(new THREE.CubeGeometry(4, 4, 4), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }), 0);
+		var triggerCollider = new Physijs.BoxMesh(new THREE.CubeGeometry(4, 4, 4), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }), 0);
 		triggerCollider._physijs.collision_flags = 4;
 		triggerCollider.position.copy(game.player.position).z -= 10;
 		triggerCollider.addEventListener('collision', function(other_object, relative_velocity, relative_rotation) {

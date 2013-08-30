@@ -25,7 +25,6 @@ GAME.entities.EntityManager = function (scene) {
 
 	this.tickQueue = new GAME.utils.List();
 	this.animQueue = new GAME.utils.List();
-	this.physicsSim = new GAME.physics.Simulator();
 };
 
 GAME.entities.EntityManager.prototype.spawnPlayer = function(username, state) {
@@ -52,5 +51,5 @@ GAME.entities.EntityManager.prototype.animate = function(delta) {
 	for (var i = 0, size = this.animQueue.size; i < size; i++)
 		this.animQueue.poll().animate(delta);
 
-	this.physicsSim.simulate(delta);
+	this.scene.simulate(delta);
 };
