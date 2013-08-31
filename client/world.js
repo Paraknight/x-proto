@@ -1,7 +1,13 @@
 GAME.namespace('world').Scene = function (game, name, onload) {
 	Physijs.Scene.call(this);
-	this.addEventListener('ready', function(){
+
+	var countdown1 = new GAME.utils.Countdown(2, function () {
+		onload();
+	});
+
+	this.addEventListener('ready', function() {
 		console.log('Physics Engine initialised.');
+		countdown1.dec();
 	});
 
 	this.entityManager = new GAME.entities.EntityManager(this);
@@ -10,29 +16,29 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 
 	game.setLoadingText('Loading Scene...');
 	GAME.utils.xhrAsyncGet('./scenes/'+name+'.js', function (scene) {
+		//game.setLoadingText('Loading Assets...');
+
 		scene = eval(scene);//JSON.parse(scene);
 		
 		var grav = scene.gravity || [0, -9.81, 0];
 		//self.setGravity(new THREE.Vector3().fromArray(grav));
 
 		
-		var countdown = new GAME.utils.Countdown(3, function () {
+		var countdown2 = new GAME.utils.Countdown(3, function () {
 			/* Initialise Scene */
-			game.setLoadingText('Initialising Scene...');
+			//game.setLoadingText('Initialising Scene...');
 			scene.init.call(self);
-			onload();
+			countdown1.dec();
 		});
 
 		/* Load Models */
-		game.setLoadingText('Loading Models...');
 		GAME.models.load(scene.models, function() {
-			countdown.dec();
+			countdown2.dec();
 		});
 
 		/* Load Entities */
-		game.setLoadingText('Loading Entities...');
 		GAME.entities.load(scene.entities, function() {
-			countdown.dec();
+			countdown2.dec();
 		});
 
 		/* Create Player */
@@ -59,7 +65,7 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 		// TODO: Should player and children cast shadows?
 		self.add(player);
 
-		countdown.dec();
+		countdown2.dec();
 	});
 };
 

@@ -11,7 +11,7 @@ GAME.namespace('entities.terrain').TerrainIsland = function (scene, seed) {
 	water.position.y = 1.0;
 	//this.add(water);
 
-	game.setLoadingText('Generating terrain...');
+	//game.setLoadingText('Generating terrain...');
 	var heightMap = this.heightMap = [], row, x, xWorld, z, zWorld, fade, perlin2D = GAME.utils.noise.perlin2D;
 	for (x = 0, xWorld = -128; x <= 256; x++, xWorld++) {
 		row = heightMap[x] = [];
@@ -20,7 +20,7 @@ GAME.namespace('entities.terrain').TerrainIsland = function (scene, seed) {
 			row[z] = ((perlin2D(seed, x, z)+1)/2) * fade * 64;
 		}
 	}
-	game.setLoadingText('Building terrain...');
+	//game.setLoadingText('Building terrain...');
 	var terrainGeom = new THREE.PlaneGeometry(1024, 1024, 256, 256);
 	for (var i = 0; i < terrainGeom.vertices.length; i++) {
 		var vertex = terrainGeom.vertices[i];

@@ -5,7 +5,7 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 
 	var game = GAME.game;
 
-	game.setLoadingText('Creating Sky...');
+	//game.setLoadingText('Creating Sky...');
 
 	this.position = scene.player.position;
 
@@ -46,7 +46,7 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 		skyPivot.add(star);
 		//starPivot.add(star);
 	}
-	game.setLoadingText('Generating Stars...');
+	//game.setLoadingText('Generating Stars...');
 	var counter = 0;
 	for (var dec = -90; dec <= 90; dec++) {
 		for (var ra = 0; ra < 360; ra++) {

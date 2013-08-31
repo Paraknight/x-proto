@@ -18,7 +18,8 @@ GAME.namespace('scenes').island = {
 		'terrain',
 		'flora',
 		'bugs',
-		'tools'
+		'tools',
+		'misc'
 	],
 	init: function () {
 		var game = GAME.game;
@@ -36,7 +37,7 @@ GAME.namespace('scenes').island = {
 
 
 		/* Forest */
-		game.setLoadingText('Generating forest...');
+		//game.setLoadingText('Generating forest...');
 		var heightMap = terrain.heightMap;
 		var rand;
 		for (var x = 0, xWorld = -512, lenX = heightMap.length; x < lenX; x++, xWorld+=4) {
@@ -116,7 +117,7 @@ GAME.namespace('scenes').island = {
 		//radioCollider.visible = false;
 		var radioMesh = new THREE.Mesh(GAME.models.portalradio.portalradio.geom, new THREE.MeshFaceMaterial(GAME.models.portalradio.portalradio.mats));
 		radioMesh.scale.set(2,2,2);
-		radioMesh.position.y = 0.08;
+		radioMesh.position.y = 0.05;
 		radioMesh.castShadow = true;
 		radioMesh.receiveShadow = true;
 		radioCollider.add(radioMesh);
@@ -165,15 +166,11 @@ GAME.namespace('scenes').island = {
 				butterflyBomb();
 		});
 
-		/*
-		// NOTE: Box.
-		var triggerCollider = new Physijs.BoxMesh(new THREE.CubeGeometry(4, 4, 4), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }), 0);
-		triggerCollider._physijs.collision_flags = 4;
-		triggerCollider.position.copy(game.player.position).z -= 10;
-		triggerCollider.addEventListener('collision', function(other_object, relative_velocity, relative_rotation) {
+
+		var trigger = new GAME.entities.misc.Trigger(4, 4, 4, function(other_object, relative_velocity, relative_rotation) {
 			console.log(other_object);
 		});
-		game.scene.add(triggerCollider);
-		*/
+		trigger.position.copy(game.player.position).z -= 10;
+		scene.add(trigger);
 	}
 };

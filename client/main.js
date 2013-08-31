@@ -7,10 +7,10 @@
 	game.animList = [];
 
 	game.setLoadingText = function (text) {
-		console.log(text);
-		var loadingDiv = document.getElementById('loadingText');
-		loadingDiv.innerHTML = text;
-		GAME.utils.centerElement(loadingDiv);
+		console.log('> '+text);
+			var loadingDiv = document.getElementById('loadingText');
+			loadingDiv.innerHTML = text;
+			GAME.utils.centerElement(loadingDiv);
 	}
 
 	function init() {
@@ -25,16 +25,16 @@
 		worker.postMessage();
 		*/
 
-		game.setLoadingText('Building Scene...');
+		//game.setLoadingText('Building Scene...');
 
 		game.scene = new GAME.world.Scene(game, 'island', function () {
 			game.tickList.push(game.scene);
 			game.animList.push(game.scene);
 
-			game.setLoadingText('Initialising Controls...');
+			//game.setLoadingText('Initialising Controls...');
 			GAME.input.init(game.scene, game.player);
 
-			game.setLoadingText('Constructing Visuals...');
+			//game.setLoadingText('Constructing Visuals...');
 			game.renderer = new THREE.WebGLRenderer({ antialias: true });
 			game.renderer.setSize(window.innerWidth, window.innerHeight);
 			game.renderer.shadowMapEnabled = true;
@@ -52,7 +52,7 @@
 			document.getElementById('game').insertBefore(game.renderer.domElement, document.getElementById('overlay'));
 			game.tickList.push(GAME.audio);
 
-			game.setLoadingText('Done.');
+			//game.setLoadingText('Done.');
 			document.getElementById('loadingScreen').style.display = 'none';
 
 			setTimeout(tick, TICK_INTERVAL_MS);

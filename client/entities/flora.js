@@ -50,23 +50,19 @@ GAME.namespace('entities.flora').Tree = (function () {
 	};
 
 	return function (scene) {
-		THREE.Object3D.call(this);
-
-		var treeCollider = new Physijs.CylinderMesh(new THREE.CylinderGeometry(0.75, 0.75, 4.0), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
-		treeCollider.visible = false;
+		Physijs.CylinderMesh.call(this, new THREE.CylinderGeometry(0.75, 0.75, 4.0), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
+		this.visible = false;
 		// NOTE: How the hell do terrain vertices map to world vertices like this?
 		// TODO: Consider ignoring colliders when picking.
 		var treeMesh = new THREE.Mesh(treeGeom, new THREE.MeshFaceMaterial(treeMats));
 		treeMesh.position.y -= 2.0;
 		treeMesh.castShadow = true;
 		treeMesh.receiveShadow = true;
-		treeMesh.collider = treeCollider;
+		treeMesh.collider = this;
 		treeMesh.chopCount = 0;
 		treeMesh.onPick = onPickTree;
-		treeCollider.add(treeMesh);
-
-		return treeCollider;
+		this.add(treeMesh);
 	};
 })();
 
-GAME.entities.flora.Tree.prototype = Object.create(THREE.Object3D.prototype);
+GAME.entities.flora.Tree.prototype = Object.create(Physijs.CylinderMesh.prototype);
