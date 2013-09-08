@@ -7,6 +7,9 @@ GAME.namespace('entities').load = function(entities, callback) {
 	var countdown = new GAME.utils.Countdown(entities.length, callback);
 
 	function loadEntity (path) {
+		var entity = GAME.namespace('entities.'+path);
+		for (var key in entity)
+			return;
 		GAME.utils.xhrAsyncGet('entities/'+path.replace('.','/')+'.js', function (js) {
 			eval(js);
 			countdown.dec();

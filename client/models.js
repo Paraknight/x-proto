@@ -9,9 +9,12 @@ GAME.namespace('models').load = function(models, callback) {
 	var loaderJSON = new THREE.JSONLoader();
 
 	function loadModel (path) {
+		var model = GAME.namespace('models.'+path);
+		for (var key in model)
+			return;
 		loaderJSON.load('models/'+path.replace('.','/')+'.js', function (geometry, materials) {
-			GAME.namespace('models.'+path).geom = geometry;
-			GAME.namespace('models.'+path).mats = materials;
+			model.geom = geometry;
+			model.mats = materials;
 			countdown.dec();
 		});
 	}

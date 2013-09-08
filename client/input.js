@@ -1,5 +1,5 @@
 //TODO: Come up with a proper structure for this.
-GAME.namespace('input').init = function(scene, player) {
+GAME.namespace('input').init = function() {
 	var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
 	if (havePointerLock) {
@@ -8,14 +8,14 @@ GAME.namespace('input').init = function(scene, player) {
 		var instructions = document.getElementById('instructions');
 		var clientForm = document.getElementById('clientForm');
 
-		var pointerlockchange = function ( event ) {
-			if ( document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element ) {
+		var pointerlockchange = function (event) {
+			if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
 				//clientForm.style.display = 'none';
 				clientForm.input.placeholder = '(Press Enter to Chat)';
 				blocker.style.display = 'none';
-				player.controller.enabled = true;
+				GAME.input.pointerLocked = true;
 			} else {
-				player.controller.enabled = false;
+				GAME.input.pointerLocked = false;
 				blocker.style.display = '-webkit-box';
 				blocker.style.display = '-moz-box';
 				blocker.style.display = 'box';
@@ -25,7 +25,7 @@ GAME.namespace('input').init = function(scene, player) {
 
 		}
 
-		var pointerlockerror = function ( event ) {
+		var pointerlockerror = function (event) {
 			//instructions.style.display = '';
 		}
 
@@ -83,7 +83,7 @@ GAME.namespace('input').init = function(scene, player) {
 		var escDown = false;
 
 		document.body.addEventListener('keydown', function (event) {
-			if (player.controller.enabled) {
+			if (GAME.input.pointerLocked) {
 				if (blurKeys.indexOf(event.keyCode) >= 0) {
 					document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
 					document.exitPointerLock();

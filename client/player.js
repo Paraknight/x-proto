@@ -210,8 +210,9 @@ GAME.player.PlayerController = function (scene, player) {
 			if (intersections[i].distance > 1.5)
 				break;
 			if (intersections[i].object.visible || 'onPick' in intersections[i].object) {
-				if ('onPick' in intersections[i].object)
-					intersections[i].object.onPick(intersections[i]);
+				var pickee = intersections[i].object;
+				if ('onPick' in pickee)
+					pickee.onPick.call(pickee, intersections[i]);
 				break;
 			}
 		}
@@ -222,7 +223,7 @@ GAME.player.PlayerController = function (scene, player) {
 			player.heldItem.onMouseup(event);
 	}, false);
 
-	this.enabled = false;
+	this.enabled = GAME.input.pointerLocked = false;
 
 	var rayCasterGround = new THREE.Raycaster();
 	rayCasterGround.ray.origin = player.position;
@@ -246,7 +247,7 @@ GAME.player.PlayerController = function (scene, player) {
 
 		// TODO: Make diagonal movement the same speed as vertical and horizontal by clamping small velocities to 0 and normalizing.
 
-		if (!scope.enabled) return;
+		if (!(scope.enabled = GAME.input.pointerLocked)) return;
 
 		delta *= 100;
 

@@ -1,4 +1,4 @@
-GAME.namespace('scenes').island = {
+GAME.scenes.island = {
 	name: 'Island',
 	models: [
 		'tools.axe',

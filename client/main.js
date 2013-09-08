@@ -3,15 +3,23 @@
 
 	var game = GAME.game = this;
 
-	game.tickList = [];
-	game.animList = [];
-
 	game.setLoadingText = function (text) {
 		console.log('> '+text);
-			var loadingDiv = document.getElementById('loadingText');
-			loadingDiv.innerHTML = text;
-			GAME.utils.centerElement(loadingDiv);
+		var loadingDiv = document.getElementById('loadingText');
+		loadingDiv.innerHTML = text;
+		GAME.utils.centerElement(loadingDiv);
 	}
+
+	game.joinScene = function (name, onJoin) {
+		var loadingScreen = document.getElementById('loadingScreen');
+		loadingScreen.style.display = '';
+		game.setLoadingText('Loading Scene...');
+		game.scene = new GAME.world.Scene(game, name, function () {
+			loadingScreen.style.display = 'none';
+			onJoin();
+		});
+		
+	};
 
 	function init() {
 		Physijs.scripts.worker = './physics/physijs_worker.js';
@@ -27,34 +35,29 @@
 
 		//game.setLoadingText('Building Scene...');
 
-		game.scene = new GAME.world.Scene(game, 'island', function () {
-			game.tickList.push(game.scene);
-			game.animList.push(game.scene);
+		//game.setLoadingText('Initialising Controls...');
+		GAME.input.init();
 
-			//game.setLoadingText('Initialising Controls...');
-			GAME.input.init(game.scene, game.player);
+		//game.setLoadingText('Constructing Visuals...');
+		game.renderer = new THREE.WebGLRenderer({ antialias: true });
+		game.renderer.setSize(window.innerWidth, window.innerHeight);
+		game.renderer.shadowMapEnabled = true;
+		game.renderer.shadowMapSoft = true;
+		game.renderer.sortObjects = false;
 
-			//game.setLoadingText('Constructing Visuals...');
-			game.renderer = new THREE.WebGLRenderer({ antialias: true });
-			game.renderer.setSize(window.innerWidth, window.innerHeight);
-			game.renderer.shadowMapEnabled = true;
-			game.renderer.shadowMapSoft = true;
-			game.renderer.sortObjects = false;
+		GAME.gui.init();
 
-			GAME.gui.init();
-
-			window.addEventListener('resize', function(){
+		window.addEventListener('resize', function(){
+			if (game.camera) {
 				game.camera.aspect = window.innerWidth/window.innerHeight;
 				game.camera.updateProjectionMatrix();
-				game.renderer.setSize(window.innerWidth, window.innerHeight);
-			}, false);
+			}
+			game.renderer.setSize(window.innerWidth, window.innerHeight);
+		}, false);
 
-			document.getElementById('game').insertBefore(game.renderer.domElement, document.getElementById('overlay'));
-			game.tickList.push(GAME.audio);
+		document.getElementById('game').insertBefore(game.renderer.domElement, document.getElementById('overlay'));
 
-			//game.setLoadingText('Done.');
-			document.getElementById('loadingScreen').style.display = 'none';
-
+		game.joinScene('island', function () {
 			setTimeout(tick, TICK_INTERVAL_MS);
 			requestAnimationFrame(render);
 		});
@@ -68,8 +71,8 @@
 
 		GAME.gui.statsTick.begin();
 		var delta = tickClock.getDelta();
-		for (var i = 0, size = game.tickList.length; i < size; i++)
-			game.tickList[i].tick(delta, game);
+		game.scene.tick(delta, game);
+		GAME.audio.tick(delta, game);
 		GAME.gui.statsTick.end();
 	}
 
@@ -81,8 +84,7 @@
 		GAME.gui.statsRender.begin();
 		var delta = animClock.getDelta();
 		TWEEN.update();
-		for (var i = 0, size = game.animList.length; i < size; i++)
-			game.animList[i].animate(delta, game);
+		game.scene.animate(delta, game);
 		game.renderer.render(game.scene, game.camera);
 		GAME.gui.statsRender.end();
 	}

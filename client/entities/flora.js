@@ -18,6 +18,7 @@ GAME.namespace('entities.flora').Tree = (function () {
 		if (++this.chopCount < 4)
 			return;
 
+		console.log(this.collider);
 		game.scene.remove(this.collider);
 		var stumpCollider = new Physijs.CylinderMesh(new THREE.CylinderGeometry(0.9, 0.9, 0.72), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
 		stumpCollider.visible = false;
@@ -52,7 +53,6 @@ GAME.namespace('entities.flora').Tree = (function () {
 	return function (scene) {
 		Physijs.CylinderMesh.call(this, new THREE.CylinderGeometry(0.75, 0.75, 4.0), new THREE.MeshBasicMaterial(/*{ color: 0x00EE00, wireframe: true }*/), 0);
 		this.visible = false;
-		// NOTE: How the hell do terrain vertices map to world vertices like this?
 		// TODO: Consider ignoring colliders when picking.
 		var treeMesh = new THREE.Mesh(treeGeom, new THREE.MeshFaceMaterial(treeMats));
 		treeMesh.position.y -= 2.0;

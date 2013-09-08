@@ -14,8 +14,7 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 
 	var self = this;
 
-	game.setLoadingText('Loading Scene...');
-	GAME.utils.xhrAsyncGet('./scenes/'+name+'.js', function (scene) {
+	function initScene (scene) {
 		//game.setLoadingText('Loading Assets...');
 
 		scene = eval(scene);//JSON.parse(scene);
@@ -66,7 +65,12 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 		self.add(player);
 
 		countdown2.dec();
-	});
+	}
+
+	if (name in GAME.namespace('scenes'))
+		initScene();
+	else
+		GAME.utils.xhrAsyncGet('./scenes/'+name+'.js', initScene);
 };
 
 GAME.world.Scene.prototype = Object.create(Physijs.Scene.prototype);
