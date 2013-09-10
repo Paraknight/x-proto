@@ -90,31 +90,42 @@ GAME.player.Player.prototype.tick = function() {
 
 // TODO: Restructure and use only Object3Ds.
 GAME.player.PlayerController = function (scene, player) {
-	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial());
-	player.collider.visible = false;
+	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial({ visible: false }));
 	player.collider.position = player.position;
-	var landingSound;
-	GAME.audio.load(['audio/landing.ogg'], function(source){landingSound = source;});
-	/*
-	player.collider.addEventListener('collision', function(other_object, relative_velocity, relative_rotation) {
-		if (landingSound && other_object instanceof Physijs.HeightfieldMesh) {
-			landingSound.setPosition(new THREE.Vector3().addVectors(player.position, new THREE.Vector3(0, -1.65, 0)));
-			landingSound.play(false);
-		}
-	});
-	*/
 	scene.add(player.collider);
 
+	var jumpSphere = player.jumpSphere = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1), new THREE.MeshBasicMaterial({ visible: false }));
+	jumpSphere.position.copy(player.collider.position);
+	jumpSphere.position.y -= 0.85;
+	jumpSphere._physijs.collision_flags = 4;
+	var landingSound;
+	GAME.audio.load(['audio/landing.ogg'], function(source){landingSound = source;});
+	jumpSphere.addEventListener('collision', function (other_object) {
+		//if (landingSound && other_object instanceof Physijs.HeightfieldMesh)
+			landingSound.play(false);
+	});
+	scene.add(jumpSphere);
+	var consJump = new Physijs.DOFConstraint(
+		player.collider,
+		jumpSphere,
+		new THREE.Vector3().copy(jumpSphere.position)
+	);
+	scene.addConstraint(consJump);
+	consJump.setLinearLowerLimit(new THREE.Vector3());
+	consJump.setLinearUpperLimit(new THREE.Vector3());
+	consJump.setAngularLowerLimit(new THREE.Vector3());
+	consJump.setAngularUpperLimit(new THREE.Vector3());
+
 	//player.collider.setDamping(0.99, 1.0);
-	var constraint = new Physijs.DOFConstraint(player.collider, new THREE.Vector3());
-	scene.addConstraint(constraint);
+	var consPos = new Physijs.DOFConstraint(player.collider, new THREE.Vector3());
+	scene.addConstraint(consPos);
 	// TODO: Remove hardcoding.
 	//constraint.setLinearLowerLimit(new THREE.Vector3(-500, -20, -700));
 	//constraint.setLinearUpperLimit(new THREE.Vector3(500, 900, 300));
-	constraint.setLinearLowerLimit(new THREE.Vector3(-Infinity, -Infinity, -Infinity));
-	constraint.setLinearUpperLimit(new THREE.Vector3(Infinity, Infinity, Infinity));
-	constraint.setAngularLowerLimit(new THREE.Vector3());
-	constraint.setAngularUpperLimit(new THREE.Vector3());
+	consPos.setLinearLowerLimit(new THREE.Vector3(-Infinity, -Infinity, -Infinity));
+	consPos.setLinearUpperLimit(new THREE.Vector3(Infinity, Infinity, Infinity));
+	consPos.setAngularLowerLimit(new THREE.Vector3());
+	consPos.setAngularUpperLimit(new THREE.Vector3());
 
 	var scope = this;
 
@@ -122,6 +133,8 @@ GAME.player.PlayerController = function (scene, player) {
 	var moveBackward = false;
 	var moveLeft = false;
 	var moveRight = false;
+	var jump = false;
+	var spacePressed = false;
 
 	var velocity = new THREE.Vector3();//, prevVelocity = new THREE.Vector3();
 
@@ -158,8 +171,9 @@ GAME.player.PlayerController = function (scene, player) {
 				break;
 			case 32: // space
 				// TODO: Make player height an attribute of Player.
-				// TODO: Find another way to check if the player is touching the ground.
-				if (scope.enabled && distToGround() < 1.33) player.collider.getLinearVelocity().y = 4;
+				if (!spacePressed && player.jumpSphere._physijs.touches.length > 1)//distToGround() < 1.33)//
+					jump = true;
+				spacePressed = true;
 				break;
 			case 66:
 				// TODO: Restructure.
@@ -192,6 +206,9 @@ GAME.player.PlayerController = function (scene, player) {
 			case 39: // right
 			case 68: // d
 				moveRight = false;
+				break;
+			case 32: // space
+				spacePressed = false;
 				break;
 		}
 	}, false);
@@ -257,6 +274,7 @@ GAME.player.PlayerController = function (scene, player) {
 		if (moveLeft) velocity.x -= delta;
 		if (moveRight) velocity.x += delta;
 
+
 		//player.localToWorld(velocity).sub(player.position).length() < 0.01 ? velocity.set(0,0,0) : velocity.normalize().multiplyScalar(10);
 
 		//if (moveForward || moveBackward || moveLeft || moveRight || velocity.y == 10) 
@@ -265,7 +283,12 @@ GAME.player.PlayerController = function (scene, player) {
 
 		var horiDamping = 1-delta*0.2;
 		//velocity.copy(player.localToWorld(velocity).sub(player.position));
-		player.collider.setLinearVelocity(new THREE.Vector3().copy(player.collider.getLinearVelocity()).multiply(new THREE.Vector3(horiDamping, 1, horiDamping)).add(player.localToWorld(velocity).sub(player.position)));
+		var finalV = new THREE.Vector3().copy(player.collider.getLinearVelocity()).multiply(new THREE.Vector3(horiDamping, 1, horiDamping)).add(player.localToWorld(velocity).sub(player.position));
+		if (jump) {
+			finalV.y = 4;
+			jump = false;
+		}
+		player.collider.setLinearVelocity(finalV);
 
 		//prevVelocity.copy(velocity);
 		velocity.set(0,0,0);

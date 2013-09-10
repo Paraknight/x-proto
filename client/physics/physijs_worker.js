@@ -53,10 +53,10 @@ var
 	// body, so we have to track them ourselves.
 	_motion_states = {}, 
 	// Don't need to worry about it for cached shapes.
-    _noncached_shapes = {},
+	_noncached_shapes = {},
 	// A body with a compound shape always has a regular shape as well, so we
 	// have track them separately.
-    _compound_shapes = {}, 
+	_compound_shapes = {}, 
 	
 	// object reporting
 	REPORT_CHUNKSIZE, // report array is increased in increments of this chunk size
@@ -359,7 +359,7 @@ if ( description.children ) {
 	}
 	
 	shape = compound_shape;
-    _compound_shapes[ description.id ] = shape;
+	_compound_shapes[ description.id ] = shape;
 	}
 	_vec3_1.setX(0);
 	_vec3_1.setY(0);
@@ -495,13 +495,13 @@ public_functions.removeObject = function( details ) {
 	world.removeRigidBody( _objects[details.id] );
 	Ammo.destroy(_objects[details.id]);
 	Ammo.destroy(_motion_states[details.id]);
-    if (_compound_shapes[details.id]) Ammo.destroy(_compound_shapes[details.id]);
+	if (_compound_shapes[details.id]) Ammo.destroy(_compound_shapes[details.id]);
 	if (_noncached_shapes[details.id]) Ammo.destroy(_noncached_shapes[details.id]);
 	var ptr = _objects[details.id].a != undefined ? _objects[details.id].a : _objects[details.id].ptr;
 	delete _objects_ammo[ptr];
 	delete _objects[details.id];
 	delete _motion_states[details.id];
-    if (_compound_shapes[details.id]) delete _compound_shapes[details.id];
+	if (_compound_shapes[details.id]) delete _compound_shapes[details.id];
 	if (_noncached_shapes[details.id]) delete _noncached_shapes[details.id];
 	_num_objects--;
 };
@@ -1339,18 +1339,31 @@ reportConstraints = function() {
 		if ( _constraints.hasOwnProperty( index ) ) {
 			constraint = _constraints[index];
 			offset_body = constraint.getRigidBodyA();
-			transform = constraint.getFrameOffsetA(); 
-			origin = transform.getOrigin();
+			if (constraint.getFrameOffsetA) {
+				transform = constraint.getFrameOffsetA();
+				origin = transform.getOrigin();
 
-			// add values to report
-			offset = 1 + (i++) * CONSTRAINTREPORT_ITEMSIZE;
+				// add values to report
+				offset = 1 + (i++) * CONSTRAINTREPORT_ITEMSIZE;
 
-			constraintreport[ offset ] = index;
-			constraintreport[ offset + 1 ] = offset_body.id;
-			constraintreport[ offset + 2 ] = origin.getX();
-			constraintreport[ offset + 3 ] = origin.getY();
-			constraintreport[ offset + 4 ] = origin.getZ();
-			constraintreport[ offset + 5 ] = constraint.getAppliedImpulse();
+				constraintreport[ offset ] = index;
+				constraintreport[ offset + 1 ] = offset_body.id;
+				constraintreport[ offset + 2 ] = origin.getX();
+				constraintreport[ offset + 3 ] = origin.getY();
+				constraintreport[ offset + 4 ] = origin.getZ();
+				constraintreport[ offset + 5 ] = constraint.getAppliedImpulse();
+			} else {
+				// add values to report
+				offset = 1 + (i++) * CONSTRAINTREPORT_ITEMSIZE;
+
+				constraintreport[ offset ] = index;
+				constraintreport[ offset + 1 ] = offset_body.id;
+				constraintreport[ offset + 2 ] = 0;
+				constraintreport[ offset + 3 ] = 0;
+				constraintreport[ offset + 4 ] = 0;
+				constraintreport[ offset + 5 ] = constraint.getAppliedImpulse();
+			}
+
 		}
 	}
 

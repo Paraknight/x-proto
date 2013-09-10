@@ -67,13 +67,12 @@ GAME.scenes.island = {
 
 
 		/* Monolith */
-		// NOTE: Box.
 		var monolith = new Physijs.BoxMesh(new THREE.CubeGeometry(2, 10, 2), new THREE.MeshPhongMaterial({ color: 0xFF0000 }));
 		monolith.position.y = 100;
 		monolith.castShadow = true;
 		monolith.receiveShadow = true;
 		var collisionCounter = 0;
-		monolith.addEventListener('collision', function(other_object, relative_velocity, relative_rotation) {
+		monolith.addEventListener('collision', function(other_object, relative_velocity, relative_rotation, contact_normal) {
 			if (other_object instanceof Physijs.SphereMesh) {
 				collisionCounter++;
 				if (collisionCounter >= 100) {
@@ -83,6 +82,32 @@ GAME.scenes.island = {
 				}
 			}
 		});
+		scene.add(monolith);
+		var sphere = new Physijs.SphereMesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: false, transparent: true }));
+		sphere.position.y = 105;
+		sphere._physijs.collision_flags = 4;
+		sphere.addEventListener('collision', function (other_object) {
+			if (other_object instanceof Physijs.SphereMesh)
+				sphere.material.color = new THREE.Color((Math.random()*0xFFFFFF)>>0);
+		});
+		scene.add(sphere);
+		/*var constraint = new Physijs.PointConstraint(
+			monolith,
+			sphere,
+			new THREE.Vector3(0, 110, 0)
+		);
+		game.scene.addConstraint(constraint, true);*/
+		var constraint = new Physijs.DOFConstraint(
+			monolith,
+			sphere,
+			new THREE.Vector3(0, 105, 0)
+		);
+		scene.addConstraint(constraint);
+		constraint.setLinearLowerLimit(new THREE.Vector3());
+		constraint.setLinearUpperLimit(new THREE.Vector3());
+		constraint.setAngularLowerLimit(new THREE.Vector3());
+		constraint.setAngularUpperLimit(new THREE.Vector3());
+
 		
 		var spotLight = new THREE.SpotLight(0xFFFFFF, 1, 1000);
 		spotLight.position.set(10, 69, 10);
@@ -105,7 +130,6 @@ GAME.scenes.island = {
 		game.scene.add(spotLight);
 
 		spotLight.target = monolith;
-		game.scene.add(monolith);
 
 
 		/* Radio */
