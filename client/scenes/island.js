@@ -25,7 +25,7 @@ GAME.scenes.island = {
 		var game = GAME.game;
 		var scene = this;
 
-		player.add(new GAME.entities.tools.Axe(scene).setOwner(this.player));
+		this.player.add(new GAME.entities.tools.Axe(scene).setOwner(this.player));
 
 		scene.add(new GAME.entities.skies.SkyEarth(scene));
 

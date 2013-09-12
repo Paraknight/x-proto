@@ -9,6 +9,39 @@ GAME.namespace('player').Player = function (scene) {
 	this.head.position.y = 0.75;
 	this.add(this.head);
 
+	/*var torsoMesh = new THREE.Mesh(GAME.models.player.torso.geom, new THREE.MeshFaceMaterial(GAME.models.player.torso.mats));
+	torsoMesh.lookAt(new THREE.Vector3(0,0,-1));
+	this.add(torsoMesh);
+
+	var headMesh = new THREE.Mesh(GAME.models.player.head.geom, new THREE.MeshFaceMaterial(GAME.models.player.head.mats));
+	headMesh.lookAt(new THREE.Vector3(0,0,-1));
+	this.head.add(headMesh);*/
+
+	var player = this;
+	new THREE.JSONLoader().load('models/player/body.js', function(geometry, materials) {
+		//var material = new THREE.MeshPhongMaterial( { color: 0xffffff, skinning: true } );
+		var mesh = player.mesh = new THREE.SkinnedMesh(geometry, new THREE.MeshFaceMaterial(materials));
+		mesh.position.y = -0.92;
+		mesh.rotation.y = Math.PI;
+
+		var mats = mesh.material.materials;
+		for (var i = 0,length = mats.length; i < length; i++) {
+			var mat = mats[i];
+			mat.skinning = true;
+		}
+
+		player.add(mesh);
+
+		THREE.AnimationHandler.add(mesh.geometry.animation[0]);
+		THREE.AnimationHandler.add(mesh.geometry.animation[1]);
+
+		player.animations = {
+			pose: new THREE.Animation(mesh, 'pose', THREE.AnimationHandler.CATMULLROM),
+			idle: new THREE.Animation(mesh, 'idle', THREE.AnimationHandler.CATMULLROM)
+		};
+	});
+
+
 	/*
 	// TODO: Consider refactoring "state" to "transform" both client and server-side.
 	this.states = new GAME.utils.Queue();
@@ -18,21 +51,6 @@ GAME.namespace('player').Player = function (scene) {
 };
 
 GAME.player.Player.prototype = Object.create(THREE.Object3D.prototype);
-
-// TODO: Restructure.
-GAME.player.Player.prototype.addModel = function() {
-	var player = this;
-
-	var torsoMesh = new THREE.Mesh(GAME.models.player.torso.geom, new THREE.MeshFaceMaterial(GAME.models.player.torso.mats));
-	torsoMesh.lookAt(new THREE.Vector3(0,0,-1));
-	player.add(torsoMesh);
-
-	var headMesh = new THREE.Mesh(GAME.models.player.head.geom, new THREE.MeshFaceMaterial(GAME.models.player.head.mats));
-	headMesh.lookAt(new THREE.Vector3(0,0,-1));
-	player.head.add(headMesh);
-
-	return this;
-};
 
 GAME.player.Player.prototype.onStateReceived = function (state) {
 	/*
@@ -89,10 +107,29 @@ GAME.player.Player.prototype.tick = function() {
  */
 
 // TODO: Restructure and use only Object3Ds.
-GAME.player.PlayerController = function (scene, player) {
-	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial({ visible: false }));
+GAME.player.PlayerController = function (scene, player, camera) {
+	var self = this;
+
+	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial({ wireframe: true, visible: true }));
 	player.collider.position = player.position;
 	scene.add(player.collider);
+
+	//this.camRigFP = new THREE.Object3D();
+	//player.head.add(this.camRigFP);
+	this.camRig3P = new THREE.Object3D();
+	this.camRig3P.position.set(0, 0, 10);
+	player.head.add(this.camRig3P);
+
+	document.addEventListener('mousewheel', function (event) {
+		self.camRig3P.position.z -= event.wheelDeltaY/120;
+	});
+
+	this.camRigFront = new THREE.Object3D();
+	this.camRigFront.position.set(0, 0, -10);
+	this.camRigFront.rotation.set(0, -Math.PI, 0);
+	player.add(this.camRigFront);
+
+	player.head.add(camera);
 
 	var jumpSphere = player.jumpSphere = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1), new THREE.MeshBasicMaterial({ visible: false }));
 	jumpSphere.position.copy(player.collider.position);
@@ -101,7 +138,7 @@ GAME.player.PlayerController = function (scene, player) {
 	var landingSound;
 	GAME.audio.load(['audio/landing.ogg'], function(source){landingSound = source;});
 	jumpSphere.addEventListener('collision', function (other_object) {
-		//if (landingSound && other_object instanceof Physijs.HeightfieldMesh)
+		if (landingSound /*&& other_object instanceof Physijs.HeightfieldMesh*/)
 			landingSound.play(false);
 	});
 	scene.add(jumpSphere);

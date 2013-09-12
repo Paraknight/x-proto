@@ -84,6 +84,7 @@
 		GAME.gui.statsRender.begin();
 		var delta = animClock.getDelta();
 		TWEEN.update();
+		THREE.AnimationHandler.update(delta);
 		game.scene.animate(delta, game);
 		game.renderer.render(game.scene, game.camera);
 		GAME.gui.statsRender.end();

@@ -24,9 +24,33 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 
 		
 		var countdown2 = new GAME.utils.Countdown(3, function () {
+			/* Create Player */
+			var player = game.player = self.player = new GAME.player.Player(self);
+			player.position.fromArray(scene.player.position || [0,0,0]);
+
+			switch (scene.player.controller) {
+			case 'firstperson':
+				game.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
+				player.controller = new GAME.player.PlayerController(self, player, game.camera);
+				break;
+			default:
+				break;
+			}
+
+			// TODO: Consider restructuring to make PlayerController superior.
+			player.tick = function (delta) {
+				this.controller.update(delta);
+				this.scene.entityManager.tickQueue.add(this);
+			};
+			self.entityManager.tickQueue.add(player);
+
+			// TODO: Should player and children cast shadows?
+			self.add(player);
+
 			/* Initialise Scene */
 			//game.setLoadingText('Initialising Scene...');
 			scene.init.call(self);
+
 			countdown1.dec();
 		});
 
@@ -39,30 +63,6 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 		GAME.entities.load(scene.entities, function() {
 			countdown2.dec();
 		});
-
-		/* Create Player */
-		var player = game.player = self.player = new GAME.player.Player(self);
-		player.position.fromArray(scene.player.position || [0,0,0]);
-
-		switch (scene.player.controller) {
-		case 'firstperson':
-			player.controller = new GAME.player.PlayerController(self, player);
-			game.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
-			player.head.add(game.camera);
-			break;
-		default:
-			break;
-		}
-
-		// TODO: Consider restructuring to make PlayerController superior.
-		player.tick = function (delta) {
-			this.controller.update(delta);
-			this.scene.entityManager.tickQueue.add(this);
-		};
-		self.entityManager.tickQueue.add(player);
-
-		// TODO: Should player and children cast shadows?
-		self.add(player);
 
 		countdown2.dec();
 	}

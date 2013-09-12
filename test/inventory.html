@@ -1,5 +1,5 @@
 <head>
-	<link rel="stylesheet" type="text/css" href="../client/style.css"></link>
+	<link rel="stylesheet" type="text/css" href="./style.css"></link>
 </head>
 <body>
 	<div id="game"><div id="overlay"></div></div>
@@ -27,6 +27,24 @@
 			}
 		});
 
+		document.body.addEventListener('mousedown', function (event) {
+			if (event.shiftKey)
+				playerWin.style.display = 'none';
+			else
+				playerWin.style.display = '';
+		});
+
+
+
+		var inventory = {
+			head: null,
+			body: null,
+
+			items: []
+		};
+
+
+
 
 		function allowDrop (event) {
 			event.preventDefault();
@@ -53,21 +71,37 @@
 			overlay.appendChild(win);
 			return win;
 		}
-		var playerWin = createWindow(100,100,432,432);
+
+		var playerWin = createWindow(((window.innerWidth-432)/2)|0,((window.innerHeight-432)/2)|0,432,432);
+		playerWin.id = 'playerWin';
 		var equip = document.createElement('div');
 
-		for (var i = 0; i < 4; i++) {
-			var slot = document.createElement('div');
-			slot.className = 'itemSlot';
-			slot.style.top = (27+i*54)+'px';
-			slot.style.left = '20%';
-			slot.ondrop = drop;
-			slot.ondragover = allowDrop;
-			equip.appendChild(slot);
-		}
 
-		for (var i = 0; i < 4; i++) {
+		var slot = document.createElement('div');
+		slot.id = 'invSlot0';
+		slot.className = 'itemSlot';
+		slot.style.top = '27px';
+		slot.style.right = '20%';
+		slot.style.backgroundImage = 'url(\'spritesheet.png\')';
+		slot.ondrop = drop;
+		slot.ondragover = allowDrop;
+		equip.appendChild(slot);
+
+		var slot = document.createElement('div');
+		slot.id = 'invSlot1';
+		slot.className = 'itemSlot';
+		slot.style.top = '81px';
+		slot.style.right = '20%';
+		slot.style.backgroundImage = 'url(\'spritesheet.png\')';
+		slot.style.backgroundPosition = '0px -40px';
+		slot.ondrop = drop;
+		slot.ondragover = allowDrop;
+		equip.appendChild(slot);
+
+
+		for (var i = 2; i < 4; i++) {
 			var slot = document.createElement('div');
+			slot.id = 'invSlot'+i;
 			slot.className = 'itemSlot';
 			slot.style.top = (27+i*54)+'px';
 			slot.style.right = '20%';
@@ -82,6 +116,7 @@
 
 		for (var i = 0; i < 24; i++) {
 			var slot = document.createElement('div');
+			slot.id = 'invSlot'+(8+i);
 			slot.className = 'itemSlot';
 			slot.style.top = (-149+((i*0.125)|0)*50)+'px';
 			slot.style.left = (5+(i%8)*54)+'px';
@@ -89,15 +124,15 @@
 			slot.ondragover = allowDrop;
 			inv.appendChild(slot);
 		}
-		
+
+		playerWin.appendChild(equip);
+		playerWin.appendChild(inv);
+
 		var axeItem = document.createElement('img');
 		axeItem.id = 'axeItem';
 		axeItem.src = 'http://maidenwars.com/icons/icon_mainhand_axe_1.png';
 		axeItem.draggable = true;
 		axeItem.ondragstart = drag;
-		inv.firstChild.appendChild(axeItem);
-
-		playerWin.appendChild(equip);
-		playerWin.appendChild(inv);
+		document.getElementById('invSlot2').appendChild(axeItem);
 	</script>
 </body>

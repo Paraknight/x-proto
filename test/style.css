@@ -1,0 +1,33 @@
+/* GUI */
+body {
+  background-color: #269;
+  background-image: linear-gradient(white 2px, transparent 2px), linear-gradient(90deg, white 2px, transparent 2px), linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; }
+
+div {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+div#overlay div.window {
+  position: absolute;
+  pointer-events: visiblePainted; }
+div#overlay div#playerWin {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: black;
+  border: 6px outset rgba(26, 26, 26, 0.75);
+  border-radius: 10px; }
+  div#overlay div#playerWin div.itemSlot {
+    display: inline-block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    /*margin: 5px;*/
+    color: white;
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 2px inset rgba(26, 26, 26, 0.75);
+    pointer-events: visiblePainted; }

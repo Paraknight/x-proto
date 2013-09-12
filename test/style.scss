@@ -1,0 +1,47 @@
+/* GUI */
+$playerWinCol: rgb(0, 0, 0);
+$playerWinBG: rgba(0, 0, 0, 0.75);
+$itemSlotCol: rgb(255, 255, 255);
+$itemSlotBG: rgba(0, 0, 0, 0.75);
+
+
+body {
+	background-color:#269;
+	background-image: linear-gradient(white 2px, transparent 2px),
+		linear-gradient(90deg, white 2px, transparent 2px),
+		linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+	background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
+	background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+div {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+div#overlay {
+	div.window {
+		position: absolute;
+		pointer-events: visiblePainted;
+	}
+	div#playerWin {
+		background-color: $playerWinBG;
+		color: $playerWinCol;
+		border: 6px outset lighten($itemSlotBG, 10%);
+		border-radius: 10px;
+		div.itemSlot {
+			display: inline-block;
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			/*margin: 5px;*/
+			color: $itemSlotCol;
+			background-color: $itemSlotBG;
+			border: 2px inset lighten($itemSlotBG, 10%);
+			pointer-events: visiblePainted;
+		}
+	}
+}
