@@ -6,7 +6,7 @@ GAME.namespace('player').Player = function (scene) {
 	this.scene = scene;
 
 	this.head = new THREE.Object3D();
-	this.head.position.y = 0.75;
+	this.head.position.y = 0.82;//1.74;
 	this.add(this.head);
 
 	/*var torsoMesh = new THREE.Mesh(GAME.models.player.torso.geom, new THREE.MeshFaceMaterial(GAME.models.player.torso.mats));
@@ -17,29 +17,45 @@ GAME.namespace('player').Player = function (scene) {
 	headMesh.lookAt(new THREE.Vector3(0,0,-1));
 	this.head.add(headMesh);*/
 
-	var player = this;
-	new THREE.JSONLoader().load('models/player/body.js', function(geometry, materials) {
-		//var material = new THREE.MeshPhongMaterial( { color: 0xffffff, skinning: true } );
-		var mesh = player.mesh = new THREE.SkinnedMesh(geometry, new THREE.MeshFaceMaterial(materials));
-		mesh.position.y = -0.92;
-		mesh.rotation.y = Math.PI;
+	this.rigs = {};
 
-		var mats = mesh.material.materials;
-		for (var i = 0,length = mats.length; i < length; i++) {
-			var mat = mats[i];
-			mat.skinning = true;
-		}
+	var bodyRig = this.rigs.bodyRig = new THREE.Object3D();
+	bodyRig.position.y = -0.92;
+	bodyRig.rotation.y = Math.PI;
 
-		player.add(mesh);
+	var bodyMesh = this.mesh = new THREE.SkinnedMesh(GAME.models.player.body.geom, new THREE.MeshFaceMaterial(GAME.models.player.body.mats));
+	
+	var mats = bodyMesh.material.materials;
+	for (var i = 0,length = mats.length; i < length; i++) {
+		var mat = mats[i];
+		mat.skinning = true;
+	}
 
-		THREE.AnimationHandler.add(mesh.geometry.animation[0]);
-		THREE.AnimationHandler.add(mesh.geometry.animation[1]);
+	bodyRig.add(bodyMesh);
 
-		player.animations = {
-			pose: new THREE.Animation(mesh, 'pose', THREE.AnimationHandler.CATMULLROM),
-			idle: new THREE.Animation(mesh, 'idle', THREE.AnimationHandler.CATMULLROM)
-		};
-	});
+	THREE.AnimationHandler.add(bodyMesh.geometry.animation[0]);
+	THREE.AnimationHandler.add(bodyMesh.geometry.animation[1]);
+
+	this.animations = {
+		pose: new THREE.Animation(bodyMesh, 'pose', THREE.AnimationHandler.CATMULLROM),
+		idle: new THREE.Animation(bodyMesh, 'idle', THREE.AnimationHandler.CATMULLROM)
+	};
+
+	this.skeleton = new GAME.animation.Skeleton(bodyMesh);
+	bodyRig.add(this.skeleton);
+
+	var mesh = new THREE.Mesh(GAME.models.player.head.geom, new THREE.MeshFaceMaterial(GAME.models.player.head.mats));
+	//mesh.rotation.y = Math.PI;
+	
+	this.skeleton.boneMap.head.add(mesh);
+
+	//headRig.add(mesh);
+
+	//this.add(headRig);
+
+	this.add(bodyRig);
+
+
 
 
 	/*
@@ -51,6 +67,17 @@ GAME.namespace('player').Player = function (scene) {
 };
 
 GAME.player.Player.prototype = Object.create(THREE.Object3D.prototype);
+
+GAME.player.Player.prototype.onSpawn = function () {
+	this.scene.entityManager.animQueue.add(this);
+};
+
+GAME.player.Player.prototype.animate = function (delta) {
+	for (var name in this.skeleton.boneMap)
+		this.skeleton.boneMap[name].matrixWorldNeedsUpdate = true;
+
+	this.scene.entityManager.animQueue.add(this);
+};
 
 GAME.player.Player.prototype.onStateReceived = function (state) {
 	/*
@@ -128,6 +155,10 @@ GAME.player.PlayerController = function (scene, player, camera) {
 	this.camRigFront.position.set(0, 0, -10);
 	this.camRigFront.rotation.set(0, -Math.PI, 0);
 	player.add(this.camRigFront);
+
+	document.addEventListener('mousewheel', function (event) {
+		self.camRigFront.position.z += event.wheelDeltaY/120;
+	});
 
 	player.head.add(camera);
 
@@ -222,7 +253,10 @@ GAME.player.PlayerController = function (scene, player, camera) {
 				ball.receiveShadow = true;
 				scene.add(ball);
 				ball.setLinearVelocity(player.head.localToWorld(new THREE.Vector3(0, 0, -2)).sub(headWorldPos).normalize().multiplyScalar(20));
-			break;
+				break;
+			case 86:
+				self.camRig3P.add(GAME.game.camera);
+				break;
 		}
 	}, false);
 

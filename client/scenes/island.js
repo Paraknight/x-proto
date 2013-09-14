@@ -6,7 +6,7 @@ GAME.scenes.island = {
 		'tree.timber',
 		'tree.stump',
 		'portalradio.portalradio',
-		'player.torso',
+		'player.body',
 		'player.head'
 	],
 	player: {
@@ -186,7 +186,7 @@ GAME.scenes.island = {
 		}
 
 		document.addEventListener('keydown', function (event) {
-			if (event.keyCode == 86 && game.player.controller.enabled)
+			if (event.keyCode == 78 && game.player.controller.enabled)
 				butterflyBomb();
 		});
 

@@ -14,11 +14,12 @@
 	<script src="./models.js"></script>
 	<script src="./world.js"></script>
 	<script src="./entities.js"></script>
+	<script src="./animation.js"></script>
 	<script src="./player.js"></script>
 	<script src="./main.js"></script>
 	<script>
 	function loadScriptsLazy() {
-		GAME.utils.loadScriptSync('./audio/mespeak/mespeak.js', function(){
+		GAME.utils.loadScriptSync('./audio/mespeak/mespeak.js', function() {
 			GAME.audio.initMeSpeak();
 		});
 		//GAME.utils.loadScriptAsync('./socket.io.min.js', function () {
@@ -57,8 +58,9 @@
 					<li>WASD = Move</li>
 					<li>Space = Jump</li>
 					<li>I = Open inventory</li>
+					<li>V = Switch camera view</li>
 					<li>B = Shoot ball (Hold for rapid-fire)</li>
-					<li>V = Shoot butterflies</li>
+					<li>N = Shoot butterflies</li>
 				</ul><br>
 				Chat Commands:<br>
 				<ul>
