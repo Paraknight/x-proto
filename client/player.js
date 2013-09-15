@@ -112,18 +112,14 @@ GAME.player.Player.prototype.tick = function() {
 };
 
 
-/**
- * @author mrdoob / http://mrdoob.com/
- * Modified by Paraknight 2013-03-26.
- */
-
 // TODO: Restructure and use only Object3Ds.
 GAME.player.PlayerController = function (scene, player, camera) {
 	var self = this;
 
-	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial({ wireframe: true, visible: true }));
+	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial({ visible: false }));
 	player.collider.position = player.position;
 	scene.add(player.collider);
+
 
 	var camPivotY = new THREE.Object3D();
 	camPivotY.rotation.y = Math.PI;
@@ -133,26 +129,25 @@ GAME.player.PlayerController = function (scene, player, camera) {
 	camPivotY.add(camPivotX);
 
 	var camRig = this.camRig = new THREE.Object3D();
-	//this.camRig.position.set(0, 0, 10);
+	player.mesh.visible = false;
 	camPivotX.add(this.camRig);
 
 	document.addEventListener('mousewheel', function (event) {
+		if (!GAME.input.pointerLocked) return;
+
 		self.camRig.position.z -= event.wheelDeltaY/120;
-	});
 
-	this.camRigFront = new THREE.Object3D();
-	this.camRigFront.position.set(0, 0, -10);
-	this.camRigFront.rotation.set(0, -Math.PI, 0);
-	player.add(this.camRigFront);
+		self.camRig.position.z = self.camRig.position.z < 0 ? 0 : self.camRig.position.z > 10 ? 10 : self.camRig.position.z;
 
-	document.addEventListener('mousewheel', function (event) {
-		self.camRigFront.position.z += event.wheelDeltaY/120;
+		player.mesh.visible = self.camRig.position.z > 0;
 	});
 
 	this.camRig.add(camera);
 
+
 	var jumpSphere = player.jumpSphere = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1), new THREE.MeshBasicMaterial({ visible: false }));
 	jumpSphere.position.copy(player.collider.position);
+	// TODO: Make player height an attribute of Player.
 	jumpSphere.position.y -= 0.85;
 	jumpSphere._physijs.collision_flags = 4;
 	var landingSound;
@@ -184,7 +179,6 @@ GAME.player.PlayerController = function (scene, player, camera) {
 	consPos.setAngularLowerLimit(new THREE.Vector3());
 	consPos.setAngularUpperLimit(new THREE.Vector3());
 
-	var scope = this;
 
 	var moveForward = false;
 	var moveBackward = false;
@@ -195,13 +189,15 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 	var velocity = new THREE.Vector3();//, prevVelocity = new THREE.Vector3();
 
-	var PI_2 = Math.PI / 2;
+
 
 	var mouseDeltaX = 0;
 	var mouseDeltaY = 0;
 
+	var PI_2 = Math.PI / 2;
+
 	document.addEventListener('mousemove', function (event) {
-		if (!(scope.enabled = GAME.input.pointerLocked)) return;
+		if (!GAME.input.pointerLocked) return;
 
 		mouseDeltaX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
 		mouseDeltaY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
@@ -239,14 +235,13 @@ GAME.player.PlayerController = function (scene, player, camera) {
 				moveRight = true;
 				break;
 			case 32: // space
-				// TODO: Make player height an attribute of Player.
-				if (!spacePressed && player.jumpSphere._physijs.touches.length > 1)//distToGround() < 1.33)//
+				if (!spacePressed && player.jumpSphere._physijs.touches.length > 1)
 					jump = true;
 				spacePressed = true;
 				break;
 			case 66:
 				// TODO: Restructure.
-				if (!scope.enabled) return;
+				if (!GAME.input.pointerLocked) return;
 				var ball = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshPhongMaterial({ color: 0x0000FF }));
 				var headWorldPos = player.head.localToWorld(new THREE.Vector3(0, 0, -1));
 				ball.position.copy(headWorldPos);
@@ -263,31 +258,33 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 	document.addEventListener('keyup', function (event) {
 		switch(event.keyCode) {
-			case 38: // up
-			case 87: // w
+			case 38: // Up
+			case 87: // W
 				moveForward = false;
 				break;
-			case 37: // left
-			case 65: // a
+			case 37: // Left
+			case 65: // A
 				moveLeft = false;
 				break;
-			case 40: // down
-			case 83: // a
+			case 40: // Down
+			case 83: // S
 				moveBackward = false;
 				break;
-			case 39: // right
-			case 68: // d
+			case 39: // Right
+			case 68: // D
 				moveRight = false;
 				break;
-			case 32: // space
+			case 32: // Space
 				spacePressed = false;
 				break;
 		}
 	}, false);
 
+
+
 	var rayCasterPick = new THREE.Raycaster();
 	document.addEventListener('mousedown', function (event) {
-		if (scope.enabled && player.heldItem && 'onMousedown' in player.heldItem)
+		if (GAME.input.pointerLocked && player.heldItem && 'onMousedown' in player.heldItem)
 			player.heldItem.onMousedown(event);
 
 		var headPos = player.head.localToWorld(new THREE.Vector3());
@@ -308,40 +305,19 @@ GAME.player.PlayerController = function (scene, player, camera) {
 	}, false);
 
 	document.addEventListener('mouseup', function (event) {
-		if (scope.enabled && player.heldItem && 'onMouseup' in player.heldItem)
+		if (GAME.input.pointerLocked && player.heldItem && 'onMouseup' in player.heldItem)
 			player.heldItem.onMouseup(event);
 	}, false);
 
-	this.enabled = GAME.input.pointerLocked = false;
 
-	var rayCasterGround = new THREE.Raycaster();
-	rayCasterGround.ray.origin = player.position;
-	rayCasterGround.ray.direction.set(0, -1, 0);
-
-	// TODO: Consider adding this function to the Player prototype.
-	function distToGround() {
-		var intersections = rayCasterGround.intersectObject(scene, true);
-		return intersections.length>0 ? intersections[0].distance : -1;
-	}
-
-	//var netTimer = 0;
+	var netTimer = 0;
 
 	var fwd = new THREE.Vector3(0, 0, -1);
 
 	this.update = function (delta) {
-		//netTimer += delta;
-		//if (netTimer >= 1) {
-			GAME.net.p2p.send('state', { pos: player.position.toArray(), rot: player.rotation.toArray() });
-		//	netTimer = 0;
-		//}
-
-
 		// TODO: Make diagonal movement the same speed as vertical and horizontal by clamping small velocities to 0 and normalizing.
 
-		if (!(scope.enabled = GAME.input.pointerLocked)) return;
-
-
-
+		if (!GAME.input.pointerLocked) return;
 
 		delta *= 100;
 
@@ -351,15 +327,9 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		if (moveLeft) velocity.x -= delta;
 		if (moveRight) velocity.x += delta;
 
-
-		//player.localToWorld(velocity).sub(player.position).length() < 0.01 ? velocity.set(0,0,0) : velocity.normalize().multiplyScalar(10);
-
-		//if (moveForward || moveBackward || moveLeft || moveRight || velocity.y == 10) 
-		
 		// TODO: Remove filthy hacks.
-
 		var horiDamping = 1-delta*0.2;
-		//velocity.copy(player.localToWorld(velocity).sub(player.position));
+		
 		// TODO: Optimise.
 		var inputV = camPivotY.localToWorld(velocity).sub(camPivotY.localToWorld(new THREE.Vector3()));
 		var finalV = new THREE.Vector3().copy(player.collider.getLinearVelocity()).multiply(new THREE.Vector3(horiDamping, 1, horiDamping)).add(inputV);
@@ -373,9 +343,15 @@ GAME.player.PlayerController = function (scene, player, camera) {
 			player.rotation.y += camPivotY.rotation.y - Math.PI;
 			camPivotY.rotation.y = Math.PI;
 		}
-
-		//prevVelocity.copy(velocity);
 		velocity.set(0,0,0);
-	};
 
+
+
+
+		netTimer += delta;
+		if (netTimer >= 1000) {
+			GAME.net.p2p.send('state', { pos: player.position.toArray(), rot: player.rotation.toArray() });
+			netTimer = 0;
+		}
+	};
 };

@@ -1,12 +1,11 @@
 //TODO: Come up with a proper structure for this.
 GAME.namespace('input').init = function() {
-	var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
-
-	if (havePointerLock) {
+	if ('pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document) {
 		var element = document.body;
 		var blocker = document.getElementById('blocker');
 		var instructions = document.getElementById('instructions');
 		var clientForm = document.getElementById('clientForm');
+		GAME.input.pointerLocked = false;
 
 		var pointerlockchange = function (event) {
 			if (document.pointerLockElement === element || document.mozPointerLockElement === element || document.webkitPointerLockElement === element) {
