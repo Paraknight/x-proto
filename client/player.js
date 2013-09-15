@@ -5,21 +5,7 @@ GAME.namespace('player').Player = function (scene) {
 
 	this.scene = scene;
 
-	this.head = new THREE.Object3D();
-	this.head.position.y = 0.82;//1.74;
-	this.add(this.head);
-
-	/*var torsoMesh = new THREE.Mesh(GAME.models.player.torso.geom, new THREE.MeshFaceMaterial(GAME.models.player.torso.mats));
-	torsoMesh.lookAt(new THREE.Vector3(0,0,-1));
-	this.add(torsoMesh);
-
-	var headMesh = new THREE.Mesh(GAME.models.player.head.geom, new THREE.MeshFaceMaterial(GAME.models.player.head.mats));
-	headMesh.lookAt(new THREE.Vector3(0,0,-1));
-	this.head.add(headMesh);*/
-
-	this.rigs = {};
-
-	var bodyRig = this.rigs.bodyRig = new THREE.Object3D();
+	var bodyRig = this.bodyRig = new THREE.Object3D();
 	bodyRig.position.y = -0.92;
 	bodyRig.rotation.y = Math.PI;
 
@@ -45,15 +31,13 @@ GAME.namespace('player').Player = function (scene) {
 	bodyRig.add(this.skeleton);
 
 	var mesh = new THREE.Mesh(GAME.models.player.head.geom, new THREE.MeshFaceMaterial(GAME.models.player.head.mats));
-	//mesh.rotation.y = Math.PI;
-	
-	this.skeleton.boneMap.head.add(mesh);
 
-	//headRig.add(mesh);
+	this.head = new THREE.Object3D();
+	this.head.add(mesh);
 
-	//this.add(headRig);
-
+	this.skeleton.boneMap.head.add(this.head);
 	this.add(bodyRig);
+
 
 
 
@@ -141,14 +125,19 @@ GAME.player.PlayerController = function (scene, player, camera) {
 	player.collider.position = player.position;
 	scene.add(player.collider);
 
-	//this.camRigFP = new THREE.Object3D();
-	//player.head.add(this.camRigFP);
-	this.camRig3P = new THREE.Object3D();
-	this.camRig3P.position.set(0, 0, 10);
-	player.head.add(this.camRig3P);
+	var camPivotY = new THREE.Object3D();
+	camPivotY.rotation.y = Math.PI;
+	player.skeleton.boneMap.head.add(camPivotY);
+
+	var camPivotX = new THREE.Object3D();
+	camPivotY.add(camPivotX);
+
+	var camRig = this.camRig = new THREE.Object3D();
+	//this.camRig.position.set(0, 0, 10);
+	camPivotX.add(this.camRig);
 
 	document.addEventListener('mousewheel', function (event) {
-		self.camRig3P.position.z -= event.wheelDeltaY/120;
+		self.camRig.position.z -= event.wheelDeltaY/120;
 	});
 
 	this.camRigFront = new THREE.Object3D();
@@ -160,7 +149,7 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		self.camRigFront.position.z += event.wheelDeltaY/120;
 	});
 
-	player.head.add(camera);
+	this.camRig.add(camera);
 
 	var jumpSphere = player.jumpSphere = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1), new THREE.MeshBasicMaterial({ visible: false }));
 	jumpSphere.position.copy(player.collider.position);
@@ -208,16 +197,28 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 	var PI_2 = Math.PI / 2;
 
+	var mouseDeltaX = 0;
+	var mouseDeltaY = 0;
+
 	document.addEventListener('mousemove', function (event) {
-		if (scope.enabled === false) return;
+		if (!(scope.enabled = GAME.input.pointerLocked)) return;
 
-		var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-		var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+		mouseDeltaX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+		mouseDeltaY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
-		player.rotation.y -= movementX * 0.002;
-		player.head.rotation.x -= movementY * 0.002;
 
-		player.head.rotation.x = Math.max(-PI_2, Math.min(PI_2, player.head.rotation.x));
+		if (mouseDeltaX || mouseDeltaY) {
+			// TODO: Do this immediately in the mousemove event handler for added smoothness.
+			camPivotY.rotation.y -= mouseDeltaX * 0.002;
+			camPivotX.rotation.x -= mouseDeltaY * 0.002;
+
+			camPivotX.rotation.x = Math.max(-PI_2, Math.min(PI_2, camPivotX.rotation.x));
+
+			if (moveForward || moveBackward || moveLeft || moveRight) {
+				player.rotation.y += camPivotY.rotation.y - Math.PI;
+				camPivotY.rotation.y = Math.PI;
+			}
+		}
 	}, false);
 
 	document.addEventListener('keydown', function (event) {
@@ -255,7 +256,7 @@ GAME.player.PlayerController = function (scene, player, camera) {
 				ball.setLinearVelocity(player.head.localToWorld(new THREE.Vector3(0, 0, -2)).sub(headWorldPos).normalize().multiplyScalar(20));
 				break;
 			case 86:
-				self.camRig3P.add(GAME.game.camera);
+				self.camRig.add(GAME.game.camera);
 				break;
 		}
 	}, false);
@@ -325,6 +326,8 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 	//var netTimer = 0;
 
+	var fwd = new THREE.Vector3(0, 0, -1);
+
 	this.update = function (delta) {
 		//netTimer += delta;
 		//if (netTimer >= 1) {
@@ -336,6 +339,9 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		// TODO: Make diagonal movement the same speed as vertical and horizontal by clamping small velocities to 0 and normalizing.
 
 		if (!(scope.enabled = GAME.input.pointerLocked)) return;
+
+
+
 
 		delta *= 100;
 
@@ -354,12 +360,19 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 		var horiDamping = 1-delta*0.2;
 		//velocity.copy(player.localToWorld(velocity).sub(player.position));
-		var finalV = new THREE.Vector3().copy(player.collider.getLinearVelocity()).multiply(new THREE.Vector3(horiDamping, 1, horiDamping)).add(player.localToWorld(velocity).sub(player.position));
+		// TODO: Optimise.
+		var inputV = camPivotY.localToWorld(velocity).sub(camPivotY.localToWorld(new THREE.Vector3()));
+		var finalV = new THREE.Vector3().copy(player.collider.getLinearVelocity()).multiply(new THREE.Vector3(horiDamping, 1, horiDamping)).add(inputV);
 		if (jump) {
 			finalV.y = 4;
 			jump = false;
 		}
 		player.collider.setLinearVelocity(finalV);
+
+		if (moveForward || moveBackward || moveLeft || moveRight) {
+			player.rotation.y += camPivotY.rotation.y - Math.PI;
+			camPivotY.rotation.y = Math.PI;
+		}
 
 		//prevVelocity.copy(velocity);
 		velocity.set(0,0,0);
