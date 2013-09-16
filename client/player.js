@@ -39,8 +39,8 @@ GAME.namespace('player').Player = function (scene) {
 	this.add(bodyRig);
 
 
-
-
+	this.animation = this.animations.idle;
+	this.animation.play();
 
 	/*
 	// TODO: Consider refactoring "state" to "transform" both client and server-side.
@@ -52,15 +52,10 @@ GAME.namespace('player').Player = function (scene) {
 
 GAME.player.Player.prototype = Object.create(THREE.Object3D.prototype);
 
-GAME.player.Player.prototype.onSpawn = function () {
-	this.scene.entityManager.animQueue.add(this);
-};
-
-GAME.player.Player.prototype.animate = function (delta) {
-	for (var name in this.skeleton.boneMap)
-		this.skeleton.boneMap[name].matrixWorldNeedsUpdate = true;
-
-	this.scene.entityManager.animQueue.add(this);
+GAME.player.Player.prototype.playAnimation = function (name) {
+	this.animation.stop();
+	this.animation = this.animations[name];
+	this.animation.play();
 };
 
 GAME.player.Player.prototype.onStateReceived = function (state) {
