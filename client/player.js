@@ -19,12 +19,14 @@ GAME.namespace('player').Player = function (scene) {
 
 	bodyRig.add(bodyMesh);
 
-	THREE.AnimationHandler.add(bodyMesh.geometry.animation[0]);
-	THREE.AnimationHandler.add(bodyMesh.geometry.animation[1]);
-
+	for (var i = 0; i < bodyMesh.geometry.animation.length; i++)
+		THREE.AnimationHandler.add(bodyMesh.geometry.animation[i]);
+	
 	this.animations = {
 		pose: new THREE.Animation(bodyMesh, 'pose', THREE.AnimationHandler.CATMULLROM),
-		idle: new THREE.Animation(bodyMesh, 'idle', THREE.AnimationHandler.CATMULLROM)
+		idle: new THREE.Animation(bodyMesh, 'idle', THREE.AnimationHandler.CATMULLROM),
+		walk: new THREE.Animation(bodyMesh, 'walk', THREE.AnimationHandler.CATMULLROM)
+		// TODO: Run animation.
 	};
 
 	this.skeleton = new GAME.animation.Skeleton(bodyMesh);
@@ -337,6 +339,13 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		if (moveForward || moveBackward || moveLeft || moveRight) {
 			player.rotation.y += camPivotY.rotation.y - Math.PI;
 			camPivotY.rotation.y = Math.PI;
+			if (player.state !== 'walk')
+				player.playAnimation('walk');
+			player.state = 'walk';
+		} else {
+			if (player.state !== 'idle')
+				player.playAnimation('idle');
+			player.state = 'idle';
 		}
 		velocity.set(0,0,0);
 
