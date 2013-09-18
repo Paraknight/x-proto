@@ -13,29 +13,36 @@ GAME.namespace('entities.tools').Axe = function (scene) {
 GAME.entities.tools.Axe.prototype = Object.create(THREE.Object3D.prototype);
 
 GAME.entities.tools.Axe.prototype.setOwner = function (player) {
-	this.position.set(0.0,-player.head.position.y,-0.25);
-	this.rotation.set(0,-0.25*Math.PI,0.1*Math.PI);
-	player.head.add(this);
+	//this.rotation.set(0,-0.25*Math.PI,0.1*Math.PI);
+	
+	this.player = player;
+
+	this.position.y -= 0.01;
+	this.position.z -= 0.1;
+	this.rotation.x -= Math.PI;
+	this.scale.multiplyScalar(0.5);
+	player.skeleton.boneMap.handR.add(this);
 	// TODO: Implement correctly.
 	player.axe = this;
 	player.heldItem = this;
 };
 
 GAME.entities.tools.Axe.prototype.animate = function (delta) {
-	if (this.rotation.y > -0.25*Math.PI) {
-		this.rotation.y -= 6.0*delta;
-		this.scene.entityManager.animQueue.add(this);
-	} else {
-		this.isRetracting = false;
-	}
+	// if (this.rotation.y > -0.25*Math.PI) {
+	// 	this.rotation.y -= 6.0*delta;
+	// 	this.scene.entityManager.animQueue.add(this);
+	// } else {
+	// 	this.isRetracting = false;
+	// }
 };
 
 GAME.entities.tools.Axe.prototype.onMousedown = function (event) {
-	this.rotation.y = 0;
-	if (!this.isRetracting) {
-		this.isRetracting = true;
-		this.scene.entityManager.animQueue.add(this);
-	}
+	// this.rotation.y = 0;
+	// if (!this.isRetracting) {
+	// 	this.isRetracting = true;
+	// 	this.scene.entityManager.animQueue.add(this);
+	// }
+	this.player.playAnimation('chop', false);
 };
 
 //GAME.entities.tools.Axe.prototype.onMouseup = function (event) {};

@@ -25,7 +25,8 @@ GAME.namespace('player').Player = function (scene) {
 	this.animations = {
 		pose: new THREE.Animation(bodyMesh, 'pose', THREE.AnimationHandler.CATMULLROM),
 		idle: new THREE.Animation(bodyMesh, 'idle', THREE.AnimationHandler.CATMULLROM),
-		walk: new THREE.Animation(bodyMesh, 'walk', THREE.AnimationHandler.CATMULLROM)
+		walk: new THREE.Animation(bodyMesh, 'walk', THREE.AnimationHandler.CATMULLROM),
+		chop: new THREE.Animation(bodyMesh, 'chop', THREE.AnimationHandler.CATMULLROM)
 		// TODO: Run animation.
 	};
 
@@ -54,10 +55,10 @@ GAME.namespace('player').Player = function (scene) {
 
 GAME.player.Player.prototype = Object.create(THREE.Object3D.prototype);
 
-GAME.player.Player.prototype.playAnimation = function (name) {
+GAME.player.Player.prototype.playAnimation = function (name, loop, startTimeMS) {
 	this.animation.stop();
 	this.animation = this.animations[name];
-	this.animation.play();
+	this.animation.play(loop, startTimeMS);
 };
 
 GAME.player.Player.prototype.onStateReceived = function (state) {
@@ -115,7 +116,9 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 	player.collider = new Physijs.CapsuleMesh(new THREE.CylinderGeometry(0.3, 0.3, 1.8), new THREE.MeshBasicMaterial({ visible: false }));
 	player.collider.position = player.position;
+	player.collider._physijs.collision_flags = 16;
 	scene.add(player.collider);
+	player.collider.setAngularFactor(new THREE.Vector3());
 
 
 	var camPivotY = new THREE.Object3D();
@@ -141,7 +144,6 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 	this.camRig.add(camera);
 
-
 	var jumpSphere = player.jumpSphere = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1), new THREE.MeshBasicMaterial({ visible: false }));
 	jumpSphere.position.copy(player.collider.position);
 	// TODO: Make player height an attribute of Player.
@@ -160,21 +162,31 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		new THREE.Vector3().copy(jumpSphere.position)
 	);
 	scene.addConstraint(consJump);
-	consJump.setLinearLowerLimit(new THREE.Vector3());
-	consJump.setLinearUpperLimit(new THREE.Vector3());
-	consJump.setAngularLowerLimit(new THREE.Vector3());
-	consJump.setAngularUpperLimit(new THREE.Vector3());
 
-	//player.collider.setDamping(0.99, 1.0);
-	var consPos = new Physijs.DOFConstraint(player.collider, new THREE.Vector3());
-	scene.addConstraint(consPos);
-	// TODO: Remove hardcoding.
-	//constraint.setLinearLowerLimit(new THREE.Vector3(-500, -20, -700));
-	//constraint.setLinearUpperLimit(new THREE.Vector3(500, 900, 300));
-	consPos.setLinearLowerLimit(new THREE.Vector3(-Infinity, -Infinity, -Infinity));
-	consPos.setLinearUpperLimit(new THREE.Vector3(Infinity, Infinity, Infinity));
-	consPos.setAngularLowerLimit(new THREE.Vector3());
-	consPos.setAngularUpperLimit(new THREE.Vector3());
+
+	var interactShape = player.interactShape = new Physijs.CylinderMesh(new THREE.CylinderGeometry(0.5, 0.5, 2), new THREE.MeshBasicMaterial({ visible: false }));
+	interactShape.position.copy(player.collider.position);
+	interactShape.position.z -= 1;
+	interactShape._physijs.collision_flags = 4;
+	scene.add(interactShape);
+	// TODO: Remove filthy, filthy hackses.
+	var fwd = new THREE.Vector3(0, 0, -1);
+	scene.addEventListener('update', function () {
+		player.interactShape.position.copy(player.localToWorld(new THREE.Vector3(0, 0.34, -0.8)));
+		player.interactShape.__dirtyPosition = true;
+	});
+
+
+	// //player.collider.setDamping(0.99, 1.0);
+	// var consPos = new Physijs.DOFConstraint(player.collider, new THREE.Vector3());
+	// scene.addConstraint(consPos);
+	// // TODO: Remove hardcoding.
+	// //constraint.setLinearLowerLimit(new THREE.Vector3(-500, -20, -700));
+	// //constraint.setLinearUpperLimit(new THREE.Vector3(500, 900, 300));
+	// consPos.setLinearLowerLimit(new THREE.Vector3(-Infinity, -Infinity, -Infinity));
+	// consPos.setLinearUpperLimit(new THREE.Vector3(Infinity, Infinity, Infinity));
+	// consPos.setAngularLowerLimit(new THREE.Vector3());
+	// consPos.setAngularUpperLimit(new THREE.Vector3());
 
 
 	var moveForward = false;
@@ -207,7 +219,7 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 			camPivotX.rotation.x = Math.max(-PI_2, Math.min(PI_2, camPivotX.rotation.x));
 
-			if (moveForward || moveBackward || moveLeft || moveRight) {
+			if (self.camRig.position.z <= 0 || moveForward || moveBackward || moveLeft || moveRight) {
 				player.rotation.y += camPivotY.rotation.y - Math.PI;
 				camPivotY.rotation.y = Math.PI;
 			}
@@ -284,6 +296,12 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		if (GAME.input.pointerLocked && player.heldItem && 'onMousedown' in player.heldItem)
 			player.heldItem.onMousedown(event);
 
+		for (var i = 0, len = player.interactShape._physijs.touches.length; i < len; i++) {
+			var interactee = scene._objects[player.interactShape._physijs.touches[i]];
+			if ('onInteract' in interactee)
+				interactee.onInteract.call(interactee);
+		}
+
 		var headPos = player.head.localToWorld(new THREE.Vector3());
 		rayCasterPick.ray.origin = headPos;
 		rayCasterPick.ray.direction.copy(player.head.localToWorld(new THREE.Vector3(0, 0, -1)).sub(headPos).normalize());
@@ -308,8 +326,6 @@ GAME.player.PlayerController = function (scene, player, camera) {
 
 
 	var netTimer = 0;
-
-	var fwd = new THREE.Vector3(0, 0, -1);
 
 	this.update = function (delta) {
 		// TODO: Make diagonal movement the same speed as vertical and horizontal by clamping small velocities to 0 and normalizing.
@@ -336,10 +352,17 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		}
 		player.collider.setLinearVelocity(finalV);
 
-		if (moveForward || moveBackward || moveLeft || moveRight) {
+
+		var moving = moveForward || moveBackward || moveLeft || moveRight;
+
+		if (self.camRig.position.z <= 0 || moving) {
 			player.rotation.y += camPivotY.rotation.y - Math.PI;
 			camPivotY.rotation.y = Math.PI;
-			if (player.state !== 'walk')
+		}
+
+		if (moving) {
+			// TODO: Cosider not allowing the player to chop while walking at all; only when allowed by a tree.
+			if (player.state !== 'walk' || !player.animation.isPlaying)
 				player.playAnimation('walk');
 			player.state = 'walk';
 		} else {
@@ -348,8 +371,6 @@ GAME.player.PlayerController = function (scene, player, camera) {
 			player.state = 'idle';
 		}
 		velocity.set(0,0,0);
-
-
 
 
 		netTimer += delta;
