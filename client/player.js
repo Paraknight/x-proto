@@ -361,7 +361,7 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		}
 
 		if (moving) {
-			if (player.state !== 'walk')
+			if (player.state !== 'walk' || !player.animation.isPlaying)
 				player.playAnimation('walk');
 			player.state = 'walk';
 		} else {

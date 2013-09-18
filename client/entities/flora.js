@@ -8,14 +8,8 @@ GAME.namespace('entities.flora').Tree = (function () {
 	GAME.audio.load(['audio/chop.ogg'], function(source){treeChopSound = source;});
 	GAME.audio.load(['audio/treefell.ogg'], function(source){treeFellSound = source;});
 
-	this.lastChopTime = Date.now();
-
 	function onInteract (intersection) {
-		if (game.player.heldItem !== game.player.axe || Date.now() - this.lastChopTime < 400) return;
-
-		this.lastChopTime = Date.now();
-
-		game.player.playAnimation('chop', false);
+		if (game.player.heldItem !== game.player.axe || !game.player.heldItem.canChop) return;
 
 		if (treeChopSound) {
 			treeChopSound.setPosition(this.position);
