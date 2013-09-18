@@ -133,7 +133,7 @@ GAME.scenes.island = {
 
 
 		/* Radio */
-		var radioCollider = new Physijs.BoxMesh(new THREE.CubeGeometry(0.5, 0.5, 0.25), new THREE.MeshBasicMaterial({ color: 0x00EE00, wireframe: true, transparent: true }));
+		var radioCollider = new Physijs.BoxMesh(new THREE.CubeGeometry(0.5, 0.5, 0.25), new THREE.MeshBasicMaterial({ visible: false }));
 		radioCollider.position.x = -10;
 		radioCollider.position.y = 42;
 		//radioCollider.setCcdMotionThreshold(0.5);

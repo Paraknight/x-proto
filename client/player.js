@@ -252,12 +252,12 @@ GAME.player.PlayerController = function (scene, player, camera) {
 				// TODO: Restructure.
 				if (!GAME.input.pointerLocked) return;
 				var ball = new Physijs.SphereMesh(new THREE.SphereGeometry(0.1, 8, 8), new THREE.MeshPhongMaterial({ color: 0x0000FF }));
-				var headWorldPos = player.head.localToWorld(new THREE.Vector3(0, 0, -1));
+				var headWorldPos = camPivotX.localToWorld(new THREE.Vector3(0, 0, -1));
 				ball.position.copy(headWorldPos);
 				ball.castShadow = true;
 				ball.receiveShadow = true;
 				scene.add(ball);
-				ball.setLinearVelocity(player.head.localToWorld(new THREE.Vector3(0, 0, -2)).sub(headWorldPos).normalize().multiplyScalar(20));
+				ball.setLinearVelocity(camPivotX.localToWorld(new THREE.Vector3(0, 0, -2)).sub(headWorldPos).normalize().multiplyScalar(20));
 				break;
 			case 86:
 				self.camRig.add(GAME.game.camera);
