@@ -11,7 +11,7 @@ GAME.namespace('animation').Skeleton = function (mesh) {
 		bone.position = root.position;
 		bone.quaternion = root.quaternion;
 		bone.scale = root.scale;
-		bone.add(new THREE.Mesh(new THREE.SphereGeometry(0.01), new THREE.MeshBasicMaterial()));
+		//bone.add(new THREE.Mesh(new THREE.SphereGeometry(0.01), new THREE.MeshBasicMaterial()));
 		this.add(bone);
 
 		// NOTE: If a skeleton contains two bones with the same name, this implementation will cause the first to be overwritten by the second.

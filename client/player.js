@@ -361,8 +361,7 @@ GAME.player.PlayerController = function (scene, player, camera) {
 		}
 
 		if (moving) {
-			// TODO: Cosider not allowing the player to chop while walking at all; only when allowed by a tree.
-			if (player.state !== 'walk' || !player.animation.isPlaying)
+			if (player.state !== 'walk')
 				player.playAnimation('walk');
 			player.state = 'walk';
 		} else {
