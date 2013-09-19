@@ -31,3 +31,6 @@ div#overlay div#playerWin {
     background-color: rgba(0, 0, 0, 0.75);
     border: 2px inset rgba(26, 26, 26, 0.75);
     pointer-events: visiblePainted; }
+    div#overlay div#playerWin div.itemSlot img {
+      width: 40px;
+      height: 40px; }

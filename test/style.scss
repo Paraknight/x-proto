@@ -9,8 +9,8 @@ body {
 	background-color:#269;
 	background-image: linear-gradient(white 2px, transparent 2px),
 		linear-gradient(90deg, white 2px, transparent 2px),
-		linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+		linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px);
 	background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
 	background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
@@ -42,6 +42,10 @@ div#overlay {
 			background-color: $itemSlotBG;
 			border: 2px inset lighten($itemSlotBG, 10%);
 			pointer-events: visiblePainted;
+			img {
+				width: 40px;
+				height: 40px;
+			}
 		}
 	}
 }

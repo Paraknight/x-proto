@@ -35,32 +35,6 @@
 		});
 
 
-
-		var inventory = {
-			head: null,
-			body: null,
-
-			items: []
-		};
-
-
-
-
-		function allowDrop (event) {
-			event.preventDefault();
-		}
-
-		function drag (event) {
-			event.dataTransfer.setData('Text',event.target.id);
-		}
-
-		function drop (event) {
-			event.preventDefault();
-			var element = document.getElementById(event.dataTransfer.getData('Text'));
-			if (event.target != element)
-				event.target.appendChild(element);
-		}
-
 		function createWindow (x, y, w, h) {
 			var win = document.createElement('div');
 			win.className = 'window draggable';
@@ -77,62 +51,98 @@
 		var equip = document.createElement('div');
 
 
-		var slot = document.createElement('div');
-		slot.id = 'invSlot0';
-		slot.className = 'itemSlot';
-		slot.style.top = '27px';
-		slot.style.right = '20%';
-		slot.style.backgroundImage = 'url(\'spritesheet.png\')';
-		slot.ondrop = drop;
-		slot.ondragover = allowDrop;
-		equip.appendChild(slot);
 
-		var slot = document.createElement('div');
-		slot.id = 'invSlot1';
-		slot.className = 'itemSlot';
-		slot.style.top = '81px';
-		slot.style.right = '20%';
-		slot.style.backgroundImage = 'url(\'spritesheet.png\')';
-		slot.style.backgroundPosition = '0px -40px';
-		slot.ondrop = drop;
-		slot.ondragover = allowDrop;
-		equip.appendChild(slot);
-
-
-		for (var i = 2; i < 4; i++) {
-			var slot = document.createElement('div');
-			slot.id = 'invSlot'+i;
-			slot.className = 'itemSlot';
-			slot.style.top = (27+i*54)+'px';
-			slot.style.right = '20%';
-			slot.ondrop = drop;
-			slot.ondragover = allowDrop;
-			equip.appendChild(slot);
+		function allowDrop (event) {
+			event.preventDefault();
 		}
+
+		function drag (event) {
+			event.dataTransfer.setData('Text', event.target.id);
+		}
+
+		function drop (event) {
+			event.preventDefault();
+			
+			var itemImg = document.getElementById(event.dataTransfer.getData('Text'));
+			var destSlot = event.target;
+
+			if (destSlot === itemImg) return;
+
+			destSlot.slot.put(itemImg.item);
+		}
+
+		Slot = function (id, x, y) {
+			var div = this.div = document.createElement('div');
+			div.slot = this;
+			div.id = 'invSlot'+id;
+			div.className = 'itemSlot';
+			div.style.left = x;
+			div.style.top = y;
+			
+			div.ondrop = drop;
+			div.ondragover = allowDrop;
+		}
+
+		Slot.prototype.setBG = function (url, x, y) {
+			x = x || '0px';
+			y = y || '0px';
+			this.div.style.backgroundImage = 'url(\''+url+'\')';
+			this.div.style.backgroundPosition = '-'+x+' -'+y;
+			return this;
+		};
+		
+		Slot.prototype.put = function (item) {
+			var sourceSlot = item.img.parentNode;
+			
+			this.div.appendChild(item.img);
+
+			sourceSlot && 'onRemove' in sourceSlot.slot && sourceSlot.slot.onRemove(item);
+			'onPut' in this && this.onPut(item);
+		};
+
+		Slot.prototype.remove = function (item) {
+			this.div.removeChild(item.img);
+			'onRemove' in this && this.onRemove(item);
+		};
+
+		equip.appendChild(new Slot(0, '20%', '27px').setBG('spritesheet.png').div);
+		equip.appendChild(new Slot(1, '20%', '81px').setBG('spritesheet.png', '0px', '40px').div);
+
+		var handSlot = new Slot(2, '20%', '135px');
+		handSlot.onPut = function (item) {
+			console.log(item);
+		};
+		handSlot.onRemove = function (item) {
+			console.log(item);
+		};
+		equip.appendChild(handSlot.div);
+
+		equip.appendChild(new Slot(3, '20%', '189px').div);
+
 
 		var inv = document.createElement('div');
 		inv.style.position = 'absolute';
 		inv.style.bottom = 0;
 
-		for (var i = 0; i < 24; i++) {
-			var slot = document.createElement('div');
-			slot.id = 'invSlot'+(8+i);
-			slot.className = 'itemSlot';
-			slot.style.top = (-149+((i*0.125)|0)*50)+'px';
-			slot.style.left = (5+(i%8)*54)+'px';
-			slot.ondrop = drop;
-			slot.ondragover = allowDrop;
-			inv.appendChild(slot);
-		}
+		for (var i = 0; i < 24; i++)
+			inv.appendChild(new Slot(8+i, (5+(i%8)*54)+'px', (-149+((i*0.125)|0)*50)+'px').div);
+
 
 		playerWin.appendChild(equip);
 		playerWin.appendChild(inv);
 
-		var axeItem = document.createElement('img');
-		axeItem.id = 'axeItem';
-		axeItem.src = 'http://maidenwars.com/icons/icon_mainhand_axe_1.png';
-		axeItem.draggable = true;
-		axeItem.ondragstart = drag;
-		document.getElementById('invSlot2').appendChild(axeItem);
+
+		Item = function (name, spriteSheetURL, x, y) {
+			var img = this.img = document.createElement('img');
+			img.item = this;
+			img.id = 'itemImg'+name;
+			img.src = 'null.png';
+			img.style.backgroundImage = 'url(\''+spriteSheetURL+'\')';
+			img.style.backgroundPosition = '-'+x+' -'+y;
+			img.draggable = true;
+			img.ondragstart = drag;
+		}
+
+		handSlot.put(new Item('axe', 'spritesheet.png', '40px', '0px'));
 	</script>
 </body>
