@@ -64,7 +64,7 @@ GAME.namespace('gui').init = function() {
 		destSlot.slot.put(itemImg.item);
 	}
 
-	Slot = function (id, x, y) {
+	var Slot = function (id, x, y) {
 		var div = this.div = document.createElement('div');
 		div.slot = this;
 		div.id = 'invSlot'+id;
@@ -125,7 +125,7 @@ GAME.namespace('gui').init = function() {
 	playerWin.appendChild(inv);
 
 
-	Item = function (name, spriteSheetURL, x, y) {
+	var Item = function (name, spriteSheetURL, x, y) {
 		var img = this.img = document.createElement('img');
 		img.item = this;
 		img.id = 'itemImg'+name;

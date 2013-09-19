@@ -32,7 +32,7 @@ GAME.namespace('entities.terrain').TerrainIsland = function (scene, seed) {
 	var terrainMat = new THREE.ShaderMaterial(GAME.shaders.terrain);
 	terrainMat.fog = true;
 	terrainMat.lights = true;
-	terrain = new Physijs.HeightfieldMesh(terrainGeom, terrainMat, 0);
+	var terrain = new Physijs.HeightfieldMesh(terrainGeom, terrainMat, 0);
 	terrain.lookAt(new THREE.Vector3(0,1,0));
 	terrain.receiveShadow = true;
 	//console.log('Done.');

@@ -1,5 +1,5 @@
 (function() {
-	const TICK_INTERVAL_MS = 1000.0/60.0;
+	var TICK_INTERVAL_MS = 1000.0/60.0;
 
 	var game = GAME.game = this;
 
@@ -22,7 +22,7 @@
 	};
 
 	function init() {
-		Physijs.scripts.worker = '../lib/physics/physijs_worker.js';
+		Physijs.scripts.worker = './lib/physics/physijs_worker.js';
 		Physijs.scripts.ammo = './ammo.js';
 
 		/*
