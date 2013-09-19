@@ -147,7 +147,7 @@ GAME.scenes.island = {
 		radioCollider.add(radioMesh);
 		game.scene.add(radioCollider);
 		// TODO: Load all sounds in the beginning too?
-		GAME.audio.load(['audio/mplith.ogg'], function(source) {
+		GAME.audio.load(['res/audio/mplith.ogg'], function(source) {
 			source.setPosition(radioCollider.position);
 			source.setLoop(true);
 			//source.play();

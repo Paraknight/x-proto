@@ -98,8 +98,8 @@ GAME.namespace('gui').init = function() {
 		'onRemove' in this && this.onRemove(item);
 	};
 
-	equip.appendChild(new Slot(0, '20%', '27px').setBG('images/spritesheet.png').div);
-	equip.appendChild(new Slot(1, '20%', '81px').setBG('images/spritesheet.png', '0px', '40px').div);
+	equip.appendChild(new Slot(0, '20%', '27px').setBG('res/textures/spritesheet.png').div);
+	equip.appendChild(new Slot(1, '20%', '81px').setBG('res/textures/spritesheet.png', '0px', '40px').div);
 
 	var handSlot = new Slot(2, '20%', '135px');
 	handSlot.onPut = function (item) {
@@ -129,14 +129,14 @@ GAME.namespace('gui').init = function() {
 		var img = this.img = document.createElement('img');
 		img.item = this;
 		img.id = 'itemImg'+name;
-		img.src = 'images/null.png';
+		img.src = 'res/textures/null.png';
 		img.style.backgroundImage = 'url(\''+spriteSheetURL+'\')';
 		img.style.backgroundPosition = '-'+x+' -'+y;
 		img.draggable = true;
 		img.ondragstart = drag;
 	}
 
-	handSlot.put(new Item('axe', 'images/spritesheet.png', '40px', '0px'));
+	handSlot.put(new Item('axe', 'res/textures/spritesheet.png', '40px', '0px'));
 };
 
 GAME.gui.setChatFocus = function (flag, scope) {

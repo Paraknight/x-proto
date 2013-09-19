@@ -12,7 +12,7 @@ GAME.namespace('models').load = function(models, callback) {
 		var model = GAME.namespace('models.'+path);
 		for (var key in model)
 			return;
-		loaderJSON.load('models/'+path.replace('.','/')+'.js', function (geometry, materials) {
+		loaderJSON.load('res/models/'+path.replace('.','/')+'.js', function (geometry, materials) {
 			model.geom = geometry;
 			model.mats = materials;
 			countdown.dec();

@@ -5,7 +5,7 @@ GAME.namespace('shaders').sky = {
 		//lookVec: { type: 'v3', value: new THREE.Vector3(0, 0, -1) }
 		//starCoords: { type: 'v2v', value: starCoords },
 		//starSizes: { type: 'fv1', value: starSizes }
-		//starMap: { type: 't', value: THREE.ImageUtils.loadTexture( './images/starmap.png' ) }
+		//starMap: { type: 't', value: THREE.ImageUtils.loadTexture( './res/textures/starmap.png' ) }
 	},
 
 	//vertexShader: GAME.utils.xhrSyncGet('./shaders/sky.vert'),
@@ -86,7 +86,7 @@ GAME.shaders.water = {
 		//lookVec: { type: 'v3', value: new THREE.Vector3(0, 0, -1) }
 		//starCoords: { type: 'v2v', value: starCoords },
 		//starSizes: { type: 'fv1', value: starSizes }
-		//starMap: { type: 't', value: THREE.ImageUtils.loadTexture( './images/starmap.png' ) }
+		//starMap: { type: 't', value: THREE.ImageUtils.loadTexture( './res/textures/starmap.png' ) }
 	},
 
 	// TODO: Hardcode shader source code in.
@@ -171,10 +171,10 @@ GAME.shaders.terrain = {
 
 
 		'terrainHeight': { type: 'f', value: 64.0 },
-		'texture0': { type: 't', value: THREE.ImageUtils.loadTexture('./images/tempsand.png', undefined, function(texture){
+		'texture0': { type: 't', value: THREE.ImageUtils.loadTexture('./res/textures/tempsand.png', undefined, function(texture){
 			texture.wrapT = texture.wrapS = THREE.RepeatWrapping;
 		}) },
-		'texture1': { type: 't', value: THREE.ImageUtils.loadTexture('./images/grassdark.png', undefined, function(texture){
+		'texture1': { type: 't', value: THREE.ImageUtils.loadTexture('./res/textures/grassdark.png', undefined, function(texture){
 			texture.wrapT = texture.wrapS = THREE.RepeatWrapping;
 		}) },
 		'tex0Scale': { type: 'f', value: 2.0 },

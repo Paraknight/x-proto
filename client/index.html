@@ -1,25 +1,25 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="./style.css"></link>
-	<script src="./three.min.js"></script>
-	<script src="./stats.min.js"></script>
-	<script src="./physics/physi.js"></script>
-	<script src="./tween.min.js"></script>
-	<script src="./peer.min.js"></script>
-	<script src="./utils.js"></script>
-	<script src="./net.js"></script>
-	<script src="./gui.js"></script>
-	<script src="./shaders.js"></script>
-	<script src="./input.js"></script>
-	<script src="./audio.js"></script>
-	<script src="./models.js"></script>
-	<script src="./world.js"></script>
-	<script src="./entities.js"></script>
-	<script src="./animation.js"></script>
-	<script src="./player.js"></script>
-	<script src="./main.js"></script>
+	<script src="lib/three.min.js"></script>
+	<script src="lib/stats.min.js"></script>
+	<script src="lib/physics/physi.js"></script>
+	<script src="lib/tween.min.js"></script>
+	<script src="lib/peer.min.js"></script>
+	<script src="src/utils.js"></script>
+	<script src="src/net.js"></script>
+	<script src="src/gui.js"></script>
+	<script src="src/shaders.js"></script>
+	<script src="src/input.js"></script>
+	<script src="src/audio.js"></script>
+	<script src="src/models.js"></script>
+	<script src="src/world.js"></script>
+	<script src="src/entities.js"></script>
+	<script src="src/animation.js"></script>
+	<script src="src/player.js"></script>
+	<script src="src/main.js"></script>
 	<script>
 	function loadScriptsLazy() {
-		GAME.utils.loadScriptSync('./audio/mespeak/mespeak.js', function() {
+		GAME.utils.loadScriptSync('lib/mespeak/mespeak.js', function() {
 			GAME.audio.initMeSpeak();
 		});
 		//GAME.utils.loadScriptAsync('./socket.io.min.js', function () {

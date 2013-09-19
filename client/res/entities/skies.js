@@ -24,11 +24,11 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 
 	var skyPivot = new THREE.Object3D();
 	// TODO: Calculate sun's actual diameter (IRL, angular diameter = 0.5°).
-	var sun = new THREE.Mesh(new THREE.PlaneGeometry(2500, 2500), new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('images/sun.png'), transparent: true, fog: false, color: 0xFFCC33 }));
+	var sun = new THREE.Mesh(new THREE.PlaneGeometry(2500, 2500), new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('res/textures/sun.png'), transparent: true, fog: false, color: 0xFFCC33 }));
 	sun.position.x = 7800;
 	sun.lookAt(new THREE.Vector3());
 	skyPivot.add(sun);
-	var moon = new THREE.Mesh(new THREE.PlaneGeometry(2500, 2500), new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('images/moon.png'), transparent: true, fog: false }));
+	var moon = new THREE.Mesh(new THREE.PlaneGeometry(2500, 2500), new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture('res/textures/moon.png'), transparent: true, fog: false }));
 	moon.position.x = -7800;
 	moon.lookAt(new THREE.Vector3());
 	skyPivot.add(moon);

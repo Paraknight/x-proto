@@ -70,7 +70,7 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 	if (name in GAME.namespace('scenes'))
 		initScene();
 	else
-		GAME.utils.xhrAsyncGet('./scenes/'+name+'.js', initScene);
+		GAME.utils.xhrAsyncGet('res/scenes/'+name+'.js', initScene);
 };
 
 GAME.world.Scene.prototype = Object.create(Physijs.Scene.prototype);

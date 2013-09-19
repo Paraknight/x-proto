@@ -139,8 +139,8 @@ GAME.audio.StreamingSource = function (game, sources, position, radius, volume) 
 GAME.audio.enableTTS = false;
 
 GAME.audio.initMeSpeak = function () {
-	meSpeak.loadConfig('audio/mespeak/mespeak_config.json');
-	meSpeak.loadVoice('audio/mespeak/voices/en/en.json');
+	meSpeak.loadConfig('lib/mespeak/mespeak_config.json');
+	meSpeak.loadVoice('lib/mespeak/voices/en/en.json');
 	GAME.audio.enableTTS = true;
 	GAME.audio.loadSpeech('', function (audioElement) {});
 	/*

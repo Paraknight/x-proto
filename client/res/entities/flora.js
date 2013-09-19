@@ -5,8 +5,8 @@ GAME.namespace('entities.flora').Tree = (function () {
 	var treeMats = GAME.models.tree.tree.mats;
 
 	var treeChopSound, treeFellSound;
-	GAME.audio.load(['audio/chop.ogg'], function(source){treeChopSound = source;});
-	GAME.audio.load(['audio/treefell.ogg'], function(source){treeFellSound = source;});
+	GAME.audio.load(['res/audio/chop.ogg'], function(source){treeChopSound = source;});
+	GAME.audio.load(['res/audio/treefell.ogg'], function(source){treeFellSound = source;});
 
 	function onInteract (intersection) {
 		if (game.player.heldItem !== game.player.axe || !game.player.heldItem.canChop) return;

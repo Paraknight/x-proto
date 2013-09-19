@@ -31,7 +31,7 @@ GAME.namespace('entities.bugs').Butterfly = (function () {
 	}
 
 	var butterflyTextures = [];
-	butterflyTextures['monarch'] = THREE.ImageUtils.loadTexture('images/butterflies/monarch.png')
+	butterflyTextures['monarch'] = THREE.ImageUtils.loadTexture('res/textures/butterflies/monarch.png')
 
 	var onPickButterfly = function (intersection) {
 		console.log(intersection);
@@ -42,7 +42,7 @@ GAME.namespace('entities.bugs').Butterfly = (function () {
 
 		this.scene = scene;
 
-		//var map = butterflyTextures[type] || (butterflyTextures[type] = THREE.ImageUtils.loadTexture('./images/butterflies/'+type+'.png'));
+		//var map = butterflyTextures[type] || (butterflyTextures[type] = THREE.ImageUtils.loadTexture('./res/textures/butterflies/'+type+'.png'));
 		var map = butterflyTextures[type];
 		//console.log(map.image.width);
 		var wingLPivot = new THREE.Object3D(), wingRPivot = new THREE.Object3D();

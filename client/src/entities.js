@@ -10,7 +10,7 @@ GAME.namespace('entities').load = function(entities, callback) {
 		var entity = GAME.namespace('entities.'+path);
 		for (var key in entity)
 			return;
-		GAME.utils.xhrAsyncGet('entities/'+path.replace('.','/')+'.js', function (js) {
+		GAME.utils.xhrAsyncGet('res/entities/'+path.replace('.','/')+'.js', function (js) {
 			eval(js);
 			countdown.dec();
 		});

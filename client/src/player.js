@@ -150,7 +150,7 @@ GAME.player.PlayerController = function (scene, player, camera) {
 	jumpSphere.position.y -= 0.85;
 	jumpSphere._physijs.collision_flags = 4;
 	var landingSound;
-	GAME.audio.load(['audio/landing.ogg'], function(source){landingSound = source;});
+	GAME.audio.load(['res/audio/landing.ogg'], function(source){landingSound = source;});
 	jumpSphere.addEventListener('collision', function (other_object) {
 		if (landingSound /*&& other_object instanceof Physijs.HeightfieldMesh*/)
 			landingSound.play(false);
