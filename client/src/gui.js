@@ -39,6 +39,7 @@ GAME.namespace('gui').init = function() {
 		return win;
 	}
 
+	// TODO: Move to inventory class.
 	var playerWin = createWindow(((window.innerWidth-432)/2)|0,((window.innerHeight-432)/2)|0,432,432);
 	playerWin.id = 'playerWin';
 	playerWin.style.display = 'none';
@@ -101,12 +102,19 @@ GAME.namespace('gui').init = function() {
 	equip.appendChild(new Slot(0, '20%', '27px').setBG('res/textures/spritesheet.png').div);
 	equip.appendChild(new Slot(1, '20%', '81px').setBG('res/textures/spritesheet.png', '0px', '40px').div);
 
+	var game = GAME.game;
 	var handSlot = new Slot(2, '20%', '135px');
 	handSlot.onPut = function (item) {
-		console.log(item);
+		// TODO: Make slots reject unfitting items.
+		if (item.entityClass) {
+			this.entity = new item.entityClass(game.scene).setOwner(game.player);
+		}
 	};
 	handSlot.onRemove = function (item) {
-		console.log(item);
+		if (this.entity) {
+			this.entity.resetOwner();
+			this.entity = null;
+		}
 	};
 	equip.appendChild(handSlot.div);
 
@@ -124,19 +132,20 @@ GAME.namespace('gui').init = function() {
 	playerWin.appendChild(equip);
 	playerWin.appendChild(inv);
 
+	var id = 0;
 
-	var Item = function (name, spriteSheetURL, x, y) {
+	GAME.gui.Item = function (spriteSheetURL, x, y, entityClass) {
 		var img = this.img = document.createElement('img');
 		img.item = this;
-		img.id = 'itemImg'+name;
+		img.id = 'itemImg'+(id++);
 		img.src = 'res/textures/null.png';
 		img.style.backgroundImage = 'url(\''+spriteSheetURL+'\')';
 		img.style.backgroundPosition = '-'+x+' -'+y;
 		img.draggable = true;
 		img.ondragstart = drag;
-	}
 
-	handSlot.put(new Item('axe', 'res/textures/spritesheet.png', '40px', '0px'));
+		this.entityClass = entityClass;
+	}
 };
 
 GAME.gui.setChatFocus = function (flag, scope) {

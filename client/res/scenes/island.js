@@ -25,7 +25,8 @@ GAME.scenes.island = {
 		var game = GAME.game;
 		var scene = this;
 
-		this.player.add(new GAME.entities.tools.Axe(scene).setOwner(this.player));
+		// TODO: Refactor and delegate control to player.
+		document.getElementById('invSlot2').slot.put(GAME.entities.tools.Axe.prototype.createItem());
 
 		scene.add(new GAME.entities.skies.SkyEarth(scene));
 
@@ -173,7 +174,7 @@ GAME.scenes.island = {
 			monarch.position.copy(game.player.position);
 			monarch.position.y += 0.75;
 			// FIXME: Look direction inverted?
-			monarch.lookAt(game.player.head.localToWorld(new THREE.Vector3(0,0,1)));
+			monarch.lookAt(game.player.head.localToWorld(new THREE.Vector3(0,0,-1)));
 			monarch.updateMatrixWorld();
 
 			game.scene.add(monarch);
@@ -186,7 +187,7 @@ GAME.scenes.island = {
 		}
 
 		document.addEventListener('keydown', function (event) {
-			if (event.keyCode == 78 && GAME.input.pointerLocked)
+			if (event.keyCode == 86 && GAME.input.pointerLocked)
 				butterflyBomb();
 		});
 

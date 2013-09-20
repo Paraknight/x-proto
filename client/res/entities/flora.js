@@ -9,7 +9,7 @@ GAME.namespace('entities.flora').Tree = (function () {
 	GAME.audio.load(['res/audio/treefell.ogg'], function(source){treeFellSound = source;});
 
 	function onInteract (intersection) {
-		if (game.player.heldItem !== game.player.axe || !game.player.heldItem.canChop) return;
+		if (!(game.player.heldItem instanceof GAME.entities.tools.Axe) || !game.player.heldItem.canChop) return;
 
 		if (treeChopSound) {
 			treeChopSound.setPosition(this.position);

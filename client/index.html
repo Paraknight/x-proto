@@ -5,8 +5,8 @@
 	<script src="lib/physics/physi.js"></script>
 	<script src="lib/tween.min.js"></script>
 	<script src="lib/peer.min.js"></script>
-	<script src="build/game.min.js"></script>
-	<!--script src="src/utils.js"></script>
+	<!--script src="build/game.min.js"></script-->
+	<script src="src/utils.js"></script>
 	<script src="src/net.js"></script>
 	<script src="src/gui.js"></script>
 	<script src="src/shaders.js"></script>
@@ -17,7 +17,7 @@
 	<script src="src/entities.js"></script>
 	<script src="src/animation.js"></script>
 	<script src="src/player.js"></script>
-	<script src="src/main.js"></script-->
+	<script src="src/main.js"></script>
 	<script>
 	function loadScriptsLazy() {
 		GAME.utils.loadScriptSync('lib/mespeak/mespeak.js', function() {
@@ -61,7 +61,7 @@
 					<li>Space = Jump</li>
 					<li>I = Open inventory</li>
 					<li>B = Shoot ball (Hold for rapid-fire)</li>
-					<li>N = Shoot butterflies</li>
+					<li>V = Shoot butterflies</li>
 				</ul><br>
 				Chat Commands:<br>
 				<ul>
@@ -112,10 +112,10 @@
 				<center>
 					<h1 class="accented">The Game</h1><br><br>
 					<button type="button" onclick="startGame(1);">Single Player</button><br>
-					<button type="button" onclick="startGame(0);">Bla</button><br>
+					<!--button type="button" onclick="startGame(0);">Bla</button><br>
 					<button type="button" onclick="startGame(0);">Bla</button><br>
 					<button type="button" onclick="startGame(0);">MMO Thing</button><br>
-					<button type="button" onclick="startGame(0);">Bla</button><br>
+					<button type="button" onclick="startGame(0);">Bla</button><br-->
 				</center>
 			</div>
 			<script>GAME.utils.centerElement(document.getElementById('buttons'));</script>
