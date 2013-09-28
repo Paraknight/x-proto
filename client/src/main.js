@@ -93,4 +93,4 @@
 	this.main = function() {
 		init();
 	};
-}).apply(GAME.namespace('core.Main'));
+}).call(GAME.namespace('core.Main'));

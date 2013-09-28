@@ -1,0 +1,9 @@
+{
+	"name": "UserServer",
+	"description": "A server for providing user information.",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "3.x"
+	}
+}

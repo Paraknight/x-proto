@@ -83,8 +83,8 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 	sunDirLight.target = scene.player;
 	this.add(sunDirLight);
 
-	// TODO: Move to animate if using actual time.
-	this.tick = function (delta) {
+	// TODO: Move to prototype.
+	this.animate = function (delta) {
 		game.time = (game.time+0.0001)%1.0;
 		var time = game.time;
 		GAME.shaders.sky.uniforms.time.value = time;
@@ -104,5 +104,5 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 GAME.entities.skies.SkyEarth.prototype = Object.create(THREE.Object3D.prototype);
 
 GAME.entities.skies.SkyEarth.prototype.onSpawn = function () {
-	this.scene.entityManager.tickQueue.add(this);
+	this.scene.entityManager.animQueue.add(this);
 };

@@ -21,7 +21,7 @@ GAME.scenes.island = {
 		'tools',
 		'misc'
 	],
-	init: function () {
+	init: function (saveData) {
 		var game = GAME.game;
 		var scene = this;
 
@@ -32,7 +32,7 @@ GAME.scenes.island = {
 
 
 		/* Terrain */
-		var seed = 1;
+		var seed = saveData.seed || (Math.random()*Number.MAX_VALUE);
 		var terrain = new GAME.entities.terrain.TerrainIsland(scene, seed);
 		scene.add(terrain);
 
