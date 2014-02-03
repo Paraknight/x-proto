@@ -4,6 +4,282 @@
 		"selected_items":
 		[
 			[
+				"user",
+				"userInfo"
+			],
+			[
+				"va",
+				"values"
+			],
+			[
+				"re",
+				"registrationInfo"
+			],
+			[
+				"f",
+				"function"
+			],
+			[
+				"cre",
+				"credentialsCorrect"
+			],
+			[
+				"en",
+				"encrypt"
+			],
+			[
+				"c",
+				"crypto"
+			],
+			[
+				"rand",
+				"randHex32"
+			],
+			[
+				"co",
+				"count"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"field",
+				"fields"
+			],
+			[
+				"fu",
+				"fun	Function"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"enti",
+				"entityClass"
+			],
+			[
+				"cam",
+				"camPivotX"
+			],
+			[
+				"can",
+				"canChop"
+			],
+			[
+				"is",
+				"isRetracting"
+			],
+			[
+				"ani",
+				"animation"
+			],
+			[
+				"sta",
+				"startTimeMS"
+			],
+			[
+				"phys",
+				"_physijs"
+			],
+			[
+				"inter",
+				"interactShape"
+			],
+			[
+				"ob",
+				"Object3D"
+			],
+			[
+				"intera",
+				"interactCubeRig"
+			],
+			[
+				"Obje",
+				"Object3D"
+			],
+			[
+				"s",
+				"state"
+			],
+			[
+				"a",
+				"animation"
+			],
+			[
+				"tick",
+				"tickQueue"
+			],
+			[
+				"camr",
+				"camRigMax"
+			],
+			[
+				"bod",
+				"bodyMesh"
+			],
+			[
+				"mous",
+				"mouseDeltaY"
+			],
+			[
+				"mo",
+				"mouseDeltaY"
+			],
+			[
+				"mouse",
+				"mouseDeltaX"
+			],
+			[
+				"mou",
+				"mouseDeltaY"
+			],
+			[
+				"head",
+				"headBone"
+			],
+			[
+				"body",
+				"bodyRig"
+			],
+			[
+				"inp",
+				"inputV"
+			],
+			[
+				"camp",
+				"camPivotY"
+			],
+			[
+				"ca",
+				"camPivot"
+			],
+			[
+				"camera",
+				"cameraRig"
+			],
+			[
+				"bo",
+				"boneMap"
+			],
+			[
+				"Ob",
+				"Object3D"
+			],
+			[
+				"bone",
+				"boneMap"
+			],
+			[
+				"rot",
+				"rotation"
+			],
+			[
+				"bon",
+				"boneMap"
+			],
+			[
+				"anima",
+				"animations"
+			],
+			[
+				"an",
+				"animations"
+			],
+			[
+				"Obj",
+				"Object"
+			],
+			[
+				"add",
+				"addBone"
+			],
+			[
+				"P",
+				"Player"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"mesh",
+				"meshRig"
+			],
+			[
+				"geom",
+				"geometry"
+			],
+			[
+				"ski",
+				"skinnedMesh"
+			],
+			[
+				"me",
+				"meshAnim"
+			],
+			[
+				"tors",
+				"torsoMesh"
+			],
+			[
+				"pso",
+				"position"
+			],
+			[
+				"to",
+				"touches"
+			],
+			[
+				"o",
+				"object1"
+			],
+			[
+				"collision",
+				"collisions"
+			],
+			[
+				"_",
+				"_physijs"
+			],
+			[
+				"con",
+				"continue"
+			],
+			[
+				"coll",
+				"collisions"
+			],
+			[
+				"objce",
+				"object1"
+			],
+			[
+				"dis",
+				"distToGround"
+			],
+			[
+				"ju",
+				"jumping"
+			],
+			[
+				"space",
+				"spacePressed"
+			],
+			[
+				"jum",
+				"jumpSphere"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"cota",
+				"contact_normal"
+			],
+			[
 				"lo",
 				"loadingScreen"
 			],
@@ -14,14 +290,6 @@
 			[
 				"init",
 				"initScene"
-			],
-			[
-				"en",
-				"entity"
-			],
-			[
-				"co",
-				"countdown2"
 			],
 			[
 				"cou",
@@ -52,10 +320,6 @@
 				"HeightField"
 			],
 			[
-				"coll",
-				"collider"
-			],
-			[
 				"col",
 				"collider"
 			],
@@ -68,16 +332,8 @@
 				"entityManager"
 			],
 			[
-				"a",
-				"animList"
-			],
-			[
 				"see",
 				"scene"
-			],
-			[
-				"P",
-				"PHYSIJS"
 			],
 			[
 				"hei",
@@ -114,10 +370,6 @@
 			[
 				"nor",
 				"normalAcc1"
-			],
-			[
-				"_",
-				"_normalAcc"
 			],
 			[
 				"len",
@@ -192,10 +444,6 @@
 				"sphere"
 			],
 			[
-				"s",
-				"sphere"
-			],
-			[
 				"C",
 				"Collider"
 			],
@@ -252,14 +500,6 @@
 				"deltaPos"
 			],
 			[
-				"c",
-				"collider"
-			],
-			[
-				"re",
-				"restitution"
-			],
-			[
 				"ab",
 				"absProjZ"
 			],
@@ -274,381 +514,79 @@
 			[
 				"proj",
 				"projVec1"
-			],
-			[
-				"dee",
-				"deepestPointDist"
-			],
-			[
-				"ver",
-				"vertexShader"
-			],
-			[
-				"con",
-				"console"
-			],
-			[
-				"deep",
-				"deepestPoint"
-			],
-			[
-				"deepe",
-				"deepestPointDist"
-			],
-			[
-				"fun",
-				"fun	Function"
-			],
-			[
-				"plan",
-				"plane"
-			],
-			[
-				"del",
-				"deltaPos"
-			],
-			[
-				"nex",
-				"nextV"
-			],
-			[
-				"curr",
-				"currV"
-			],
-			[
-				"de",
-				"delta"
-			],
-			[
-				"m",
-				"multiplyScalar"
-			],
-			[
-				"cur",
-				"currV"
-			],
-			[
-				"pre",
-				"_prevAcceleration"
-			],
-			[
-				"mult",
-				"multiplyScalar"
-			],
-			[
-				"delt",
-				"deltaPos"
-			],
-			[
-				"vecto",
-				"Vector3"
-			],
-			[
-				"phyic",
-				"physicsSim"
-			],
-			[
-				"u",
-				"updateBounds"
-			],
-			[
-				"enti",
-				"entityList"
-			],
-			[
-				"e",
-				"entity1"
-			],
-			[
-				"fu",
-				"fun	Function"
-			],
-			[
-				"hal",
-				"halfWidth"
-			],
-			[
-				"f",
-				"f	Anonymous Function"
-			],
-			[
-				"loading",
-				"loadingDiv"
-			],
-			[
-				"font",
-				"font-size"
-			],
-			[
-				"butt",
-				"butterfly"
-			],
-			[
-				"onPi",
-				"onPickTree"
-			],
-			[
-				"margi",
-				"margin-left"
-			],
-			[
-				"radio",
-				"radioMesh"
-			],
-			[
-				"butter",
-				"butterflyTextures"
-			],
-			[
-				"wing",
-				"wingspan"
-			],
-			[
-				"wingL",
-				"wingLPivot"
-			],
-			[
-				"TH",
-				"THREE"
-			],
-			[
-				"invSlot",
-				"invSlot5"
-			],
-			[
-				"block",
-				"inline-block"
-			],
-			[
-				"Phys",
-				"Physijs"
-			],
-			[
-				"chop",
-				"chopSound"
-			],
-			[
-				"stump",
-				"stumpCollider"
-			],
-			[
-				"timber",
-				"timberMesh"
-			],
-			[
-				"onpi",
-				"onPickTree"
-			],
-			[
-				"skyBG",
-				"skyBGMat"
-			],
-			[
-				"connect",
-				"connection"
-			],
-			[
-				"broa",
-				"broadcaster"
-			],
-			[
-				"candid",
-				"candidate"
-			],
-			[
-				"otherS",
-				"otherSocket"
-			],
-			[
-				"for",
-				"for	for (…) {…}"
-			],
-			[
-				"candidate",
-				"candidates"
-			],
-			[
-				"ve",
-				"THREE.Vector3"
-			],
-			[
-				"back",
-				"background-color"
-			],
-			[
-				"main",
-				"mainMenu"
-			],
-			[
-				"ground",
-				"groundColor"
-			],
-			[
-				"pi",
-				"PI2"
-			],
-			[
-				"vec",
-				"vec3"
-			],
-			[
-				"starfie",
-				"starfield"
-			],
-			[
-				"shadertex",
-				"shaderTextFrag"
-			],
-			[
-				"Vector",
-				"THREE.Vector3"
-			],
-			[
-				"audio",
-				"audioElement"
-			],
-			[
-				"tick",
-				"tickList"
-			],
-			[
-				"land",
-				"landingSound"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
+			"file": "test/server/index.html",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/src/main.js",
+			"settings":
+			{
+				"buffer_size": 2580,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/src/world.js",
+			"settings":
+			{
+				"buffer_size": 2424,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/server/server.js",
+			"settings":
+			{
+				"buffer_size": 655,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/server/package.json",
+			"settings":
+			{
+				"buffer_size": 166,
+				"line_ending": "Unix",
+				"name": "{"
+			}
+		},
+		{
+			"file": "test/server/userdb.js",
+			"settings":
+			{
+				"buffer_size": 6213,
+				"line_ending": "Unix",
+				"name": "module.exports = {"
+			}
+		},
+		{
+			"file": "client/style.scss",
+			"settings":
+			{
+				"buffer_size": 4438,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "client/index.html",
 			"settings":
 			{
-				"buffer_size": 4071,
+				"buffer_size": 4272,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "client/entities.js",
-			"settings":
-			{
-				"buffer_size": 1704,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/models.js",
-			"settings":
-			{
-				"buffer_size": 613,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/style.css",
-			"settings":
-			{
-				"buffer_size": 4144,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/main.js",
-			"settings":
-			{
-				"buffer_size": 2539,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/gui.js",
-			"settings":
-			{
-				"buffer_size": 5530,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/input.js",
-			"settings":
-			{
-				"buffer_size": 4802,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/player.js",
-			"settings":
-			{
-				"buffer_size": 8764,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/entities/bugs.js",
-			"settings":
-			{
-				"buffer_size": 2888,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/world.js",
-			"settings":
-			{
-				"buffer_size": 2422,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/audio.js",
-			"settings":
-			{
-				"buffer_size": 5553,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/scenes/island.js",
-			"settings":
-			{
-				"buffer_size": 5632,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/entities/misc.js",
-			"settings":
-			{
-				"buffer_size": 423,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/entities/flora.js",
-			"settings":
-			{
-				"buffer_size": 2907,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/entities/terrain.js",
-			"settings":
-			{
-				"buffer_size": 1542,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/entities/skies.js",
-			"settings":
-			{
-				"buffer_size": 4226,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "client/utils.js",
+			"file": "client/src/utils.js",
 			"settings":
 			{
 				"buffer_size": 7418,
@@ -663,28 +601,40 @@
 		"selected_items":
 		[
 			[
-				"to",
-				"Show TODOs: Project and open files"
-			],
-			[
-				"pa",
-				"Package Control: Install Package"
-			],
-			[
-				"packa",
-				"Package Control: Remove Package"
+				"pac",
+				"Package Control: List Packages"
 			],
 			[
 				"todo",
 				"Show TODOs: Project and open files"
 			],
 			[
-				"glsl",
-				"Set Syntax: GLSL"
+				"pa",
+				"Package Control: List Packages"
 			],
 			[
-				"pac",
-				"Package Control: Install Package"
+				"ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"pack",
+				"Package Control: Remove Package"
+			],
+			[
+				"lint",
+				"SublimeLint: Show All Errors"
+			],
+			[
+				"to",
+				"Show TODOs: Project and open files"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"glsl",
+				"Set Syntax: GLSL"
 			],
 			[
 				"for",
@@ -699,10 +649,6 @@
 				"Show TODOs: Project and open files"
 			],
 			[
-				"pack",
-				"Package Control: Install Package"
-			],
-			[
 				"form",
 				"Format: Javascript"
 			]
@@ -714,6 +660,7 @@
 		"height": 125.0,
 		"history":
 		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
 		]
 	},
 	"distraction_free":
@@ -727,37 +674,74 @@
 	},
 	"file_history":
 	[
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/index.html",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/style.scss",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/utils.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/res/entities/tools.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/player.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/res/entities/flora.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/res/entities/skies.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/res/scenes/island.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/input.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/gui.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/test/server/index.html",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/main.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/test/server/user/userserver.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/test/server/user/index.html",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/res/entities/terrain.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/world.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/build/game.min.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/build/game.min.js.map",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/audio.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/models.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/entities.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/res/entities/bugs.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/src/shaders.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/lib/mespeak/mespeak.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/animation.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics/physi.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/player.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/tools.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/input.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/gui.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/main.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/style.css",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/body.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/head.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/net.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/world.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/audio.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/flora.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/terrain.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/terrain.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/scenes/island.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/skies.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/net.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/player.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/scenes/island.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/utils.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/bugs.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/torso.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/player.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/animation2.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/animation.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics/woop",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/entities/misc.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics/physijs_worker.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics/ammo.js",
+		"/Users/Yousef/Library/Application Support/Sublime Text 3/Packages/SideBarEnhancements/CHANGELOG",
+		"/Users/Yousef/Dropbox/Public/EscPod/Blog/Player Jump",
+		"/Users/Yousef/Dropbox/Public/EscPod/Blog/Linked Lists in JS",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics.js",
+		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/terrain.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics/physcustom.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/physics/physbullet.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/utils.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/style.css",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/audio.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/input.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/worker.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/world.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/shaders.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Blog/Writing a Dynamic Sky Shader in GLSL.md",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/shaders/sky.vert",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/shaders/sky.frag",
 		"/Users/Yousef/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/microphysics.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/torso.js",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/head.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/player/head.blend",
-		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/gui.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/models/tools/axe.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/tween.min.js",
 		"/Users/Yousef/Dropbox/Public/EscPod/Three/client/three.min.js",
@@ -817,27 +801,7 @@
 		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/shader.js",
 		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/core/utils.js",
 		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/shaders/color.frag",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/shaders/color.vert",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/entities/shapes.js",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/gl.js",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/screen.js",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/core/main.js",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/index.html",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/utils.js",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/shaders/std.vert",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/shaders/std.frag",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Sites/index.html",
-		"/Users/Yousef/Dropbox/Public/Escape Pod/Sites/Yousef/index.html",
-		"/private/etc/apache2/original/httpd.conf",
-		"/private/etc/apache2/httpd.conf",
-		"/private/etc/hostconfig",
-		"/private/etc/apache2/users/Yousef.conf",
-		"/Library/WebServer/Documents/index.html.en",
-		"/Users/Yousef/Sites/index.html",
-		"/Users/Yousef/Dropbox/Escape Pod/Games/gfx/shaders/std.vert",
-		"/Users/Yousef/Dropbox/Escape Pod/Games/gfx/shaders/std.frag",
-		"/Users/Yousef/Dropbox/Escape Pod/Games/gfx/gl.js",
-		"/Users/Yousef/Dropbox/Escape Pod/Games/index.html"
+		"/Users/Yousef/Dropbox/Public/Escape Pod/Games/gfx/shaders/color.vert"
 	],
 	"find":
 	{
@@ -858,6 +822,123 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"name",
+			"});\n",
+			"();\n",
+			"\"",
+			"registrationInfo",
+			"function",
+			"console.log(s",
+			"console.log(",
+			"this",
+			"dbPassHash",
+			"function",
+			"app",
+			"http",
+			"return",
+			"function",
+			"lastLogin",
+			"function",
+			"			\n",
+			"getIDUser",
+			"function",
+			"getActiveUserCount",
+			"userConfirmed",
+			"emailExists",
+			"function",
+			"db",
+			"response.write",
+			"'",
+			"\"",
+			"err",
+			"Connection",
+			"connection",
+			"equip",
+			"init",
+			"scenes.islan",
+			"const",
+			".ogg",
+			"ogg",
+			"sun.png",
+			"./",
+			"loadVo",
+			"images",
+			"/images",
+			"\\'(.*?)\\.*\\'",
+			"equip",
+			"spritesheet.png",
+			"isRetracting",
+			"this.collider",
+			"objects",
+			"interactSphere",
+			"interactCube",
+			"consJump",
+			"position",
+			"jumpSphere",
+			"onPickTree",
+			"controller.enabled",
+			"constrain",
+			"scope",
+			"position",
+			"camPivot",
+			"camRig",
+			"camRig3P",
+			"head",
+			"animation",
+			"hierarchy",
+			"root",
+			"\"time\":0",
+			"0.769",
+			"mesh",
+			"this",
+			"Bones",
+			"bones",
+			"Bones",
+			"bones",
+			"Bones",
+			"bones",
+			"position",
+			"this.headRig",
+			"rig",
+			"Mesh",
+			"mesh",
+			"headRig",
+			"head",
+			"meshRig",
+			"i",
+			"player",
+			"body",
+			"new",
+			"butterfly",
+			"86",
+			"{",
+			"this.mesh",
+			"idle",
+			"name",
+			"\"",
+			"camera.parent.",
+			"player.head.",
+			"object1",
+			"j",
+			"i",
+			"object",
+			"touches",
+			"reportC",
+			"report",
+			"touches",
+			"setCol",
+			"type",
+			"flag",
+			"collider",
+			"jump",
+			"constraint",
+			"Constraint",
+			"constraint",
+			"setOrigin",
+			"origi",
+			"PointCon",
+			"reportCo",
+			"simula",
 			"_materials_ref_counts",
 			"remove",
 			" remove",
@@ -868,124 +949,7 @@
 			"tickList",
 			"animList",
 			"collider",
-			"treeCollider",
-			"collider",
-			"triggerCollider",
-			"game.setL",
-			"game.setLoadingText",
-			"sel",
-			"Countdown",
-			"countdown",
-			"console.log",
-			"length",
-			"collider",
-			"THREE",
-			"scene",
-			"butterflies",
-			"butterfly",
-			"Butterfly",
-			"butterfly",
-			"Tree",
-			"flora",
-			"treeCollider",
-			"World",
-			"SkyEarth",
-			"skies",
-			"Physijs",
-			"physics",
-			"tickList",
-			"head",
-			"tail",
-			"head",
-			"List",
-			"world",
-			"superclass",
-			"animlist",
-			"add",
-			"Physijs",
-			"water",
-			"2",
-			"1",
-			"^(.*)$",
-			"/^(.*)$/",
-			"^(.*)$",
-			"x",
-			"z",
-			"X",
-			"x",
-			"onCollisionWithEntity",
-			"radioMesh",
-			"Proj",
-			"proj",
-			"physics",
-			"zCen",
-			"xCen",
-			"console.l",
-			"zFloor",
-			"xFloor",
-			"i",
-			"entity2.collider._",
-			"entity1.collider._velocity",
-			"X",
-			".x",
-			"x",
-			"X",
-			"'$",
-			"^\\t*",
-			"^(.*)$",
-			"radius",
-			"rad",
-			"maxZ",
-			"minZ",
-			"maxY",
-			"minY",
-			"maxX",
-			"minX",
-			"Physijs",
-			".\n",
-			"Rigid",
-			"Queue",
-			"^(.*)$",
-			";\n",
-			"game.player",
-			"\"",
-			"axemesh",
-			"'",
-			"Physijs",
-			"setRotationFromEuler",
-			"ease",
-			"map",
-			"tick",
-			"tickqu",
-			"tickList",
-			"\"",
-			"ball",
-			"( ",
-			"seed",
-			"sunPivot",
-			"send",
-			"setRotationFromEuler",
-			"makeRotationFromEuler",
-			"fromarray",
-			"user.name",
-			"connection.emit",
-			"GAME.net.socket",
-			"extra",
-			"extras",
-			"extra",
-			"openSocket",
-			"onRoomFound",
-			"joinRoom",
-			"channel",
-			"self.channel",
-			"connect",
-			"uniquetoken",
-			"roomto",
-			"openSocket",
-			"openSignalingChannel",
-			"send",
-			"userid",
-			"transmitRoomOnce"
+			"treeCollider"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1003,52 +967,51 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "client/index.html",
+					"file": "test/server/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4071,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2804,
-								2804
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 991.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "client/entities.js",
+					"file": "client/src/main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1704,
+						"buffer_size": 2580,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								323,
-								323
+								840,
+								840
 							]
 						],
 						"settings":
@@ -1064,19 +1027,47 @@
 				},
 				{
 					"buffer": 2,
-					"file": "client/models.js",
+					"file": "client/src/world.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 613,
+						"buffer_size": 2424,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								350,
-								350
+								1713,
+								1713
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 414.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "test/server/server.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 655,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								84,
+								90
 							]
 						],
 						"settings":
@@ -1091,54 +1082,26 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "client/style.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4144,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								222,
-								222
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 56.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 4,
-					"file": "client/main.js",
+					"file": "test/server/package.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2539,
+						"buffer_size": 166,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								284,
-								284
+								102,
+								102
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"auto_name": "{",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1148,52 +1111,53 @@
 				},
 				{
 					"buffer": 5,
-					"file": "client/gui.js",
+					"file": "test/server/userdb.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5530,
+						"buffer_size": 6213,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								5080,
+								5080
 							]
 						],
 						"settings":
 						{
+							"auto_name": "module.exports = {",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1856.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "client/input.js",
+					"file": "client/style.scss",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4802,
+						"buffer_size": 4438,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3207,
-								3207
+								411,
+								226
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/Sass/Syntaxes/Sass.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
@@ -1204,95 +1168,39 @@
 				},
 				{
 					"buffer": 7,
-					"file": "client/player.js",
+					"file": "client/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8764,
+						"buffer_size": 4272,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6898,
-								6898
+								3786,
+								3864
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2804.0,
+						"translation.y": 1016.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 8,
-					"file": "client/entities/bugs.js",
+					"file": "client/src/utils.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2888,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2775,
-								2888
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "client/world.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2422,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1777,
-								1777
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "client/audio.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5553,
+						"buffer_size": 7418,
 						"regions":
 						{
 						},
@@ -1309,178 +1217,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "client/scenes/island.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5632,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								324,
-								324
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 1.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "client/entities/misc.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 423,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								160,
-								160
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "client/entities/flora.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2907,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								727,
-								727
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 177.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "client/entities/terrain.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1542,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								799,
-								799
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "client/entities/skies.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4226,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								141,
-								141
-							],
-							[
-								2023,
-								2023
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "client/utils.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7418,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1781,
-								1766
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1011.0,
+						"translation.y": 471.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1490,7 +1227,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -1519,10 +1256,14 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 311.0
+	},
 	"project": "Three.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1530,6 +1271,74 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"wor",
+				"Three/client/src/world.js"
+			],
+			[
+				"ut",
+				"Three/client/src/utils.js"
+			],
+			[
+				"uti",
+				"Three/client/src/utils.js"
+			],
+			[
+				"inde",
+				"Three/client/index.html"
+			],
+			[
+				"css",
+				"Three/client/style.scss"
+			],
+			[
+				"util",
+				"Three/client/src/utils.js"
+			],
+			[
+				"tool",
+				"Three/client/res/entities/tools.js"
+			],
+			[
+				"flor",
+				"Three/client/res/entities/flora.js"
+			],
+			[
+				"pl",
+				"Three/client/src/player.js"
+			],
+			[
+				"skie",
+				"Three/client/res/entities/skies.js"
+			],
+			[
+				"isla",
+				"Three/client/res/scenes/island.js"
+			],
+			[
+				"inpu",
+				"Three/client/src/input.js"
+			],
+			[
+				"play",
+				"Three/client/src/player.js"
+			],
+			[
+				"",
+				"Three/client/index.html"
+			],
+			[
+				"in",
+				"Three/client/index.html"
+			],
+			[
+				"gui",
+				"Three/client/src/gui.js"
+			],
+			[
+				"terr",
+				"Three/client/res/entities/terrain.js"
+			]
 		],
 		"width": 0.0
 	},
@@ -1540,7 +1349,7 @@
 		[
 			[
 				"",
-				"~/Dropbox/Public/EscPod/AmarPort/AmarPort.sublime-project"
+				"~/Dropbox/Projects/spinebuster/spinebuster.sublime-project"
 			]
 		],
 		"width": 380.0
