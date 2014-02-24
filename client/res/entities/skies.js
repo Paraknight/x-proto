@@ -97,7 +97,7 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 		sunDirLight.shadowDarkness = Math.max(0.0, 0.5*height);
 		//sunHemiLight.intensity = 0.5*height;
 		sunHemiLight.groundColor.setHSL(0.7, 1.0, 0.5+(0.25*(height+1.0)));
-		this.scene.entityManager.tickQueue.add(this);
+		this.scene.entityManager.animQueue.add(this);
 	};
 };
 
