@@ -1,4 +1,4 @@
-GAME.namespace('entities.skies').SkyEarth = function (scene) {
+GAME.namespace('entities.skies').SkySimple = function (scene) {
 	THREE.Object3D.call(this);
 
 	this.scene = scene;
@@ -12,7 +12,50 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 	//starCoords = [new THREE.Vector2(10, 10), new THREE.Vector2(20, 20)];
 	//starSizes = [1.0, 1.0];
 
-	game.time = 0.0;
+	var skyMat = new THREE.MeshBasicMaterial({ fog: false, color: 0x80CCFF });
+	skyMat.side = THREE.BackSide;
+	var skyMesh = new THREE.Mesh(new THREE.SphereGeometry(9000, 16, 16), skyMat);
+	this.add(skyMesh);
+
+	var sunHemiLight = new THREE.HemisphereLight(0xFFFFFF, 0xFFFFFF, 0.3);
+	sunHemiLight.position.set(0.0, 1000.0, 0.0);
+	sunHemiLight.groundColor.setHSL(0.7, 1.0, 1.0);
+	this.add(sunHemiLight);
+	var sunDirLight = new THREE.DirectionalLight(0xFFFFFF, 0.0);
+	sunDirLight.position.set(0.0, 20.0, 0.0);
+	sunDirLight.castShadow = true;
+	sunDirLight.shadowMapWidth = 2048;
+	sunDirLight.shadowMapHeight = 2048;
+	sunDirLight.shadowCameraRight = 20;
+	sunDirLight.shadowCameraLeft = -20;
+	sunDirLight.shadowCameraTop = 20;
+	sunDirLight.shadowCameraBottom = -20;
+	sunDirLight.shadowCameraNear = 1;
+	sunDirLight.shadowCameraFar = 40;
+	sunDirLight.intensity = 0.5;
+	sunDirLight.shadowDarkness = 0.5;
+	//sunDirLight.shadowBias = 0.001;
+	//sunDirLight.shadowCameraVisible = true;
+	sunDirLight.target = scene.player;
+	this.add(sunDirLight);
+};
+
+GAME.entities.skies.SkySimple.prototype = Object.create(THREE.Object3D.prototype);
+
+
+GAME.namespace('entities.skies').SkyEarth = function (scene) {
+	THREE.Object3D.call(this);
+
+	this.scene = scene;
+
+	var game = GAME.game;
+
+	//game.setLoadingText('Creating Sky...');
+
+	this.position = scene.player.position;
+
+	//starCoords = [new THREE.Vector2(10, 10), new THREE.Vector2(20, 20)];
+	//starSizes = [1.0, 1.0];
 
 	var skyMat = new THREE.ShaderMaterial(GAME.shaders.sky);
 	skyMat.side = THREE.BackSide;
@@ -85,8 +128,8 @@ GAME.namespace('entities.skies').SkyEarth = function (scene) {
 
 	// TODO: Move to prototype.
 	this.animate = function (delta) {
-		game.time = (game.time+0.0001)%1.0;
-		var time = game.time;
+		scene.time = (scene.time+0.0001)%1.0;
+		var time = scene.time;
 		GAME.shaders.sky.uniforms.time.value = time;
 		var rot = time*2.0*Math.PI;
 		skyPivot.rotation.z = rot;

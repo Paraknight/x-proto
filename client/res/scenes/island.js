@@ -28,7 +28,9 @@ GAME.scenes.island = {
 		// TODO: Refactor and delegate control to player.
 		document.getElementById('invSlot2').slot.put(GAME.entities.tools.Axe.prototype.createItem());
 
-		scene.add(new GAME.entities.skies.SkyEarth(scene));
+		scene.time = 0.25;
+		scene.add(new GAME.entities.skies.SkySimple(scene));
+		//scene.add(new GAME.entities.skies.SkyEarth(scene));
 
 
 		/* Terrain */
@@ -62,7 +64,7 @@ GAME.scenes.island = {
 		game.scene.fog = new THREE.FogExp2(0xFFFFFF, 0.0025);
 		// TODO: Same as sky.
 		game.scene.fog.tick = function (delta) {
-			var height = Math.sin(game.time*2.0*Math.PI);
+			var height = Math.sin(scene.time*2.0*Math.PI);
 			this.color.setHSL(0.0, 0.0, 0.5*(height<0.0?-Math.pow(-height,0.5):Math.pow(height,0.5))+0.5);
 			game.scene.entityManager.tickQueue.add(this);
 		};
@@ -125,7 +127,7 @@ GAME.scenes.island = {
 		spotLight.shadowMapWidth = 1024;
 		spotLight.shadowMapHeight = 1024;
 		spotLight.tick = function (delta) {
-			this.intensity = 1.0-(0.5*(Math.sin(game.time*2.0*Math.PI)+1.0));
+			this.intensity = 1.0-(0.5*(Math.sin(scene.time*2.0*Math.PI)+1.0));
 			this.shadowDarkness = 0.5*this.intensity;
 			game.scene.entityManager.tickQueue.add(this);
 		};
