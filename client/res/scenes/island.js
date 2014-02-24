@@ -32,7 +32,9 @@ GAME.scenes.island = {
 
 
 		/* Terrain */
-		var seed = saveData.seed || (Math.random()*Number.MAX_VALUE);
+		// TODO: Test seed generator more rigorously
+		var seed = (saveData && saveData.seed) || Math.floor((Math.random()*4294967295));
+		console.log("Seed = " + seed);
 		var terrain = new GAME.entities.terrain.TerrainIsland(scene, seed);
 		scene.add(terrain);
 
