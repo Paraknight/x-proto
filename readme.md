@@ -10,9 +10,11 @@ This is an unamed project that is a multiplayer WebGL game inspired by Minecraft
 - Indentation - Tabs
 - Brackets - No spaces before or after. No space before commas.
 - Braces - Same line, e.g.:
-      void getX() {
-          return x;
-      }
+```
+void getX() {
+	return x;
+}
+```
 - Variables and functions in camelCase, classes in PascalCase.
 
 ## Project Git Conventions ##
