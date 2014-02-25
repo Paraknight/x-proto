@@ -1,5 +1,8 @@
 GAME.scenes.island = {
 	name: 'Island',
+	gui: [
+		'general'
+	],
 	models: [
 		'tools.axe',
 		'tree.tree',
@@ -24,6 +27,8 @@ GAME.scenes.island = {
 	init: function (saveData) {
 		var game = GAME.game;
 		var scene = this;
+
+		new GAME.gui.general.Inventory();
 
 		// TODO: Refactor and delegate control to player.
 		document.getElementById('invSlot2').slot.put(GAME.entities.tools.Axe.prototype.createItem());

@@ -5,8 +5,6 @@ GAME.namespace('graphics').init = function(game) {
 	game.renderer.shadowMapSoft = true;
 	game.renderer.sortObjects = false;
 
-	GAME.gui.init();
-
 	window.addEventListener('resize', function(){
 		if (game.camera) {
 			game.camera.aspect = window.innerWidth/window.innerHeight;
@@ -14,6 +12,4 @@ GAME.namespace('graphics').init = function(game) {
 		}
 		game.renderer.setSize(window.innerWidth, window.innerHeight);
 	}, false);
-
-	document.getElementById('game').insertBefore(game.renderer.domElement, document.getElementById('overlay'));
 };

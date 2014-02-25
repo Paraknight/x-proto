@@ -23,7 +23,7 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 		//self.setGravity(new THREE.Vector3().fromArray(grav));
 
 		
-		var countdown2 = new GAME.utils.Countdown(3, function () {
+		var countdown2 = new GAME.utils.Countdown(4, function () {
 			/* Create Player */
 			var player = game.player = self.player = new GAME.player.Player(self);
 			player.position.fromArray(scene.player.position || [0,0,0]);
@@ -52,6 +52,11 @@ GAME.namespace('world').Scene = function (game, name, onload) {
 			scene.init.call(self);
 
 			countdown1.dec();
+		});
+
+		/* Load GUIs */
+		GAME.gui.load(scene.gui, function() {
+			countdown2.dec();
 		});
 
 		/* Load Models */

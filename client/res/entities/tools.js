@@ -15,7 +15,7 @@ GAME.entities.tools.Axe = function (scene) {
 GAME.entities.tools.Axe.prototype = Object.create(THREE.Object3D.prototype);
 
 GAME.entities.tools.Axe.prototype.createItem = function () {
-	return new GAME.gui.Item('res/textures/spritesheet.png', '40px', '0px', GAME.entities.tools.Axe);
+	return new GAME.gui.general.Item('res/textures/spritesheet.png', '40px', '0px', GAME.entities.tools.Axe);
 };
 
 GAME.entities.tools.Axe.prototype.setOwner = function (player) {

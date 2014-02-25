@@ -35,7 +35,10 @@
 		
 		GAME.graphics.init(game);
 
-
+		var overlay = document.getElementById('overlay');
+		document.getElementById('game').insertBefore(game.renderer.domElement, overlay);
+		overlay.appendChild(statsTick.domElement);
+		overlay.appendChild(statsRender.domElement);
 
 		window.addEventListener('focus', function(event) {
 		}, false);
@@ -50,6 +53,7 @@
 		});
 	}
 
+	var statsTick = new Stats();
 	var tickClock = new THREE.Clock();
 
 	function tick() {
@@ -59,28 +63,29 @@
 		if (game.isPaused)
 			return;
 
-		GAME.gui.statsTick.begin();
+		statsTick.begin();
 		var delta = tickClock.getDelta();
 		game.scene.tick(delta, game);
 		GAME.audio.tick(delta, game);
-		GAME.gui.statsTick.end();
+		statsTick.end();
 	}
 
+	var statsRender = new Stats();
 	var animClock = new THREE.Clock();
 
 	function render() {
 		requestAnimationFrame(render);
-		
+
 		if (game.isPaused)
 			return;
 
-		GAME.gui.statsRender.begin();
+		statsRender.begin();
 		var delta = animClock.getDelta();
 		TWEEN.update();
 		THREE.AnimationHandler.update(delta);
 		game.scene.animate(delta, game);
 		game.renderer.render(game.scene, game.camera);
-		GAME.gui.statsRender.end();
+		statsRender.end();
 	}
 
 	this.main = function() {
