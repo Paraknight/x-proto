@@ -148,6 +148,13 @@ GAME.namespace('gui').init = function() {
 	}
 };
 
+GAME.gui.setLoadingText = function (text) {
+	console.log('> '+text);
+	var loadingDiv = document.getElementById('loadingText');
+	loadingDiv.innerHTML = text;
+	GAME.utils.centerElement(loadingDiv);
+}
+
 GAME.gui.setChatFocus = function (flag, scope) {
 	scope.form.console.className = flag?'maxSize fadeIn':'minSize fadeOut';
 	document.getElementById('passiveChat').className = flag?'fadeOut':'fadeIn';

@@ -3,17 +3,10 @@
 
 	var game = GAME.game = this;
 
-	game.setLoadingText = function (text) {
-		console.log('> '+text);
-		var loadingDiv = document.getElementById('loadingText');
-		loadingDiv.innerHTML = text;
-		GAME.utils.centerElement(loadingDiv);
-	}
-
 	game.joinScene = function (name, onJoin) {
 		var loadingScreen = document.getElementById('loadingScreen');
 		loadingScreen.style.display = '';
-		game.setLoadingText('Loading Scene...');
+		GAME.gui.setLoadingText('Loading Scene...');
 		game.scene = new GAME.world.Scene(game, name, function () {
 			loadingScreen.style.display = 'none';
 			onJoin();
@@ -42,6 +35,15 @@
 		
 		GAME.graphics.init(game);
 
+
+
+		window.addEventListener('focus', function(event) {
+		}, false);
+
+		window.addEventListener('blur', function(event) {
+			game.isPaused = true;
+		}, false);
+
 		game.joinScene('island', function () {
 			setTimeout(tick, TICK_INTERVAL_MS);
 			requestAnimationFrame(render);
@@ -54,6 +56,9 @@
 		// FIXME: Chrome throttles the interval down to 1s on inactive tabs.
 		setTimeout(tick, TICK_INTERVAL_MS);
 
+		if (game.isPaused)
+			return;
+
 		GAME.gui.statsTick.begin();
 		var delta = tickClock.getDelta();
 		game.scene.tick(delta, game);
@@ -65,6 +70,9 @@
 
 	function render() {
 		requestAnimationFrame(render);
+		
+		if (game.isPaused)
+			return;
 
 		GAME.gui.statsRender.begin();
 		var delta = animClock.getDelta();
