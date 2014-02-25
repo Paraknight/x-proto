@@ -1,4 +1,4 @@
-GAME.namespace('entities.tools').Axe = function (scene) {
+GAME.entities.tools.Axe = function (scene) {
 	THREE.Object3D.call(this);
 
 	this.scene = scene;

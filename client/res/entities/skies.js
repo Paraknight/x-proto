@@ -1,4 +1,4 @@
-GAME.namespace('entities.skies').SkySimple = function (scene) {
+GAME.entities.skies.SkySimple = function (scene) {
 	THREE.Object3D.call(this);
 
 	this.scene = scene;
@@ -43,7 +43,7 @@ GAME.namespace('entities.skies').SkySimple = function (scene) {
 GAME.entities.skies.SkySimple.prototype = Object.create(THREE.Object3D.prototype);
 
 
-GAME.namespace('entities.skies').SkyEarth = function (scene) {
+GAME.entities.skies.SkyEarth = function (scene) {
 	THREE.Object3D.call(this);
 
 	this.scene = scene;

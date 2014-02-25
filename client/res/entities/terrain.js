@@ -1,4 +1,4 @@
-GAME.namespace('entities.terrain').TerrainIsland = function (scene, seed) {
+GAME.entities.terrain.TerrainIsland = function (scene, seed) {
 	THREE.Object3D.call(this);
 
 	//this.seed = seed;

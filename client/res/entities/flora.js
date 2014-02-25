@@ -1,4 +1,4 @@
-GAME.namespace('entities.flora').Tree = (function () {
+GAME.entities.flora.Tree = (function () {
 	var game = GAME.game;
 
 	var treeGeom = GAME.models.tree.tree.geom, timberGeom = GAME.models.tree.timber.geom, stumpGeom = GAME.models.tree.stump.geom;

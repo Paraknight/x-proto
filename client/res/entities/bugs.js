@@ -1,4 +1,4 @@
-GAME.namespace('entities.bugs').Butterfly = (function () {
+GAME.entities.bugs.Butterfly = (function () {
 	var game = GAME.game;
 
 	var wingRot = { y: 0.25*Math.PI };
