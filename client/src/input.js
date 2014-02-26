@@ -3,7 +3,6 @@ GAME.namespace('input').init = function() {
 	if ('pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document) {
 		var element = document.body;
 		var blocker = document.getElementById('blocker');
-		var instructions = document.getElementById('instructions');
 		var clientForm = document.getElementById('clientForm');
 		GAME.input.pointerLocked = false;
 
@@ -38,7 +37,6 @@ GAME.namespace('input').init = function() {
 		document.addEventListener('webkitpointerlockerror', pointerlockerror, false);
 
 		var onBlockerClick = function (event) {
-			instructions.style.display = 'none';
 			blocker.style.backgroundColor = 'rgba(0,0,0,0)';
 			document.getElementById('playerWin').style.display = 'none';
 			clientForm.input.blur();

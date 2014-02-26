@@ -11,10 +11,10 @@ body {
 }
 h1 {
 	color: white;
-}
-h1.accented {
-	text-shadow: 0 0 1em #000000;
-	font: Tahoma;
+	&.accented {
+		text-shadow: 0 0 1em #000000;
+		font: Tahoma;
+	}
 }
 button {
 	width: 200px;
@@ -107,11 +107,15 @@ div#mainMenu {
 	background: linear-gradient(to bottom, rgba(128,204,255,1) 0%, rgba(128,204,255,1) 75%, rgba(255,255,255,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ccff', endColorstr='#ffffff', GradientType=0 );
 }
-div#loadingText {
-	color: white;
-	font-size: 2em;
-	font-weight: bold;
-	text-align: center; 
+div#loadingScreen {
+	background-color: black;
+	cursor: wait;
+	div#loadingText {
+		color: white;
+		font-size: 2em;
+		font-weight: bold;
+		text-align: center;
+	}
 }
 div#instructions {
 	position: absolute;

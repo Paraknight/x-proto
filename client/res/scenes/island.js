@@ -28,6 +28,7 @@ GAME.scenes.island = {
 		var game = GAME.game;
 		var scene = this;
 
+		new GAME.gui.general.Instructions();
 		new GAME.gui.general.Inventory();
 
 		// TODO: Refactor and delegate control to player.

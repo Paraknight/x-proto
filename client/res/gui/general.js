@@ -9,6 +9,28 @@ GAME.gui.general.createWindow = function (x, y, w, h) {
 	return win;
 };
 
+GAME.gui.general.Instructions = function () {
+	var div = document.getElementById('instructions');
+	if (!div) {
+		div = document.createElement('div');
+		div.id = 'instructions';
+		if (!('innerHTML' in this)) {
+			GAME.utils.xhrAsyncGet('res/gui/instructions.html', function (html) {
+				div.innerHTML = GAME.gui.general.Instructions.prototype.innerHTML = html;
+				document.getElementById('game').insertBefore(div, document.getElementById('loadingScreen'));
+				GAME.utils.centerElement(div);
+			});
+		} else {
+			div.innerHTML = this.innerHTML;
+			document.getElementById('game').insertBefore(div, document.getElementById('loadingScreen'));
+			GAME.utils.centerElement(div);
+		}
+	}
+	document.getElementById('blocker').addEventListener('click', function (event) {
+		instructions.style.display = 'none';
+	}, false);
+};
+
 GAME.gui.general.Inventory = function () {
 	var playerWin = GAME.gui.general.createWindow(((window.innerWidth-432)/2)|0,((window.innerHeight-432)/2)|0,432,432);
 	playerWin.id = 'playerWin';
