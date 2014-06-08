@@ -1,4 +1,14 @@
+<?php
+
+if (!isset($_GET["world"]))
+	header("Location: /");
+
+?><!doctype html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<title>Game</title>
+
 	<link rel="stylesheet" type="text/css" href="./style.css"></link>
 	<script src="lib/three.min.js"></script>
 	<script src="lib/stats.min.js"></script>
@@ -30,6 +40,10 @@
 		//	});
 		//});
 
+		GAME.meta = {
+			WORLD_NAME: <?php print "'".$_GET['world']."'\n"; ?>
+		};
+
 		GAME.core.Main.main();
 	}
 	</script>
@@ -60,3 +74,4 @@
 		<script>GAME.utils.centerElement(document.getElementById('loadingText'));</script>
 	</div>
 </body>
+</html>
