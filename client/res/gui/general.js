@@ -59,7 +59,7 @@ GAME.gui.general.Inventory = function () {
 
 	var Slot = function (id, x, y) {
 		var div = this.div = document.createElement('div');
-		div.slot = this;
+		div._slot = this;
 		div.id = 'invSlot'+id;
 		div.className = 'itemSlot';
 		div.style.left = x;

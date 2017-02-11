@@ -32,7 +32,7 @@ GAME.scenes.island = {
 		new GAME.gui.general.Inventory();
 
 		// TODO: Refactor and delegate control to player.
-		document.getElementById('invSlot2').slot.put(GAME.entities.tools.Axe.prototype.createItem());
+		document.getElementById('invSlot2')._slot.put(GAME.entities.tools.Axe.prototype.createItem());
 
 		scene.time = 0.25;
 		scene.add(new GAME.entities.skies.SkySimple(scene));
