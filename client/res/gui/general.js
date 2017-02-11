@@ -54,7 +54,7 @@ GAME.gui.general.Inventory = function () {
 
 		if (destSlot === itemImg) return;
 
-		destSlot.slot.put(itemImg.item);
+		destSlot._slot.put(itemImg.item);
 	}
 
 	var Slot = function (id, x, y) {
@@ -82,7 +82,7 @@ GAME.gui.general.Inventory = function () {
 		
 		this.div.appendChild(item.img);
 
-		sourceSlot && 'onRemove' in sourceSlot.slot && sourceSlot.slot.onRemove(item);
+		sourceSlot && 'onRemove' in sourceSlot._slot && sourceSlot._slot.onRemove(item);
 		'onPut' in this && this.onPut(item);
 	};
 
