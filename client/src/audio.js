@@ -1,4 +1,4 @@
-GAME.namespace('audio').context = new webkitAudioContext();
+GAME.namespace('audio').context = new AudioContext();
 
 GAME.audio.load = function (sources, callback, stream) {
 	if (stream) {
@@ -58,7 +58,7 @@ GAME.audio.AudioSourceBuffered.prototype.play = function(loop) {
 	source.buffer = this.buffer;
 	source.loop = loop;
 	source.connect(this.panner);
-	source.noteOn(0);
+	source.start(0);
 };
 
 GAME.audio.AudioSourceStreaming = function (audioElement) {
