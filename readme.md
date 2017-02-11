@@ -3,7 +3,7 @@
 
 ## About ##
 
-This is an unamed project that is a multiplayer WebGL game inspired by Minecraft, Animal Crossing, and Spore. One of [Yousef Amar](http://www.yousefamar.com)'s forever projects.
+This is an unamed project that is a multiplayer WebGL game inspired by a bunch of games. One of my forever projects.
 
 ## Project Style Guide ##
 
